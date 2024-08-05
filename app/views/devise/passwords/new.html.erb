@@ -1,0 +1,21 @@
+<br>
+<br>
+<h4 class="text-white">RECUPERAR CONTRASEÑA</h4>
+
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+  <%= render "devise/shared/error_messages", resource: resource %>
+<br>
+<br>
+  <div class="field" >     
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control form-control-user", placeholder: "Ingrese su correo..." %>
+  </div>
+<br>
+  <div class="actions" > 
+    <%= f.submit "Enviarme Instrucciones", class: "btn btn-success btn-user btn-block" %>
+  </div>
+<% end %>
+<br>
+<br>
+<%= render "devise/shared/links" %>
+<br>
+<br>

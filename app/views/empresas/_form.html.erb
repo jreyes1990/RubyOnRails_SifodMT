@@ -1,0 +1,60 @@
+<!-- Inicio Empresa -->
+<%= simple_form_for(@empresa) do |f| %>
+    <%= f.hidden_field :flag_empresa, :value=>  flag_empresa %>
+    <%= f.error_notification %>
+    <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <div class="card shadow">
+    <% if (flag_empresa == 0 || flag_empresa == 1)
+        @retorno = empresas_path
+      elsif flag_empresa == 2 
+        @retorno = new_area_path
+      end %>
+      
+    <div class="card-header py-3">
+      <h5 class="m-0 font-weight-bold text-primary">Gestión de Empresa</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-inputs">
+            <div class="row">
+              <div class="col-md-2">
+                <%= f.input :codigo_empresa, label: "Cod. Empresa" %>
+              </div>
+              <div class="col-md">
+                <%= f.input :nombre %>
+              </div>
+              <div class="col-md-auto">
+                <%= f.input :codigo_hex, input_html: { type: "color" } %>
+              </div>
+            </div>
+
+            <%= f.input :descripcion, as: :text, input_html: {rows: 3} %>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="card-footer shadow bg-transparent" style="background-color: #efefef !important;">
+      <div class="col-md-12 text-center">
+        <%= link_to @retorno, class: "btn btn-danger btn-sm mt-2" do %>
+          <span class="icon text-red-50">
+            <i class="fas fa-arrow-circle-left"></i>
+          </span>
+          <span class="text">CANCELAR</span>
+        <% end %>
+
+        <% if tiene_permiso("BOTON REGISTRAR", "VER") %>
+          <%= button_tag f.submit, 
+              class: "btn btn-success btn-sm mt-2 btn_event_empresa", 
+              data: { evento: "#{titulo_empresa}", nombre: "#{@empresa.nombre}" } do %>
+            <span class="text"><%= titulo_empresa.upcase %></span>
+            <span class="icon text-green-50">
+              <i class="fas fa-edit"></i>
+            </span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

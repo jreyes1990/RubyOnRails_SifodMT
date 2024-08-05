@@ -1,0 +1,48 @@
+# == Schema Information
+#
+# Table name: detalle_datos_externos
+#
+#  id               :integer          not null, primary key
+#  datos_externo_id :integer          not null
+#  nombre           :string(255)
+#  param1           :string(255)
+#  param2           :string(255)
+#  param3           :string(255)
+#  param4           :string(255)
+#  param5           :string(255)
+#  tipo             :string(255)
+#  body             :string(255)
+#  estado           :string(255)
+#  user_created_id  :integer
+#  user_updated_id  :integer
+#  created_at       :datetime         not null
+#  updated_at       :datetime         not null
+#
+
+one:
+  datos_externo: one
+  nombre: MyString
+  param1: MyString
+  param2: MyString
+  param3: MyString
+  param4: MyString
+  param5: MyString
+  tipo: MyString
+  body: MyString
+  estado: MyString
+  user_created_id: 1
+  user_updated_id: 1
+
+two:
+  datos_externo: two
+  nombre: MyString
+  param1: MyString
+  param2: MyString
+  param3: MyString
+  param4: MyString
+  param5: MyString
+  tipo: MyString
+  body: MyString
+  estado: MyString
+  user_created_id: 1
+  user_updated_id: 1

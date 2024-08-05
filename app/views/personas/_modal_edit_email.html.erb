@@ -1,0 +1,37 @@
+<div class="modal-dialog modal-xl modal-custom-xl modal-dialog-centered d-flex align-items-center justify-content-center" role="document">
+  <!-- Agregué la clase 'modal-xl' para hacer el modal más grande -->
+  <div class="modal-content">
+    <div class="modal-header">
+      <h5 class="modal-title">Editar Correo</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <%= form_with model: @datos_usuario, url: update_email_persona_path(@datos_persona), method: :patch, remote: true do |f| %>
+        <div class="form-group">
+          <%= f.label :email, 'Nuevo Correo' %>
+          <%= f.email_field :email, class: 'form-control', require: true %>
+        </div>
+        <div class="modal-footer modal-header-success">
+
+          <%= button_tag f.submit, class: "btn btn-success btn-sm" do %>
+          <span class="icon text-50">
+            <i class="fas fa-edit"></i>
+          </span>
+          <span class="text">Actualizar</span>
+          <%end%>
+
+          <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">
+            <span class="icon text-red-50">
+              <i class="fas fa-times-circle"></i>
+            </span>
+            Cancelar
+          </button>
+
+        </div>
+
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,71 @@
+<!-- Inicio Rol -->
+<div class="card shadow mb-4">
+  <%= form_with(model: rol, local: true) do |form| %>
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Gestión de Rol</h6>
+  </div>
+    <div class="card-body">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-4">
+              </div>
+              <div class="col-md-4">
+                <% if rol.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(rol.errors.count, "error") %> Prohibido que se guarde este rol:</h2>
+                  <ul>
+                    <% rol.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+                <% end %>
+
+                <br />
+
+                <div class="field">
+                  <%= form.label :nombre %>
+                  <%= form.text_field :nombre, class:"form-control", type: "txt", placeholder: "Solo letras", autofocus: true, required: true, pattern: "^[A-Za-zñÑáéíóúÁÉÍÓÚ- \s]+$" %>
+                </div>
+                <br />
+                <div class="field">
+                  <%= form.label :descripcion %>
+                  <%= form.text_area :descripcion, size: '40x5', class:"form-control", type: "txt", placeholder: "", required: true %>
+                </div>
+
+              </div>
+              <div class="col-md-4">
+              </div>
+            </div>
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer shadow bg-transparent" style="background-color: #efefef !important;">
+      <div class="col-md-12 text-center">
+        <%= link_to roles_path, class: "btn btn-danger btn-sm mt-2" do %>
+          <span class="icon text-red-50">
+            <i class="fas fa-arrow-circle-left"></i>
+          </span>
+          <span class="text">CANCELAR</span>
+        <% end %>
+
+        <% if tiene_permiso("BOTON REGISTRAR", "VER") %>
+          <%= button_tag form.submit, 
+              class: "btn btn-success btn-sm mt-2 btn_event_rol",
+              data: { evento: "#{titulo_rol}", nombre: "#{rol.nombre}" } do %>
+          <span class="text"><%= titulo_rol.upcase %></span>
+          <span class="icon text-white-50">
+            <i class="fas fa-edit"></i>
+          </span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+  <% end %>
+</div>

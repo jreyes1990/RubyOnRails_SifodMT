@@ -1,0 +1,61 @@
+<!-- Inicio detalle datos externos  -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Gestión de Datos Externos <%= %></h6>
+  </div>
+  <div class="card-body">
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-md-12">
+          <%= simple_form_for(@detalle_datos_externo) do  |f| %>
+            <div class="row">
+            <div class="col-12">
+              
+              
+                <%= f.error_notification %>
+                <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+                <div class="row">
+                  
+                  <%= f.input :nombre, label: "Nombre", required: true, wrapper: :inline_field3%>
+                  <%= f.input :param1, label: "Parametro1", wrapper: :inline_field3 %>
+                  <%= f.input :param2, label: "Parametro2", wrapper: :inline_field3 %>
+                  <%= f.input :param3, label: "Parametro3", wrapper: :inline_field3 %>
+                  <%= f.input :param4, label: "Parametro4", wrapper: :inline_field3 %>
+                  <%= f.input :param5, label: "Parametro5", wrapper: :inline_field3 %>
+                  <%= f.input :tipo, label: "Tipo", required: true, wrapper: :inline_field3 %>
+                  <%= f.input :body, label: "Body", required: true, wrapper: :inline_field12, as: :text, :input_html => {:rows => 3} %>
+                   <%= f.hidden_field :datos_externo_id, :value => @detalle_datos_externo.datos_externo.id %>
+
+                </div>
+              </div>
+             
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-md-12 text-right">
+                 
+              <%= button_tag f.submit, class: "btn btn-success btn-sm" do %>
+              <span class="icon text-50">
+                <i class="fas fa-edit"></i>
+              </span>
+              <span class="text">REGISTRAR</span>
+              <%end%>
+           
+                <%= link_to index_detalle_datos_externo_path(:dato_externo_id => @detalle_datos_externo.datos_externo.id ), class: "btn btn-outline-danger btn-sm" do %>
+              <span class="icon text-red-50">
+                <i class="fas fa-arrow-circle-left"></i>
+              </span>
+              <span class="text">CANCELAR</span>
+              <%end%>
+
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

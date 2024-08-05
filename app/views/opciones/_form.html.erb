@@ -1,0 +1,110 @@
+<!-- Inicio Opciones -->
+<div class="card shadow mb-4">
+  <%= form_with(model: opcion, local: true) do |form| %>
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Gestión de Opciones por Menú</h6>
+    </div>
+    <div class="card-body">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="row">
+              <div class="col-md-4">
+              </div>
+              <div class="col-md-4">
+                <% if opcion.errors.any? %>
+                  <div id="error_explanation">
+                    <h2><%= pluralize(opcion.errors.count, "error") %> Prohibido que se guarde este item:</h2>
+                    <ul>
+                      <% opcion.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                      <% end %>
+                    </ul>
+                  </div>
+                <% end %>
+                <br />
+                <div class="field">
+                  <%= form.label "Menú" %>
+                  <%= form.collection_select(:menu_id, Menu.where(:estado => 'A'), :id, :nombre, {:prompt => "Seleccione un Menú"}, {:class => "form-control select2", required: true, autofocus: false}) %>
+                </div>
+                <br />
+                <div class="field">
+                  <%= form.label "Sub-Opción" %>
+                  <%= form.collection_select(:sub_opcion_id, SubOpcion.where(:estado => 'A'), :id, :nombre, {:prompt => "Seleccione una Sub-Opción"}, {:class => "form-control select2", required: true, autofocus: true}) %>
+                </div>
+                <br>
+                <div class="field">
+                  <%= form.label :nombre %>
+                  <%= form.text_field :nombre, class:"form-control", type: "txt", placeholder: "Ingrese solo letras", required: true, pattern: "^[A-Za-zñÑáéíóúÁÉÍÓÚ- _\s]+$" %>
+                </div>
+                <br />
+                <div class="field">
+                  <%= form.label :icono %>
+                  <%= form.text_field :icono, class:"form-control", type: "txt", placeholder: "Ingrese el icono de Font Awesome", required: true %>
+                </div>
+                <br/>
+                <div class="field mt-2 ">
+                  <%= form.label :path %>
+                  <%= form.text_field :path, class:"form-control", type: "txt", placeholder: "Ingrese el path de la opción", required: true %>
+                </div>
+                <br/>
+                <div class="field mt-2">
+                  <%= form.label :controlador %>
+                  <%= form.text_field :controlador, class:"form-control", type: "txt", placeholder: "Ingrese controlador de opción", required: true %>
+                </div>
+                <br>
+                <div class="field">
+                  <%= form.label :componente_sidebar %>
+                  <%= form.text_field :componente_sidebar, class:"form-control", type: "txt", placeholder: "Ingrese el componente para el sidebar", required: true %>
+                </div>
+                <br/>
+                <div class="field">
+                  <div class="form-check">
+                    <%= form.check_box :visible_sidebar, class: 'form-check-input' %>
+                    <%= form.label :visible_sidebar, class: 'form-check-label' %>
+                  </div>
+                </div>
+                <br/>
+                <div class="field">
+                  <%= form.label :posicion %>
+                  <%= form.text_field :posicion, class:"form-control", type: "number", placeholder: "Ingrese la posicion", required: true %>
+                </div>
+                <br />
+                <div class="field">
+                  <%= form.label :descripcion %>
+                  <%= form.text_area :descripcion, size: '40x5', class:"form-control", type: "txt", placeholder: "", required: true %>
+                </div>
+              </div>
+              <div class="col-md-4">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer shadow bg-transparent" style="background-color: #efefef !important;">
+      <div class="col-md-12 text-center">
+        <%= link_to opciones_path, class: "btn btn-danger btn-sm mt-2" do %>
+          <span class="icon text-red-50">
+            <i class="fas fa-arrow-circle-left"></i>
+          </span>
+          <span class="text">CANCELAR</span>
+        <% end %>
+
+        <% if tiene_permiso("BOTON REGISTRAR", "VER") %>
+          <%= button_tag form.submit, 
+              class: "btn btn-success btn-sm mt-2 btn_event_opcion", 
+              data: { evento: "#{titulo_opcion}", nombre: "#{opcion.nombre}" } do %>
+            <span class="text"><%= titulo_opcion.upcase %></span>
+            <span class="icon text-green-50">
+              <i class="fas fa-edit"></i>
+            </span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<br>
+<br>

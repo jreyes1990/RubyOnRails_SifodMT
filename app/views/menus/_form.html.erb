@@ -1,0 +1,86 @@
+<!-- Inicio menu -->
+<div class="card shadow mb-4">
+  <%= form_with(model: menu, local: true) do |form| %>
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Gestión de Menú</h6>
+    </div>
+    <div class="card-body">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-md-4">
+          </div>
+          <div class="col-md-4">
+            <% if menu.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(menu.errors.count, "error") %> Prohibido que se guarde este menú:</h2>
+
+                <ul>
+                  <% menu.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+            <br/>
+            <div class="field">
+              <%= form.label :nombre %>
+              <%= form.text_field :nombre, class:"form-control", type: "txt", placeholder: "Ingrese solo letras", required: true, autofocus: true, pattern: "^[A-Za-zñÑáéíóúÁÉÍÓÚ- _\s]+$" %>
+            </div>
+            <br/>
+            <div class="field">
+              <%= form.label :menu_sidebar %>
+              <%= form.text_field :menu_sidebar, class:"form-control", type: "txt", placeholder: "Ingrese solo letras", required: true, autofocus: true, pattern: "^[A-Za-zñÑáéíóúÁÉÍÓÚ- _\s]+$" %>
+            </div>
+            <br/>
+            <div class="field">
+              <%= form.label :icono %>
+              <%= form.text_field :icono, class:"form-control", type: "txt", placeholder: "Ingrese el icono del menú", required: true %>
+            </div>
+            <br/>
+            <div class="field">
+              <div class="form-check">
+                <%= form.check_box :visible_sidebar, class: 'form-check-input' %>
+                <%= form.label :visible_sidebar, class: 'form-check-label' %>
+              </div>
+            </div>
+            <br/>
+            <div class="field">
+              <%= form.label :posicion %>
+              <%= form.text_field :posicion, class:"form-control", type: "number", placeholder: "Ingrese la posicion", required: true %>
+            </div>
+            <br/>
+            <div class="field">
+              <%= form.label :descripcion %>
+              <%= form.text_area :descripcion, size: '40x5', class:"form-control", type: "txt", placeholder: "", required: true %>
+            </div> 
+          </div>
+          <div class="col-md-4">
+          </div>
+        </div>
+        <br/>
+      </div>
+    </div>
+
+
+    <div class="card-footer shadow bg-transparent" style="background-color: #efefef !important;">
+      <div class="col-md-12 text-center">
+        <%= link_to menus_path, class: "btn btn-danger btn-sm mt-2" do %>
+          <span class="icon text-red-50">
+            <i class="fas fa-arrow-circle-left"></i>
+          </span>
+          <span class="text">CANCELAR</span>
+        <% end %>
+
+        <% if tiene_permiso("BOTON REGISTRAR", "VER") %>
+          <%= button_tag form.submit, class: "btn btn-success btn-sm mt-2 btn_event_menu", data: { evento: "#{titulo_menu}", nombre: "#{menu.nombre}" } do %>
+            <span class="text"><%= titulo_menu.upcase %></span>
+            <span class="icon text-green-50">
+              <i class="fas fa-edit"></i>
+            </span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+<br>

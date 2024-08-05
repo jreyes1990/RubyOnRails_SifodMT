@@ -1,0 +1,47 @@
+
+<!-- Inicio opciones-componentes-atributos -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Gestión de Permisos del Sistema</h6>
+    </div>
+    <div class="card-body">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12">
+
+                            <%= simple_form_for :permisos_form, :url => {:controller => "persona_empresa_formularios", :action => "consulta_permisos"} do |f| %>
+
+                            <div class="card border-left-success">
+                                <div class="card-header">
+                                    Consulta de permisos de Usuarios
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">Instrucciones:</h5>
+                                    <p class="card-text">Ingrese el correo o nombre del usuario al que desea consultar,
+                                        agregar o editar permisos del sistema.</p>
+
+                                    <%= f.input :id, collection: @usuarios, label_method: :nombre_completo_con_email, value_method: :id, required: true, label: "Usuario", prompt: "Buscar un usuario", input_html: {id: 'usuario_selected_id', class: 'select2-usuario', 'data-endpoint': search_usuarios_path, autofocus: true} %>
+
+                                    <%= f.input :area_id, collection: Area.all.limit(0), label_method: :nombre_area, value_method: :area_id, label: "Áreas disponibles", include_blank: "Seleccione una área", required: true, input_html: {id: "area_empresa_persona_id", class:"select2"} %>
+
+                                    <div class="form-actions">
+                                        <div align="right">
+                                            <br>
+                                            <br>
+                                        
+                                            <%= f.button :submit, "Consultar permisos del usuario", :class => "btn btn-success" %>
+                                        
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="path_search_area_empresa_p" data-endpoint="<%= searchemp_path %>">

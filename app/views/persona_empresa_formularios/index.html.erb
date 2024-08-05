@@ -1,0 +1,98 @@
+<!-- Inicio opciones-componentes-atributos -->
+<div class="card shadow mb-4">
+      <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Gestión de Opciones - Componentes - Atributos</h6>
+      </div>
+        <div class="card-body">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 text-right">
+                    <%= link_to new_persona_empresa_formulario_path, class: "btn btn-primary btn-sm" do %>
+                    <span class="icon text-white-50">
+                    <i class="fas fa-plus-circle"></i>
+                     </span>
+                    <span class="text">AGREGAR</span>                          
+                    <%end%>
+                    <%= link_to root_path, class: "btn btn-secondary btn-sm" do %>
+                    <span class="icon text-white-50">
+                    <i class="fas fa-arrow-circle-left"></i>
+                    </span>
+                    <span class="text">SALIR</span>                          
+                    <%end%>                    
+                </div>
+                <br/>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                      <div class="card mb-4 py-3 border-left-success">
+                          <div class="card-body">
+                            <div class="col-md-12">
+                             
+                              <%= form_tag("/search", method: "get", html:{}) do %>
+                              <%= label_tag(:buscar, "Buscar usuario:") %>
+                              <%= text_field_tag(:buscar) %>
+                              <%= submit_tag("Buscar") %>
+                              <% end %>
+
+                              <%= form_tag "/search/", method: :get, remote: true, id: "search-form" do %>
+                              <%= label_tag(:buscar, "Buscar usuario:") %>
+                              <%= text_field_tag :keyword, nil, placeholder: "Ingrese usuario"%>
+                              <%= content_tag :button, type: :submit do %>
+                              Buscar
+                              <% end %>
+                              <% end %>
+                            </div>
+                          </div>
+                      </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="row">
+                            <div class="col-md-12 text-center">
+                               <br/>
+                                <div class="card mb-4 py-3 border-left-success">
+                                <div class="card-body">
+                                <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>id </th>
+                                            <th>Empresa</th>
+                                            <th>Area</th>
+                                            <th>Componente</th>
+                                            <th>Atributo</th>
+                                            <th>Rol</th>
+                                            <th>Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                   <% @persona_empresa_formularios.each do |opcion_ca| %>
+                                        <tr>
+                                            <td><%= opcion_ca.id %></td>
+                                            <td><%= opcion_ca.opcion.nombre %></td>
+                                            <td><%= opcion_ca.componente.nombre %></td>
+                                            <td><%= opcion_ca.atributo.nombre %></td>
+                                            <td><%= opcion_ca.descripcion %></td>
+                                            <td><%= opcion_ca.estado %></td>
+
+                                            </td>
+                                        </tr>
+                                    <% end %>
+                                    </tbody>
+                                </table>
+                            </div>
+                                </div>
+                            </div>
+
+                            </div>
+                        </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <br>
+      <br>
+      <br>
+      <br>
+      <h1>BIENVENIDO</h1>
+      <br>
+      <h3>SISTEMA DE FORMULARIOS DE CALIDAD</h3>
+      <h3>SIFOC</h3>
+      <br>
+      <br>
+      <h4><%=current_user_name.upcase %></h4>
+      <br>
+      <br>
+      <h5>ÁREA CONFIGURADA</h5>
+      <br>
+      <h6><%= current_nombre_area_controller%></h6>
+      <h6><%= current_nombre_area_empresa_controller%></h6>
+      <br>
+      <br>
+      <br>
+      <br>
+      <%= I18n.l(Date.today, format: '%A, %d de %B de %Y').titleize %>
+    </div>
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <% if @valida_password_user.password_changed === 'f' || @valida_password_user.password_changed === false %>
+          <%= render "modal_cambio_password_user" %>
+        <% end %>
+        <% if @valida_parametro.blank?%>
+          <%= render "modal_registrar_area"%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,59 @@
+<!-- Inicio datos API  -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Gestión de Datos de API</h6>
+  </div>
+  <div class="card-body">
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-md-12">
+          
+          <%= simple_form_for(@datos_api) do |f| %>
+            <div class="row">
+              <div class="col-md-4">
+              </div>
+              <div class="col-md-4">
+
+                <%= f.error_notification %>
+                <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+
+                <div class="form-inputs">
+                  <%= f.input :nombre, required: true, label: "Nombre", autofocus: true %>
+                  <%= f.input :url_api, required: true, label: "URL API" %>
+                  <%= f.input :token, label: "Token" %>
+                </div>
+
+              </div>
+              <div class="col-md-4">
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-md-12 text-right">
+            <% if tiene_permiso("BOTON REGISTRAR", "VER") %>    
+              <%= button_tag f.submit, class: "btn btn-success btn-sm" do %>
+              <span class="icon text-50">
+                <i class="fas fa-edit"></i>
+              </span>
+              <span class="text">REGISTRAR</span>
+              <%end%>
+            <%end%>
+              
+
+                <%= link_to datos_apis_path, class: "btn btn-outline-danger btn-sm" do %>
+                <span class="icon text-red-50">
+                  <i class="fas fa-arrow-circle-left"></i>
+                </span>
+                <span class="text">CANCELAR</span>
+                <%end%>
+
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

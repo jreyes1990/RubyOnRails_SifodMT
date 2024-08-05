@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Personas area:</strong>
+  <%= @persona_empresa_formulario.personas_area_id %>
+</p>
+
+<p>
+  <strong>Opcion ca:</strong>
+  <%= @persona_empresa_formulario.opcion_ca_id %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @persona_empresa_formulario.descripcion %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @persona_empresa_formulario.estado %>
+</p>
+
+<p>
+  <strong>User create:</strong>
+  <%= @persona_empresa_formulario.user_created_id %>
+</p>
+
+<p>
+  <strong>User update:</strong>
+  <%= @persona_empresa_formulario.user_updated_id %>
+</p>
+
+<%= link_to 'Edit', edit_persona_empresa_formulario_path(@persona_empresa_formulario) %> |
+<%= link_to 'Back', persona_empresa_formularios_path %>

@@ -1,0 +1,55 @@
+<!-- Inicio detalle datos API  -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Gestión de Datos de API <%= %></h6>
+  </div>
+  <div class="card-body">
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-md-12">
+          <%= simple_form_for :editar_detalle_dato_api, :url => {:controller => "datos_apis", :action => "actualizar_detalle_dato_api"}, defaults: { wrapper: :inline_field6 } do |f| %>
+            <div class="row">
+            <div class="col-12">
+                <div class="row">      
+                  <%= f.input :nombre, label: "Nombre", required: true, wrapper: :inline_field3, input_html: {value: @detalle_datos_api.nombre } %>
+                  <%= f.input :param1, label: "Parametro1", required: false, wrapper: :inline_field3 , input_html: {value: @detalle_datos_api.param1 }%>
+                  <%= f.input :param2, label: "Parametro2", required: false, wrapper: :inline_field3 , input_html: {value: @detalle_datos_api.param2 }%>
+                  <%= f.input :param3, label: "Parametro3", required: false, wrapper: :inline_field3 , input_html: {value: @detalle_datos_api.param3 }%>
+                  <%= f.input :param4, label: "Parametro4", required: false, wrapper: :inline_field3 , input_html: {value: @detalle_datos_api.param4 }%>
+                  <%= f.input :param5, label: "Parametro5", required: false, wrapper: :inline_field3 , input_html: {value: @detalle_datos_api.param5 }%>
+                  <%= f.input :tipo, label: "Tipo", required: true, wrapper: :inline_field3 , input_html: {value: @detalle_datos_api.tipo }%>
+                  <%= f.input :body, label: "Body", required: false, wrapper: :inline_field12, as: :text, input_html: {value: @detalle_datos_api.body, :rows => 3} %>
+                   <%= f.hidden_field :datos_api_id, :value => @detalle_datos_api.datos_api_id %>
+
+                </div>
+              </div>
+             
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-md-12 text-right">
+                 
+              <%= button_tag f.submit, class: "btn btn-success btn-sm" do %>
+              <span class="icon text-50">
+                <i class="fas fa-edit"></i>
+              </span>
+              <span class="text">REGISTRAR</span>
+              <%end%>
+           
+                <%= link_to index_detalle_datos_api_path(:datos_api_id => @detalle_datos_api.datos_api_id ), class: "btn btn-outline-danger btn-sm" do %>
+              <span class="icon text-red-50">
+                <i class="fas fa-arrow-circle-left"></i>
+              </span>
+              <span class="text">CANCELAR</span>
+              <%end%>
+
+              </div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

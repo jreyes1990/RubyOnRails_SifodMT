@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @tipo_contenido.nombre %>
+</p>
+
+<p>
+  <strong>Content type:</strong>
+  <%= @tipo_contenido.content_type %>
+</p>
+
+<p>
+  <strong>User created:</strong>
+  <%= @tipo_contenido.user_created_id %>
+</p>
+
+<p>
+  <strong>User updated:</strong>
+  <%= @tipo_contenido.user_updated_id %>
+</p>
+
+<p>
+  <strong>Usr grab:</strong>
+  <%= @tipo_contenido.usr_grab %>
+</p>
+
+<p>
+  <strong>Usr modi:</strong>
+  <%= @tipo_contenido.usr_modi %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @tipo_contenido.estado %>
+</p>
+
+<%= link_to 'Edit', edit_tipo_contenido_path(@tipo_contenido) %> |
+<%= link_to 'Back', tipo_contenidos_path %>

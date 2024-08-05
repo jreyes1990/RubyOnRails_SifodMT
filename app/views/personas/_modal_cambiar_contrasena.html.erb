@@ -1,0 +1,88 @@
+<%= simple_form_for :cambio_contrasena_form, :url => {:controller => "personas", :action => "registrar_cambio_contrasena"} do |f| %>
+<div class="modal-header modal-header-success">
+  <div class="col-12 text-left">
+    <h5 class="modal-title" id="myModalLabel">CAMBIO DE CONTRASEÑA</h5>
+  </div>
+</div>
+<div class="modal-body">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-4" style="text-align:center">
+          <br>
+          <br>
+          <%= image_tag("Password.png", height: '100', width: '')%>
+        </div>
+
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-12 text-left">
+                  <%= f.label "Nueva Contraseña:" %>
+                  <div class="input-group">
+                    <%= f.password_field :password_nueva, minlength: "6", class: "form-control form-control-user", required: true, autofocus: true, placeholder: "Minimo 6 caracteres", id: "CambioNuevoPassword" %>
+                    <div class="input-group-append">
+                      <button id="BtnCambioNuevoPassword" class="btn btn-success" type="button"> <span class="fa fa-eye-slash icon"></span> </button>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-12 text-left">
+                  <br>
+                  <%= f.label "Confirmar Contraseña:" %>
+                  <div class="input-group">
+                    <%= f.password_field :password_confirmada, minlength: "6",class: "form-control form-control-user", required: true, placeholder: "Minimo 6 caracteres", id: "ConfirmaCambioNuevoPassword" %>
+                    <div class="input-group-append">
+                      <button id="BtnConfirmaCambioNuevoPassword" class="btn btn-success" type="button"> <span class="fa fa-eye-slash icon"></span> </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="modal-footer modal-header-success">
+
+  <%= button_tag f.submit, class: "btn btn-success btn-sm" do %>
+  <span class="icon text-50">
+    <i class="fas fa-edit"></i>
+  </span>
+  <span class="text">REGISTRAR</span>
+  <%end%>
+
+  <button type="button" class="btn btn-outline-danger btn-sm" data-dismiss="modal">
+    <span class="icon text-red-50">
+      <i class="fas fa-times-circle"></i>
+    </span>
+    Cancelar
+  </button>
+
+</div>
+<%end%>
+
+
+<script>
+  $('#BtnCambioNuevoPassword').on('click', function (e) {
+    var cambio = document.getElementById("CambioNuevoPassword");
+    if(cambio.type == "password"){  
+      $('#CambioNuevoPassword').attr("type","text");
+    }else{
+      $('#CambioNuevoPassword').attr("type","password");
+    }
+  });
+
+  $('#BtnConfirmaCambioNuevoPassword').on('click', function (e) {
+    var cambio = document.getElementById("ConfirmaCambioNuevoPassword");
+    if(cambio.type == "password"){  
+      $('#ConfirmaCambioNuevoPassword').attr("type","text");
+    }else{
+      $('#ConfirmaCambioNuevoPassword').attr("type","password");
+    }
+  });
+</script>

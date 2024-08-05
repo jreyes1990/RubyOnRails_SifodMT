@@ -1,0 +1,92 @@
+<!-- Inicio areas -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <div class="row">
+      <div class="col-md-6 table-responsive-sm text-left mt-2">
+        <h5 class="m-0 font-weight-bold text-primary">Gestión de Áreas por Empresa</h5>
+      </div>
+      <div class="col-md-6 table-responsive-sm text-right">
+        <% if tiene_permiso("BOTON NUEVO REGISTRO", "VER") %>
+          <%= link_to new_area_path, class: "btn btn-success btn-sm mt-2" do %>
+            <span class="icon text-green-50">
+                <i class="fas fa-plus-circle"></i>
+            </span>
+            <span class="text">AGREGAR</span>
+          <% end %>
+        <% end %>
+        <%= link_to root_path, class: "btn btn-danger btn-sm mt-2" do %>
+          <span class="icon text-red-50">
+              <i class="fas fa-home"></i>
+          </span>
+          <span class="text">INICIO</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12 table-responsive-sm">
+        <table id="datatable_areas_empresas" class="table table-hover table-sm table-bordered display" width="100%" cellpadding="0" cellspacing="0">
+          <thead class="thead-light">
+            <tr>
+              <th class="text-center"> id </th>
+              <th> Empresa </th>
+              <th class="text-center"> Código Área </th>
+              <th> Nombre </th>
+              <th> Descripción </th>
+              <th class="text-center"> Estado </th>
+              <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
+              <th class="text-center"></th>
+              <% end %>
+              <% if tiene_permiso("BOTON ACTIVAR/INACTIVAR REGISTRO", "VER") %>
+              <th class="text-center"></th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% @areas.each do |area| %>
+              <tr>
+                <td class="text-center"> <%= area.id %> </td>
+                <td> <%= area.empresa.nombre %> </td>
+                <td class="text-center"> <%= area.codigo_area %> </td>
+                <td> <%= area.nombre %> </td>
+                <td> <%= area.descripcion %> </td>
+                <td class="text-center"> <%= format_estado(area.estado) %> </td>
+                <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
+                  <td class="text-center">
+                    <% if area.estado == "A" %>
+                      <%= link_to edit_area_path(area), 
+                          class: "btn btn-outline-info btn-sm",
+                          "data-custom-class": "popover-info", title: "ACTUALIZAR", "data-content": "#{area.codigo_area} | #{area.nombre.capitalize}" do %>
+                        <i class="fas fa-edit"></i>
+                      <% end %>
+                    <% end %>
+                  </td>
+                <% end %>
+                <% if tiene_permiso("BOTON ACTIVAR/INACTIVAR REGISTRO", "VER") %>
+                  <td class="text-center">
+                  <% if area.estado == "A" %>
+                    <%= link_to  inactivar_area_path(:id => area.id), 
+                        class: "btn btn-outline-danger btn-sm btn_status_area", 
+                        data: { status: "Inactivar", nombre: "#{area.nombre}" },
+                        "data-custom-class": "popover-danger", title: "INACTIVAR", "data-content": "#{area.codigo_area} | #{area.nombre.capitalize}" do %>
+                      <i class="fas fa-trash-alt"></i>
+                    <% end %>
+                  <% else %>
+                    <%= link_to  activar_area_path(:id => area.id), 
+                        class: "btn btn-outline-success btn-sm btn_status_area", 
+                        data: { status: "Activar", nombre: "#{area.nombre}" },
+                        "data-custom-class": "popover-success", title: "ACTIVAR", "data-content": "#{area.codigo_area} | #{area.nombre.capitalize}" do %>
+                      <i class="fas fa-trash-restore-alt"></i>
+                    <% end %>
+                  <% end %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

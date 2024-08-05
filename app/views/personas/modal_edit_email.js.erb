@@ -1,0 +1,8 @@
+$('#modal-content-edit-email').html("<%= escape_javascript(render(:partial => 'modal_edit_email')) %>");
+$('#modal-content-edit-email').modal('show');
+
+$('#modal-content-edit-email').on('shown.bs.modal', function () {
+  var modalContent = $(this).find('.modal-content');
+  var desiredHeight = modalContent.find('.modal_edit_email').outerHeight(); 
+  modalContent.css('height', desiredHeight);
+});

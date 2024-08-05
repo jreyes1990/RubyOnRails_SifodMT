@@ -1,0 +1,109 @@
+<%
+  if session[:permisosSidebar].nil?
+    cargar_permisos_de_menus_sidebar(current_user.id, helper_current_user_empresa_id) 
+  end 
+%>
+
+<%
+  # Cargar todas las opciones del modelo Menu y Opcion
+  menu_elements = Menu.where(visible_sidebar: true, estado: "A").order(posicion: :asc).map do |menu|
+    {
+      name: menu.nombre, 
+      class: menu.icono, 
+      text_sidebar: menu.menu_sidebar,
+      codigo: menu.id,
+      opciones: Opcion.where(menu_id: menu.id, visible_sidebar: true, estado: "A").order(posicion: :asc).map do |opcion|
+        { 
+          name: opcion.componente_sidebar, 
+          link: send(opcion.path), 
+          class: opcion.icono, 
+          action: opcion.controlador,
+          text: opcion.nombre, 
+          codigo: opcion.menu_id,
+          class_badge: "badge badge-success",
+          sub_opcion_id: opcion.try(:sub_opcion_id),
+          sub_opcion: opcion.sub_opcion.try(:nombre)
+        }
+      end
+    }
+  end
+%>
+
+<!-- Sidebar -->
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+  <!-- Sidebar - Brand -->
+  <br>
+  <div class="sidebar-brand d-flex align-items-center justify-content-center mb-3 mt-3">
+    <div class="sidebar-brand-icon rotate-n-90">
+      <%  
+        @foto_persona = current_user.persona.foto.presence || image_path('default.jpg')
+      %>
+      <img class="img-profile rounded-circle" src="<%= @foto_persona %>" style="border: 2px solid white;" width="70" height="70">
+      <br>
+      <span class="sidebar-brand-text mx-3" style="font-size: 50%;"><%= current_user.email %></span>
+      <% if !current_user_role.blank? %>
+        <span class="sidebar-brand-text mx-3" style="font-size: 72%;"><%= current_user_role %></span>
+      <% end %>
+    </div>
+  </div>
+  <br>
+  <!-- Divider -->
+  <hr class="sidebar-divider my-0">
+  <!-- Nav Item - Dashboard -->
+  <li class="<%= is_home_active() %>">
+    <%=link_to root_path, class: "nav-link" do %>
+      <i class="fas fa-home"></i>
+      <span> INICIO </span>
+    <%end%>
+  </li>
+
+  <% menu_elements.each do |menu| %>
+    <% if menu[:opciones].any? { |opcion| tiene_permiso_sidebar(opcion[:name], "VER OPCION") } %>
+      <!-- Divider -->
+      <hr class="sidebar-divider">
+
+      <!-- Heading -->
+      <div class="sidebar-heading">
+        <%= menu[:text_sidebar] %>
+      </div>
+
+      <% actions = menu[:opciones].map { |opcion| opcion[:action] } %>
+      <% options = menu[:opciones].map { |sub_opcion| [sub_opcion[:codigo], sub_opcion[:sub_opcion_id], sub_opcion[:sub_opcion]] }.uniq { |codigo, sub_opcion_id, sub_opcion| [codigo, sub_opcion_id, sub_opcion] } %>
+
+      <!-- Nav Item - Pages Collapse Menu -->
+      <li class="<%= is_active_controller_titulo(actions) %>">
+        <a class="menu_sb <%= is_active_controller(actions) %>" href="#" data-toggle="collapse" data-target="#collapse<%= menu[:codigo] %>" aria-expanded="true" aria-controls="collapse<%= menu[:codigo] %>">
+          <i class="<%= menu[:class] %>"></i>
+          <span><%= menu[:name] %></span>
+        </a>
+        <div id="collapse<%= menu[:codigo] %>" class="opcion_sb <%= is_active_option_controller(actions) %>" aria-labelledby="heading<%= menu[:codigo] %>" data-parent="#accordionSidebar">
+          <div class="bg-white py-2 collapse-inner rounded">
+            <!-- Mostrar opciones para depuración -->
+            <% options.each do |codigo, sub_opcion_id, sub_opcion| %>
+              <h6 class="collapse-header"><%= sub_opcion %></h6>
+              <!-- INICIA VALIDACION DE OPCIONES MOSTRAR EN EL SIDEBAR -->
+              <% menu[:opciones].select { |opcion| (opcion[:codigo] == codigo && opcion[:sub_opcion_id] == sub_opcion_id) }.each do |opcion| %>
+                <% if tiene_permiso_sidebar(opcion[:name], "VER OPCION") %>
+                  <%= link_to opcion[:link], class: is_active_action(opcion[:action]) do %>
+                    <i class="<%= opcion[:class] %>"></i>
+                    <span>
+                      <%= opcion[:text] %> 
+                    </span>
+                  <% end %>
+                <% end %>
+              <% end %>
+              <!-- FINALIZA VALIDACION DEL OPCIONES PARA MOSTRAR EN EL SIDEBAR -->
+            <% end %>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  <% end %>
+
+  <!-- Divider -->
+  <hr class="sidebar-divider d-none d-md-block">
+  <!-- Sidebar Toggler (Sidebar) -->
+  <div class="text-center d-none d-md-inline">
+    <button class="rounded-circle border-0" id="sidebarToggle"></button>
+  </div>
+</ul>

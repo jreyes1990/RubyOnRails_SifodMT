@@ -1,0 +1,30 @@
+# == Schema Information
+#
+# Table name: menu_roles
+#
+#  id              :integer          not null, primary key
+#  rol_id          :integer          not null
+#  opcion_id       :integer          not null
+#  menu_padre      :integer
+#  user_created_id :integer
+#  user_updated_id :integer
+#  estado          :string(255)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
+
+one:
+  rol: one
+  opcion: one
+  menu_padre: 1
+  estado: MyString
+  user_created_id: 1
+  user_updated_id: 1
+
+two:
+  rol: two
+  opcion: two
+  menu_padre: 1
+  estado: MyString
+  user_created_id: 1
+  user_updated_id: 1

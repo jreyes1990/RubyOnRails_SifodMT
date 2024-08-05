@@ -1,0 +1,77 @@
+<!-- Inicio atributos -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <div class="row">
+      <div class="col-md-6 table-responsive-sm text-left mt-2">
+        <h5 class="m-0 font-weight-bold text-primary">Gestión de Atributos</h5>
+      </div>
+      <div class="col-md-6 table-responsive-sm text-right">
+        <% if tiene_permiso("BOTON NUEVO REGISTRO", "VER") %>
+          <%= link_to new_atributo_path, class: "btn btn-success btn-sm mt-2" do %>
+            <span class="icon text-green-50">
+                <i class="fas fa-plus-circle"></i>
+            </span>
+            <span class="text">AGREGAR</span>
+          <% end %>
+        <% end %>
+        <%= link_to root_path, class: "btn btn-danger btn-sm mt-2" do %>
+          <span class="icon text-red-50">
+              <i class="fas fa-home"></i>
+          </span>
+          <span class="text">INICIO</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12 table-responsive-sm">
+        <table id="datatable_atributos" class="table table-hover table-sm table-bordered display" width="100%" cellpadding="0" cellspacing="0">
+          <thead class="thead-light">
+            <tr>
+              <th class="text-center"> id </th>
+              <th> Nombre </th>
+              <th> Descripción </th>
+              <th class="text-center"> Estado</th>
+              <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
+              <th class="text-center"></th>
+              <% end %>
+              <th class="text-center"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @atributos.each do |atributo| %>
+              <tr>
+                <td class="text-center"> <%= atributo.id %> </td>
+                <td> <%= atributo.nombre %> </td>
+                <td> <%= atributo.descripcion %> </td>
+                <td class="text-center"> <%= format_estado(atributo.estado) %> </td>
+                <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
+                <td class="text-center">
+                  <% if atributo.estado == "A" %>
+                    <%= link_to edit_atributo_path(atributo), class: "btn btn-outline-info btn-sm " do %>
+                      <i class="fas fa-edit"></i>
+                    <% end %>
+                  <% end %>
+                </td>
+                <% end %>
+                <% if tiene_permiso("BOTON ELIMINAR REGISTRO", "VER") %>
+                <td class="text-center">
+                  <% if atributo.estado == "A" %>
+                    <%= link_to  inactivar_atributo_path(:id => atributo.id), 
+                        class: "btn btn-outline-danger btn-sm btn_inactivar_atributo ", 
+                        data: { status: "Inactivar", nombre: "#{atributo.nombre}" },
+                        "data-custom-class": "popover-danger", title: "INACTIVAR", "data-content": "#{atributo.id} | #{atributo.nombre.capitalize}" do %>
+                      <i class="fas fa-trash-alt"></i>
+                    <% end %>
+                  <% end %>
+                </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

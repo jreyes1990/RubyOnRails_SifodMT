@@ -1,0 +1,88 @@
+<!-- Inicio datos externos -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Gestión de Datos Externos</h6>
+    </div>
+    <div class="card-body">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                          <% if tiene_permiso("BOTON NUEVO REGISTRO", "VER") %>
+                            <%= link_to new_datos_externo_path, class: "btn btn-success btn-sm" do %>
+                            <span class="icon text-white-50">
+                                <i class="fas fa-plus-circle"></i>
+                            </span>
+                            <span class="text">AGREGAR</span>
+                            <%end%>
+                          <%end%>
+                      
+                            <%= link_to root_path, class: "btn btn-outline-danger btn-sm" do %>
+                            <span class="icon text-red-50">
+                                <i class="fas fa-home"></i>
+                            </span>
+                            <span class="text">INICIO</span>
+                            <%end%>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br />
+                            <div class="col-md-12 table-responsive">
+                                <table id="datatable" class="table table-hover table-sm table-bordered text-center">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>id </th>
+                                            <th>Nombre</th>
+                                            <th>Url api</th>
+                                            <th>Token</th>
+                                            <th>Estado</th>
+                                            <th></th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                         <% @datos_externos.each do |datos_externo| %>
+                                        <tr>
+                                            <td> <%= datos_externo.id %> </td>
+                                            <td><%= datos_externo.nombre %></td>
+                                            <td><%= datos_externo.url_api %></td>
+                                            <td><%= datos_externo.token %></td>
+                                            <td><%= datos_externo.estado %></td>
+
+                                            <td>
+                                              <% if tiene_permiso("BOTON DETALLE", "VER") %>
+                                                <%= link_to index_detalle_datos_externo_path(:dato_externo_id => datos_externo.id), class: "btn btn-outline-success btn-sm", :"data-toggle" => "popover", :"data-content" => "Detalle API", :"data-trigger" => "hover", :"data-placement" => "top" do %>
+                                                 <i class="fas fa-list-alt"></i>
+                                                <%end%>
+                                              <%end%>
+                                            </td>
+                                            <td>
+                                              <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
+                                                <%= link_to edit_datos_externo_path(datos_externo), class: "btn btn-outline-info btn-sm " do %>
+                                                <i class="fas fa-edit"></i>
+                                                <%end%>
+                                              <%end%>
+
+                                             <% if tiene_permiso("BOTON ELIMINAR REGISTRO", "VER") %>
+                                                <%= link_to datos_externo, method: :delete, class: "btn btn-outline-danger btn-sm ", data: { confirm: 'Se eliminara' } do %>
+                                                <i class="fas fa-trash-alt"></i>
+                                                <%end%>
+                                              <%end%>
+                                          
+                                            </td>
+                                        </tr>
+                                        <% end %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @atributo.nombre %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @atributo.descripcion %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @atributo.estado %>
+</p>
+
+<p>
+  <strong>User create:</strong>
+  <%= @atributo.user_created_id %>
+</p>
+
+<p>
+  <strong>User update:</strong>
+  <%= @atributo.user_updated_id %>
+</p>
+
+<%= link_to 'Edit', edit_atributo_path(@atributo) %> |
+<%= link_to 'Back', atributos_path %>

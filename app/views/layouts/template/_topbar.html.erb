@@ -1,0 +1,121 @@
+<!-- Topbar -->
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+  <!-- Sidebar Toggle (Topbar) -->
+  <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+    <i class="fa fa-bars"></i>
+  </button>
+  <!-- Topbar Search -->
+  <!-- Topbar Navbar -->
+  <ul class="navbar-nav ml-auto">
+    <!-- Nav Item - Alerts -->
+    <li class="nav-item dropdown no-arrow mx-1">
+      <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <i class="fas fa-bell fa-fw"></i>
+        <!-- Counter - Alerts -->
+        <span class="badge badge-danger badge-counter"></span> <!-- <span class="badge badge-danger badge-counter">3+</span> -->
+      </a>
+      <!-- Dropdown - Alerts -->
+      <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="alertsDropdown">
+        <h6 class="dropdown-header" >
+          <i class="fas fa-bell fa-fw"></i>
+          Centro de notificaciones
+          <br>
+          <span style="font-size: 9px !important">
+            Última actualización: <%= I18n.l(Time.now, format: '%e de %B %H:%M, %Y') %>
+          </span>
+        </h6>
+        <a class="dropdown-item d-flex align-items-center" href="#">
+          <div class="mr-3">
+            <div class="icon-circle bg-success">
+              <i class="fa-solid fa-bell-slash"></i>
+            </div>
+          </div>
+          <div>
+            <div class="small text-gray-500"><%= I18n.l(Time.now, format: '%e de %B %H:%M:%S, %Y') %>
+            </div>
+            Sin Notificaciones
+          </div>
+        </a>
+        <%# <a class="dropdown-item d-flex align-items-center" href="#">
+          <div class="mr-3">
+            <div class="icon-circle bg-primary">
+              <i class="fas fa-file-alt text-white"></i>
+            </div>
+          </div>
+          <div>
+            <div class="small text-gray-500">December 12, 2019</div>
+            <span class="font-weight-bold">A new monthly report is ready to download!</span>
+          </div>
+        </a>
+        <a class="dropdown-item d-flex align-items-center" href="#">
+          <div class="mr-3">
+            <div class="icon-circle bg-success">
+              <i class="fas fa-donate text-white"></i>
+            </div>
+          </div>
+          <div>
+            <div class="small text-gray-500">December 7, 2019</div>
+            $290.29 has been deposited into your account!
+          </div>
+        </a>
+        <a class="dropdown-item d-flex align-items-center" href="#">
+          <div class="mr-3">
+            <div class="icon-circle bg-warning">
+              <i class="fas fa-exclamation-triangle text-white"></i>
+            </div>
+          </div>
+          <div>
+            <div class="small text-gray-500">December 2, 2019</div>
+            Spending Alert: We've noticed unusually high spending for your account.
+          </div>
+        </a> %>
+        <a class="dropdown-item text-center small text-gray-500" style="font-size: 12px !important" href="#">Mostrar todas las alertas</a>
+      </div>
+    </li>
+    <div class="topbar-divider d-none d-sm-block"></div>
+    <!-- Nav Item - User Information -->
+    <li class="nav-item dropdown no-arrow">
+      <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="mr-2 d-none d-lg-inline text-gray-600 small">
+          <%= current_user_name%>
+          <br>
+          <%= "#{current_nombre_area_controller} / " "#{current_nombre_area_empresa_controller}"%>
+        </span>
+        <!-- <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%= "#{current_user_name} / " "#{current_nombre_area_controller}" %></span> -->
+        <%  
+          @foto_persona = current_user.persona.foto.presence || asset_path('default.jpg')
+        %>
+        <img class="img-profile rounded-circle" src="<%= @foto_persona %>">
+      </a>
+      <!-- Dropdown - User Information -->
+      <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+        <%= link_to ver_perfil_path(current_user.persona), class: "dropdown-item" do %>
+          <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+          Perfil
+        <%end%>
+        <%= link_to mostrar_parametro_path(:id => current_user.id), class: "dropdown-item" do %>
+          <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+          Parámetro
+        <%end%>
+        <div class="dropdown-divider"></div>
+        <%= link_to modal_salir_path, {:remote => true, 'data-toggle' =>  "modal",'data-target' => '#modal-content-cerrar-sesion', class: "dropdown-item"} do %>
+          <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+          Cerrar Sesión
+        <%end%>
+      </div>
+    </li>
+  </ul>
+</nav>
+<!-- End of Topbar -->
+<div id="modal-content-cerrar-sesion" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+    </div>
+  </div>
+</div>
+<div id="modal-content-busqueda-codeqr" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+    aria-hidden="true"></div>

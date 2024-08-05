@@ -1,0 +1,27 @@
+# == Schema Information
+#
+# Table name: detalle_combos
+#
+#  id             :bigint           not null, primary key
+#  combo_id       :bigint           not null
+#  equipo_id      :integer
+#  estado         :string
+#  user_created_id :integer
+#  user_updated_id :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#
+
+one:
+  combo: one
+  equipo_id: 1
+  estado: MyString
+  user_created_id: 1
+  user_updated_id: 1
+
+two:
+  combo: two
+  equipo_id: 1
+  estado: MyString
+  user_created_id: 1
+  user_updated_id: 1

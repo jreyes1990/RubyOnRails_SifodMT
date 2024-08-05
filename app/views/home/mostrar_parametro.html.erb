@@ -1,0 +1,77 @@
+  <!-- Inicio articulos -->
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Parámetros</h6>
+    </div>
+    <%= simple_form_for :actualizar_parametro_form, :url => {:controller => "home", :action => "registrar_parametro"} do |f| %>
+    <div class="card-body">
+      <div class="container-fluid">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="card">
+                <div class="card-body">
+                  <h5><strong>Información:</strong></h5>
+                  <p class="texto-justificado">* Esta pantalla nos brinda la opción de cambiarnos de área.</p>
+                  <p class="texto-justificado">* Únicamente aparecerán las áreas asignadas al usuario.</p>
+                  <p class="texto-justificado">* Los catálogos e información se filtraran dependiendo del área
+                    seleccionada.</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+
+                    <div class="col-12">
+                      <br>
+                      <%= f.input :empresa_nombre, label:"Empresa", input_html: {value: @parametro.nombre_empresa}, wrapper: :inline_field12, disabled: true%>
+                    </div>
+                  </div>
+                  <hr>
+                  <div class="row">
+                    <div class="col-12">
+                      <br>
+                      <%= f.input :area_id, collection: @areas, label_method: :nombre_area, value_method: :area_id, label: "Áreas disponibles", required: true,  include_blank: "Seleccione una área", input_html: {class: "select2"}, selected: @parametro.area_id, required: true, wrapper: :inline_field12 %>
+                      <%= f.hidden_field :area_antigua_id, :value => @parametro.area_id %>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-12">
+
+
+                      <br>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="row">
+            <div class="col-12 text-right">
+              <br>
+              <%= button_tag f.submit, class: "btn btn-success btn-sm", :id=>"open-tabla" do %>
+              <span class="text">CAMBIAR</span>
+              <span class="icon text-50">
+                <i class="fas fa-arrow-right"></i>
+              </span>
+              <%end%>
+
+              <%= link_to root_path, class: "btn btn-outline-danger btn-sm" do %>
+              <span class="icon text-red-50">
+                <i class="fas fa-home"></i>
+              </span>
+              <span class="text">INICIO</span>
+              <%end%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <% end %>
+  </div>

@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @tipo_seleccion.nombre %>
+</p>
+
+<p>
+  <strong>Valor:</strong>
+  <%= @tipo_seleccion.valor %>
+</p>
+
+<p>
+  <strong>User created:</strong>
+  <%= @tipo_seleccion.user_created_id %>
+</p>
+
+<p>
+  <strong>User updated:</strong>
+  <%= @tipo_seleccion.user_updated_id %>
+</p>
+
+<p>
+  <strong>Usr grab:</strong>
+  <%= @tipo_seleccion.usr_grab %>
+</p>
+
+<p>
+  <strong>Usr modi:</strong>
+  <%= @tipo_seleccion.usr_modi %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @tipo_seleccion.estado %>
+</p>
+
+<%= link_to 'Edit', edit_tipo_seleccion_path(@tipo_seleccion) %> |
+<%= link_to 'Back', tipo_selecciones_path %>

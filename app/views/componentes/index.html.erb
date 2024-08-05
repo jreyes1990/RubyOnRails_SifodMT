@@ -1,0 +1,74 @@
+<!-- Inicio componentes -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <div class="row">
+      <div class="col-md-6 table-responsive-sm text-left mt-2">
+        <h5 class="m-0 font-weight-bold text-primary">Gestión de Componentes</h5>
+      </div>
+      <div class="col-md-6 table-responsive-sm text-right">
+        <% if tiene_permiso("BOTON NUEVO REGISTRO", "VER") %>
+          <%= link_to new_componente_path, class: "btn btn-success btn-sm mt-2" do %>
+            <span class="icon text-green-50">
+                <i class="fas fa-plus-circle"></i>
+            </span>
+            <span class="text">AGREGAR</span>
+          <% end %>
+        <% end %>
+        <%= link_to root_path, class: "btn btn-danger btn-sm mt-2" do %>
+          <span class="icon text-red-50">
+              <i class="fas fa-home"></i>
+          </span>
+          <span class="text">INICIO</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12 table-responsive-sm">
+        <table id="datatable_componentes" class="table table-hover table-sm table-bordered display" width="100%" cellpadding="0" cellspacing="0">
+          <thead class="thead-light">
+            <tr>
+              <th class="text-center"> id </th>
+              <th> Nombre </th>
+              <th> Descripción </th>
+              <th class="text-center"> Estado</th>
+              <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
+              <th class="text-center"></th>
+              <% end %>
+              <% if tiene_permiso("BOTON ELIMINAR REGISTRO", "VER") %>
+              <th class="text-center"></th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% @componentes.each do |componente| %>
+              <tr>
+                <td class="text-center"> <%= componente.id %> </td>
+                <td> <%= componente.nombre %> </td>
+                <td> <%= componente.descripcion %> </td>
+                <td class="text-center"> <%= format_estado(componente.estado) %> </td>
+                <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
+                  <td class="text-center">
+                    <%= link_to edit_componente_path(componente), class: "btn btn-outline-info btn-sm " do %>
+                      <i class="fas fa-edit"></i>
+                    <% end %>
+                  </td>
+                <% end %>
+                <% if tiene_permiso("BOTON ELIMINAR REGISTRO", "VER") %>
+                  <td class="text-center">
+                    <%= link_to  inactivar_componente_path(:id => componente.id), class: "btn btn-outline-danger btn-sm btn_inactivar_componente", data: { nombre: "#{componente.nombre}" } do %>
+                      <i class="fas fa-trash-alt"></i>
+                    <% end %>
+                  </td>
+                <% end %>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>

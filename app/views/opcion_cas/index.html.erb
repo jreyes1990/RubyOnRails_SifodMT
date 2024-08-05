@@ -1,0 +1,55 @@
+<!-- Inicio opciones-componentes-atributos -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Gestión de Opciones - Componentes - Atributos</h6>
+  </div>
+  <div class="card-body">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12 text-right">
+              <% if tiene_permiso("BOTON NUEVO REGISTRO", "VER") %>
+                <%= link_to new_opcion_ca_path, class: "btn btn-success btn-sm" do %>
+                  <span class="icon text-50">
+                    <i class="fas fa-plus-circle"></i>
+                  </span>
+                  <span class="text">AGREGAR</span>
+                <%end%>
+              <% end %>
+              <%= link_to root_path, class: "btn btn-outline-danger btn-sm" do %>
+                <span class="icon text-red-50">
+                  <i class="fas fa-home"></i>
+                </span>
+                <span class="text">INICIO</span>
+              <%end%>
+            </div>
+          </div>
+          <br>
+          <div class="row">
+            <div class="col-md-12 table-responsive-sm">
+              <table id="opcion-ca-datatable" class="table table-hover table-sm table-bordered display" width="100%" cellpadding="0" cellspacing="0" data-source="<%= opcion_cas_path(format: :json) %>">
+                <thead class="thead-light">
+                  <tr>
+                    <th class="text-center">id</th>
+                    <th>Opción</th>
+                    <th>Componente</th>
+                    <th>Atributo</th>
+                    <th>Descripcion</th>
+                    <th class="text-center">Estado</th>
+                    <th class="text-center">Editar</th>
+                    <th class="text-center">Eliminar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>

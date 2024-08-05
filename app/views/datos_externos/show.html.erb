@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @datos_externo.nombre %>
+</p>
+
+<p>
+  <strong>Url api:</strong>
+  <%= @datos_externo.url_api %>
+</p>
+
+<p>
+  <strong>Token:</strong>
+  <%= @datos_externo.token %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @datos_externo.estado %>
+</p>
+
+<p>
+  <strong>User create:</strong>
+  <%= @datos_externo.user_created_id %>
+</p>
+
+<p>
+  <strong>User update:</strong>
+  <%= @datos_externo.user_updated_id %>
+</p>
+
+<%= link_to 'Edit', edit_datos_externo_path(@datos_externo) %> |
+<%= link_to 'Back', datos_externos_path %>

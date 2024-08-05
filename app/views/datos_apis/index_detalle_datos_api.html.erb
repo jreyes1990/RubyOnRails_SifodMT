@@ -1,0 +1,118 @@
+<!-- Inicio detalle datos API -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Detalles de Datos Externos</h6>
+  </div>
+  <div class="card-body">
+
+    <div class="container-fluid">
+      <div class="row">
+      <div class="col-12">
+          <div class="col-12 text-center">
+            <h5><strong>Encabezado Datos de API</strong></h5>
+          </div>
+          <div class="row" style="background-color: #FDFBF0; padding: 20px; border-radius: 5px">
+            <div class="col-md-12 text-right" style="color: red">
+              <span class="badge badge-default">
+                <h6><strong>ID: <%= @datos_api.id %></strong></h6>
+              </span>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label for="nombreTransaccion">Nombre</label>
+                <input type="text" class="form-control" id="nombreLabor" value="<%= @datos_api.nombre%>" disabled>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="form-group">
+                <label for="nombreTransaccion">URL</label>
+                <input type="text" class="form-control" id="nombreLabor" value="<%= @datos_api.url_api%>" disabled>
+              </div>
+            </div>
+          </div>
+          <br>
+        </div>
+        <div class="col-md-12">
+          <div class="row">
+            <div class="col-md-12 text-right">
+            
+              <%= link_to nuevo_detalle_datos_api_path(:id => @datos_api.id), class: "btn btn-success btn-sm" do %>
+              <span class="icon text-50">
+                <i class="fas fa-plus-circle"></i>
+              </span>
+              <span class="text">AGREGAR</span>
+              <%end%>
+           
+
+              <%= link_to datos_apis_path, class: "btn btn-outline-danger btn-sm" do %>
+              <span class="icon text-red-50">
+                <i class="fas fa-arrow-circle-left"></i>
+              </span>
+              <span class="text">Regresar</span>
+              <%end%>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <br />
+              <div class="col-md-12 table-responsive">
+                <table id="datatable" class="table table-hover table-sm table-bordered text-center">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>Id </th>
+                      <th>Datos API</th>
+                      <th>Nombre</th>
+                      <th>Param1</th>
+                      <th>Param2</th>
+                      <th>Param3</th>
+                      <th>Param4</th>
+                      <th>Param5</th>
+                      <th>Tipo</th>
+                      <th>Body</th>
+                      <th>Documentación</th>
+                      <th>Opciones</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @detalle_datos_api.each do |detalle_datos_api| %>
+                    <tr>
+                      <td><%= detalle_datos_api.id %> </td>
+                      <td><%= detalle_datos_api.datos_api.nombre %></td>
+                      <td><%= detalle_datos_api.nombre %></td>
+                      <td><%= detalle_datos_api.param1 %></td>
+                      <td><%= detalle_datos_api.param2 %></td>
+                      <td><%= detalle_datos_api.param3 %></td>
+                      <td><%= detalle_datos_api.param4 %></td>
+                      <td><%= detalle_datos_api.param5 %></td>
+                      <td><%= detalle_datos_api.tipo %></td>
+                      <td><%= detalle_datos_api.body %></td>
+                      <td>
+                          <%= link_to documentacion_pdf_path(:api_id => detalle_datos_api.id, :nombre => detalle_datos_api.nombre), target: :_blank, class: "btn btn-outline-warning btn-sm" do %>
+                           <i class="fas fa-file-signature"></i>
+                          <%end%>
+                      </td>
+
+                      <td>
+                      
+                        <%= link_to editar_detalle_datos_api_path(:id => detalle_datos_api.id), class: "btn btn-outline-info btn-sm " do %>
+                        <i class="fas fa-edit"></i>
+                        <%end%>
+                                         
+                        <%= link_to  inactivar_detalle_datos_api_path(:id => detalle_datos_api.id), class: "btn btn-outline-danger btn-sm ", data: { confirm: 'Se eliminara' } do %>
+                        <i class="fas fa-trash-alt"></i>
+                        <%end%>
+                    
+                      </td>
+                    </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,1 @@
+json.partial! "persona_empresa_formularios/persona_empresa_formulario", persona_empresa_formulario: @persona_empresa_formulario

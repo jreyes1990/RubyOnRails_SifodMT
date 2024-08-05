@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SIFOC</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag "sb-admin-2.min" %>
+  </head>
+
+  <body class="body-login"  id="">
+    <div class="container">
+        <!-- Outer Row -->
+        <br>
+        <br>
+        <div class="row justify-content-center">
+          <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="card2 o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                  <!-- Nested Row within Card Body -->
+                    <div class="row">
+                      <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+                          <div class="col-lg-6">
+                            <div class="p-5">
+                              <div class="text-center">
+                              <br>
+                                <!-- ALERTAS -->
+                                    <%= render 'layouts/template/alerts' %>
+                                <!-- FIN ALERTAS -->
+                                
+                                <%= yield %>
+
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </body>
+</html>
+
+

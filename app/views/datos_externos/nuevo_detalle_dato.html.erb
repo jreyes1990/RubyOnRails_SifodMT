@@ -1,0 +1,81 @@
+<!-- Inicio detalle datos externos  -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Gestión de Datos Externos</h6>
+  </div>
+  <div class="card-body">
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12">
+          <div class="col-12 text-center">
+            <h5><strong>Encabezado Datos Externos</strong></h5>
+          </div>
+          <div class="row" style="background-color: #FDFBF0; padding: 20px; border-radius: 5px">
+            <div class="col-md-12 text-right" style="color: red">
+              <span class="badge badge-default">
+                <h6><strong>Id: <%= @dato_externos.id %></strong></h6>
+              </span>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label for="nombreTransaccion">Nombre</label>
+                <input type="text" class="form-control" id="nombreLabor" value="<%= @dato_externos.nombre%>" disabled>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="form-group">
+                <label for="nombreTransaccion">URL</label>
+                <input type="text" class="form-control" id="nombreLabor" value="<%= @dato_externos.url_api%>" disabled>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <div class="col-md-12">
+          <br>
+          <%= simple_form_for :nuevo_detalle_de, :url => {:controller => "datos_externos", :action => "crea_detalle_de"}, defaults: { wrapper: :inline_field6 } do |f| %>
+          <div class="row">
+            <div class="col-12">
+
+              <div class="row">
+                <%= f.input :nombre, label: "Nombre", required: true, wrapper: :inline_field3%>
+                <%= f.input :param1, label: "Parametro1", required: false, wrapper: :inline_field3 %>
+                <%= f.input :param2, label: "Parametro2", required: false, wrapper: :inline_field3 %>
+                <%= f.input :param3, label: "Parametro3", required: false, wrapper: :inline_field3 %>
+                <%= f.input :param4, label: "Parametro4", required: false, wrapper: :inline_field3 %>
+                <%= f.input :param5, label: "Parametro5", required: false, wrapper: :inline_field3 %>
+                <%= f.input :tipo, label: "Tipo", required: true, wrapper: :inline_field3 %>
+                <%= f.input :body, label: "Body", required: false, wrapper: :inline_field12, as: :text, :input_html => {:rows => 3} %>
+                <%= f.hidden_field :datos_externo_id, :value => @dato_externos.id %>
+              </div>
+            </div>
+
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-md-12 text-right">
+
+              <%= button_tag f.submit, class: "btn btn-success btn-sm" do %>
+              <span class="icon text-50">
+                <i class="fas fa-edit"></i>
+              </span>
+              <span class="text">REGISTRAR</span>
+              <%end%>
+
+
+              <%= link_to index_detalle_datos_externo_path(:dato_externo_id => @dato_externos.id ), class: "btn btn-outline-danger btn-sm" do %>
+              <span class="icon text-red-50">
+                <i class="fas fa-arrow-circle-left"></i>
+              </span>
+              <span class="text">CANCELAR</span>
+              <%end%>
+
+            </div>
+          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

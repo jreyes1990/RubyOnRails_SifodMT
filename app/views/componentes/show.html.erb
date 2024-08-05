@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @componente.nombre %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @componente.descripcion %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @componente.estado %>
+</p>
+
+<p>
+  <strong>User create:</strong>
+  <%= @componente.user_created_id %>
+</p>
+
+<p>
+  <strong>User update:</strong>
+  <%= @componente.user_updated_id %>
+</p>
+
+<%= link_to 'Edit', edit_componente_path(@componente) %> |
+<%= link_to 'Back', componentes_path %>

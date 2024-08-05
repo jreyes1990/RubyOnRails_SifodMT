@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Correo Electrónico Madre Tierra</title>
+    <!-- Estilos omitidos por brevedad, los mismos que proporcionaste -->
+
+  </head>
+  <body bgcolor="#C0C0C0" style="background-color: #C0C0C0; font-family: Arial, sans-serif;">
+    <center>
+      <table class="container" width="100%" cellpadding="0" cellspacing="0" border="0"
+            style="width: 100%; margin: auto; border: 0px; border-collapse: collapse; max-width: 650px;">
+        <!-- Header -->
+        <tr>
+          <td bgcolor="white"
+                    style="padding: 30px 20px 15px 30px; display: flex; justify-content: space-between; text-transform: capitalize;">
+            <table cellpadding="0" cellspacing="0" border="0" width="100%">
+              <tr>
+                <!-- Título -->
+                <td class="header-title"
+                                style="padding: 30px 20px 15px 0; text-transform: capitalize; vertical-align: middle; text-align: left; width: 60%;">
+                  <span style="font-size: 18px; font-weight: lighter; color: grey;"><b><%= @titulo_correo %></b></span>
+                </td>
+                <!-- Logo -->
+                <td style="text-align: right; padding-right: 10px; width: 40%;">
+                  <img src="<%= @logo_correo %>"
+                                    alt="Email Madre Tierra" width="80" height="80">
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <!-- Message Content -->
+        <tr>
+          <td bgcolor="white" class="message"
+                    style="background-color: white; color: grey; font-size: 12px; line-height: 20px; text-align: justify; padding: 0px 30px;"
+                    align="justify">
+            <!-- Tu contenido del mensaje aquí... omitido por brevedad -->
+            <p
+                        style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px; color: grey; ">
+              <%= @titulo_bienvenida %></p>
+            <p
+                        style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px; color: grey;">
+              Has sido registrado con éxito en nuestra aplicación. Puedes iniciar sesión con los siguientes
+              detalles:
+            </p>
+            <p
+                        style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px; color: grey;">
+              <strong>Correo Electonico: </strong>
+              <%= @correo_electronico %>
+            </p>
+            <p
+                        style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px; color: grey;">
+              <strong>Contraseña: </strong>
+              <%= @temp_password %>
+            </p>
+            <p
+                        style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; margin-bottom: 15px; color: grey;">
+              Por favor, cambia tu contraseña después del primer inicio de sesión.</p>
+            <div class="button" style="text-align: center; margin-bottom: 10px;">
+              <a href="<%= @ruta_url %>" target="_blank"
+                            style=" border-radius: 5px; box-sizing: border-box; cursor: pointer; display: inline-block; font-size: 14px; font-weight: bold; margin: 0; padding: 10px 33px; text-decoration: none; text-transform: capitalize; background-color: #08A243; border-color: #0d9dda; color: #ffffff;">Accede
+                a tu cuenta
+              </a>
+            </div>
+            <p style="font-family: sans-serif; font-size: 14px; font-weight: normal; margin: 0; color: grey;">
+              ¡Importante! Nunca compartas tus credenciales de acceso. Mantén tus contraseñas seguras. La
+              seguridad es
+              responsabilidad de todos.</p>
+          </td>
+        </tr>
+        <!-- Alert Content -->
+        <tr>
+          <td bgcolor="white" class="alert"
+                    style="background-color: white; color: grey; font-size: 9px; text-align: justify; padding: 10px 30px 5px 30px;"
+                    align="justify">
+            <!-- Tu contenido de alerta aquí... omitido por brevedad -->
+            <p>Correo electrónico generado automáticamente. Si ha recibido este correo electrónico por error
+              notifíquelo
+              al departamento de Tecnología e
+              Información. Por favor no responda o escriba a esta dirección de correo electrónico.</p>
+          </td>
+        </tr>
+        <!-- Footer -->
+        <tr>
+          <td bgcolor="#6EB844" class="footer"
+                    style="background-color: #6EB844; color: white; font-size: 9px; text-align: center; padding-bottom: 8px;"
+                    align="center">
+            <!-- Usamos una tabla para los links de redes sociales -->
+            <table border="0" cellpadding="0" cellspacing="0" align="center" style="margin: 10px auto;">
+              <tr>
+                <!-- Cada ícono dentro de una celda de la tabla -->
+                <td style="padding: 0 5px;">
+                  <a href="http://www.madretierra.com.gt" target="_blank" style="text-decoration: none;">
+                    <img class="icons"
+                                        src="https://soporte.sistemasmt.com.gt/media/network_social/web.png" width="30">
+                  </a>
+                </td>
+                <td style="padding: 0 5px;">
+                  <a href="https://www.facebook.com/FIMadreTierra/" target="_blank"
+                                    style="text-decoration: none;">
+                    <img class="icons"
+                                        src="https://soporte.sistemasmt.com.gt/media/network_social/facebook.png"
+                                        width="30">
+                  </a>
+                </td>
+                <td style="padding: 0 5px;">
+                  <a href="https://twitter.com/FundacionIMT" target="_blank"
+                                    style="text-decoration: none;">
+                    <img class="icons"
+                                        src="https://soporte.sistemasmt.com.gt/media/network_social/twitter.png"
+                                        style="width: 30px; padding: 0 5px;" width="30">
+                  </a>
+                </td>
+                <td style="padding: 0 5px;">
+                  <a href="https://www.instagram.com/fundacionimt" target="_blank"
+                                    style="text-decoration: none;">
+                    <img class="icons"
+                                        src="https://soporte.sistemasmt.com.gt/media/network_social/instagram.png"
+                                        style="width: 30px; padding: 0 5px;" width="30">
+                  </a>
+                </td>
+                <td style="padding: 0 5px;">
+                  <a href="https://www.youtube.com/channel/UCHW10mzHnVCSSBrVJJ2-iAw" target="_blank"
+                                    style="text-decoration: none;">
+                    <img class="icons"
+                                        src="https://soporte.sistemasmt.com.gt/media/network_social/youtube.png"
+                                        style="width: 30px; padding: 0 5px;" width="30">
+                  </a>
+                </td>
+                <!-- ... repite para los demás íconos ... -->
+              </tr>
+            </table>
+            <strong>Copyright &copy; CAIGSA | PBX: 6685-4900 | Ext. 1248, 1249</strong>
+            <p style="margin: 2px 0 0 0;">
+              <%= Time.now.year %> Todos los Derechos Reservados.
+            </p>
+          </td>
+        </tr>
+      </table>
+    </center>
+  </body>
+</html>

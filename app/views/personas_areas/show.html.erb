@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Personas:</strong>
+  <%= @personas_area.persona_id %>
+</p>
+
+<p>
+  <strong>Areas:</strong>
+  <%= @personas_area.area_id %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @personas_area.estado %>
+</p>
+
+<p>
+  <strong>User create:</strong>
+  <%= @personas_area.user_created_id %>
+</p>
+
+<p>
+  <strong>User update:</strong>
+  <%= @personas_area.user_updated_id %>
+</p>
+
+<%= link_to 'Edit', edit_personas_area_path(@personas_area) %> |
+<%= link_to 'Back', personas_areas_path %>

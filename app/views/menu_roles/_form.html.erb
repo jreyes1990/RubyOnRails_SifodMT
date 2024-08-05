@@ -1,0 +1,74 @@
+<!-- Inicio menu - rol -->
+<div class="card shadow mb-4">
+  <%= form_with(model: menu_rol, local: true) do |form| %>
+    <div class="card-header py-3">
+      <h6 class="m-0 font-weight-bold text-primary">Gestión de Menú por Rol</h6>
+    </div>
+    <div class="card-body">
+
+      <div class="container-fluid">
+        <div class="row">
+
+          <div class="col-md-12">
+            
+            <div class="row">
+              <div class="col-md-4">
+              </div>
+              <div class="col-md-4">
+
+                <% if menu_rol.errors.any? %>
+                <div id="error_explanation">
+                  <h2><%= pluralize(menu_rol.errors.count, "error") %> Prohibido que se guarde este item:</h2>
+                  <ul>
+                    <% menu_rol.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                    <% end %>
+                  </ul>
+                </div>
+                <% end %>
+                <br />
+
+                <div class="field">
+                  <%= form.label :Menu %>
+                  <%= form.collection_select(:menu_id, Menu.where(:estado => 'A').order(:nombre), :id, :nombre,  {:prompt => "Seleccione un Menú"}, {:class => "form-control select2", :required => true}) %>
+                </div>
+                <br />
+                <div class="field">
+                  <%= form.label :opcion %>
+                  <%= form.grouped_collection_select(:opcion_id, Menu.where(:estado => 'A').order(:nombre), :opciones, :nombre, :id, :nombre, {:prompt => "Seleccione una Área"}, {:class => "form-control select2", :required => '', :type => "select"}) %>
+                </div>
+                <br />
+                <div class="field">
+                  <%= form.label :rol %>
+                  <%= form.collection_select(:rol_id, Rol.where(:estado => 'A'), :id, :nombre,  {:prompt => "Seleccione un Rol"}, {:class => "form-control select2", :required => ''}) %>
+                </div>
+
+              </div>
+              <div class="col-md-4">
+              </div>
+            </div>
+            <br />
+            <div class="row">
+              <div class="col-md-12 text-right">
+                <%= link_to menu_roles_path, class: "btn btn-outline-danger btn-sm" do %>
+                  <span class="icon text-red-50">
+                    <i class="fas fa-arrow-circle-left"></i>
+                  </span>
+                  <span class="text">CANCELAR</span>
+                <% end %>
+                <% if tiene_permiso("BOTON REGISTRAR", "VER") %>
+                  <%= button_tag form.submit, class: "btn btn-success btn-sm" do %>
+                    <span class="icon text-white-50">
+                      <i class="fas fa-edit"></i>
+                    </span>
+                    <span class="text">REGISTRAR</span>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

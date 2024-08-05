@@ -1,0 +1,76 @@
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Perfil de Usuario</h6>
+  </div>
+  <div class="card-body">
+
+    <%= form_with model: @persona, class: "" do |f| %>
+      <div class="row gutters-sm">
+          <div class="col-md-4 mb-3">
+            <div class="card">
+              <div class="card-body">
+                <div class="d-flex flex-column align-items-center text-center">
+                  <%  
+                    @foto_persona = current_user.persona.foto.presence || image_path('default.jpg')
+                  %>
+                  <img class="img-profile rounded-circle" src="<%= @foto_persona %>" style="border: 2px solid white;" width="150" height="150">
+                  <h4><%= @persona.nombre_completo %></h4>
+                  <br>
+                  <div class="forms-group">
+                    <div class="custom-file">
+                      <%= f.file_field :foto, :class => "custom-file-input", id: "customFile", accept: 'image/jpeg,image/gif,image/png,image/jpg' %>
+                      <label class="custom-file-label" for="customFile">Busca una foto</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-8 mb-3">
+            <div class="card">
+              <div class="card-body">
+
+                <div class="row">
+                  <%= f.label :nombre%>
+                  <%= f.text_field :nombre, autofocus: true,class:"form-control", required: true, pattern: "^[A-Za-z\s]+$"%>
+                </div>
+                <hr>
+                <div class="row">
+                  <%= f.label :apellido%>
+                  <%= f.text_field :apellido, class:"form-control", required: true, pattern: "^[A-Za-z\s]+$"%>
+                </div>
+                <hr>
+                <div class="row">
+                  <%= f.label :direccion%>
+                  <%= f.text_field :direccion, class:"form-control", required: true %>
+                </div>
+                <hr>
+                <div class="row">
+                  <%= f.label :telefono%>
+                  <%= f.text_field :telefono, class:"form-control", required: true, pattern: "^[0-9]{8}$"%>
+                </div>
+                <%= f.hidden_field :user_updated_id, :value => current_user.id %>
+                <br>
+                <div class="form-group col-md-12 text-right" style="padding:15px">
+                    <%= button_tag f.submit, class: "btn btn-success btn-sm" do %>
+                    <span class="icon text-50">
+                      <i class="fas fa-edit"></i>
+                    </span>
+                    <span class="text">ACTUALIZAR</span>
+                    <%end%>
+
+                    <%= link_to ver_perfil_path(@persona), class: "btn btn-outline-danger btn-sm" do %>
+                    <span class="icon text-red-50">
+                      <i class="fas fa-arrow-circle-left"></i>
+                    </span>
+                    <span class="text">CANCELAR</span>
+                    <%end%>
+                  </div>
+              </div>
+            </div>
+          </div>        
+        </div>
+    <% end %>
+  </div>
+</div>

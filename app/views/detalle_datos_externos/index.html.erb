@@ -1,0 +1,89 @@
+<!-- Inicio detalle datos externos -->
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Gestión de Detalles de Datos Externos</h6>
+    </div>
+    <div class="card-body">
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-12 text-right">
+                        
+                            <%= link_to new_detalle_datos_externo_path, class: "btn btn-success btn-sm" do %>
+                            <span class="icon text-white-50">
+                                <i class="fas fa-plus-circle"></i>
+                            </span>
+                            <span class="text">AGREGAR</span>
+                            <%end%>
+                      
+                            <%= link_to root_path, class: "btn btn-outline-danger btn-sm" do %>
+                            <span class="icon text-red-50">
+                                <i class="fas fa-arrow-circle-left"></i>
+                            </span>
+                            <span class="text">SALIR</span>
+                            <%end%>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <br />
+                            <div class="col-md-12 table-responsive">
+                                <table id="datatable" class="table table-hover table-sm table-bordered text-center">
+                                    <thead class="thead-light">
+                                        <tr>
+                                            <th>id </th>
+                                            <th>Datos externo</th>
+                                            <th>Nombre</th>
+                                            <th>Param1</th>
+                                            <th>Param2</th>
+                                            <th>Param3</th>
+                                            <th>Param4</th>
+                                            <th>Param5</th>
+                                            <th>Tipo</th>
+                                            <th>Body</th>
+                                            <th>Estado</th>
+                                            <th>Opciones</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                         <% @detalle_datos_externos.each do |detalle_datos_externo| %>
+                                        <tr>
+                                            <td><%= detalle_datos_externo.id %> </td>
+                                            <td><%= detalle_datos_externo.datos_externo.nombre %></td>
+                                            <td><%= detalle_datos_externo.nombre %></td>
+                                            <td><%= detalle_datos_externo.param1 %></td>
+                                            <td><%= detalle_datos_externo.param2 %></td>
+                                            <td><%= detalle_datos_externo.param3 %></td>
+                                            <td><%= detalle_datos_externo.param4 %></td>
+                                            <td><%= detalle_datos_externo.param5 %></td>
+                                            <td><%= detalle_datos_externo.tipo %></td>
+                                            <td><%= detalle_datos_externo.body %></td>
+                                            <td><%= detalle_datos_externo.estado %></td>
+
+                                            <td>
+                                          
+                                                <%= link_to edit_detalle_datos_externo_path(detalle_datos_externo), class: "btn btn-outline-info btn-sm " do %>
+                                                <i class="fas fa-edit"></i>
+                                                <%end%>
+                                          
+                                          
+                                                <%= link_to  detalle_datos_externo, method: :delete, class: "btn btn-outline-danger btn-sm ", data: { confirm: 'Se eliminara' } do %>
+                                                <i class="fas fa-trash-alt"></i>
+                                                <%end%>
+                                          
+                                            </td>
+                                        </tr>
+                                        <% end %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

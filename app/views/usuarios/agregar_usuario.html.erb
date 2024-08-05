@@ -1,0 +1,86 @@
+<!-- Formulario Usuarios -->
+<%= simple_form_for :usuario_form, :url => {:controller => "usuarios", :action => "crear_usuario"}, defaults: { wrapper: :inline_field6 } do |f| %>
+  <div class="card shadow mb-4">
+    <div class="card-header py-3">
+      <h5 class="m-0 font-weight-bold text-primary">Gestión de Usuario</h5>
+    </div>
+    <div class="card-body">
+      <% if flash[:alert].present? %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+      <% end %>
+      <div class="row">
+        <div class="col-md-12">
+          <h4>
+            Datos Personales
+          </h4>
+          <div class="row">
+            <%= f.input :nombre, name: 'usuario_form[nombre]', autofocus: true, input_html: {class:"form-control", type: "txt", placeholder: "Ingrese solo letras", required: true, pattern: "^[A-Za-zñÑáéíóúÁÉÍÓÚ \s]+$"}  %>
+            <%= f.input :apellido, name: 'usuario_form[apellido]', input_html: {class:"form-control", type: "txt", placeholder: "Ingrese solo letras", required: true, pattern: "^[A-Za-zñÑáéíóúÁÉÍÓÚ \s]+$"} %>
+          </div>
+          <br />
+          <div class="row">
+            <%= f.input :telefono, input_html: {class:"form-control", type: "", maxlength: "8", placeholder: "Ingrese 8 dígitos", required: true, pattern: "^[0-9]{8}$"} %>
+            <%= f.input :direccion, input_html: {class:"form-control", type: "txt", placeholder: "", required: true }%>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <br />
+          <h4>
+            Datos de Inicio de sesión
+          </h4>
+          <div class="row">
+            <div class="col-md-6">
+              <%= f.label "Correo Electrónico" %><br />
+              <%= f.email_field :email, autocomplete: "email" ,class: "form-control form-control-user", placeholder: "ejemplo@gmail.com", required: true %>
+            </div>
+            <%# <div class="col-md-6">
+              <%= f.label "Clave" %>
+            <%# <div class="input-group">
+                <%= f.password_field :password, autocomplete: "current-password", minlength: "6", class: "form-control form-control-user", required: true, placeholder: "Minimo 6 caracteres", id: "txtPasswordNew" %>
+            <%# <div class="input-group-append">
+                  <button id="show_password_new" class="btn btn-success" type="button"> <span id="mostrar" class="fas fa-eye-slash icon"></span> </button>
+                </div>
+              </div>
+            </div> %>
+          </div>
+          <%= f.hidden_field :estado, :value => "A" %>
+          <%= f.hidden_field :user_created_id, :value => current_user.id %>
+          <br>
+          <h4>
+            Asignación de Área
+          </h4>
+          <div class="row">
+            <%= f.input  :empresa_id, collection: Empresa.where(:estado => 'A').limit(10), label_method: :informacion_empresa, value_method: :id, label: "Seleccione una empresa", prompt: "Buscar una empresa", input_html: {class: 'select2', id: "empresa_id_usuario", 'data-endpoint': search_area_empresa_usuario_path, required: true} %>
+            <%= f.input  :area_id, collection: Area.where(:estado => 'A').limit(0), label_method: :nombre_area_empresa, value_method: :id, label: "Seleccione una área", prompt: "Buscar una área", input_html: {class: 'select2', id: "area_id_usuario", required: true} %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer shadow bg-transparent" style="background-color: #efefef !important;">
+      <div class="col-md-12 text-center">
+        <%= link_to usuarios_index_path, class: "btn btn-danger btn-sm mt-2" do %>
+          <span class="icon text-red-50">
+            <i class="fas fa-arrow-circle-left"></i>
+          </span>
+          <span class="text">CANCELAR</span>
+        <% end %>
+
+        <% if tiene_permiso("BOTON REGISTRAR", "VER") %>
+          <%= button_tag f.submit, 
+              class: "btn btn-success btn-sm mt-2 btn_event_usuario",
+              data: { evento: "Registrar", nombre: "el nuevo usuario" } do %>
+            <span class="icon text-50">
+              <i class="fas fa-edit"></i>
+            </span>
+            <span class="text">REGISTRAR</span>
+          <%end%>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

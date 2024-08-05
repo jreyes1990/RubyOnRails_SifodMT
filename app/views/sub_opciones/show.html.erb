@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @sub_opcion.nombre %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @sub_opcion.descripcion %>
+</p>
+
+<p>
+  <strong>User created:</strong>
+  <%= @sub_opcion.user_created_id %>
+</p>
+
+<p>
+  <strong>User updated:</strong>
+  <%= @sub_opcion.user_updated_id %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @sub_opcion.estado %>
+</p>
+
+<%= link_to 'Edit', edit_sub_opcion_path(@sub_opcion) %> |
+<%= link_to 'Back', sub_opciones_path %>

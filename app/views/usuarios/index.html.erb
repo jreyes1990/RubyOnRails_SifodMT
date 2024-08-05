@@ -1,0 +1,136 @@
+<!-- Inicio usuarios -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <div class="row">
+      <div class="col-md-6 table-responsive-sm text-left mt-2">
+        <h5 class="m-0 font-weight-bold text-primary">Gestión de Usuarios</h5>
+      </div>
+      <div class="col-md-6 table-responsive-sm text-right">
+        <% if tiene_permiso("BOTON NUEVO REGISTRO", "VER") %>
+          <%= link_to usuarios_agregar_usuario_path, class: "btn btn-success btn-sm mt-2" do %>
+            <span class="icon text-green-50">
+                <i class="fas fa-plus-circle"></i>
+            </span>
+            <span class="text">AGREGAR</span>
+          <% end %>
+        <% end %>
+        <%= link_to root_path, class: "btn btn-danger btn-sm mt-2" do %>
+          <span class="icon text-red-50">
+              <i class="fas fa-home"></i>
+          </span>
+          <span class="text">INICIO</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-12 table-responsive-sm">
+        <table id="datatable_usuario" class="table table-hover table-sm table-bordered display" width="100%" cellpadding="0" cellspacing="0">
+          <thead class="thead-light">
+            <tr>
+              <th class="text-center"> id </th>
+              <th> Nombre </th>
+              <th> Teléfono </th>
+              <th> Dirección </th>
+              <th> User </th>
+              <th class="text-center">Número Sesión</th>
+              <th class="text-center">Sesión Actual</th>
+              <th class="text-center">IP Actual</th>
+              <th class="text-center">Última Sesión</th>
+              <th class="text-center">IP Última</th>
+              <th class="text-center"> Estado </th>
+              <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
+              <th class="text-center"></th>
+              <% end %>
+              <th class="text-center"></th>
+              <th class="text-center"></th>
+              <% if tiene_permiso("BOTON ACTIVAR/INACTIVAR REGISTRO", "VER") %>
+              <th class="text-center"></th>
+              <% end %>
+            </tr>
+          </thead>
+          <tbody>
+            <% @personas.each do |p| %>
+              <tr>
+                <td class="text-center"> <%= p.id %> </td>
+                <td> <%= "#{p.nombre} #{p.apellido}" %> </td>
+                <td> <%= p.telefono %> </td>
+                <td> <%= p.direccion %> </td>
+                <td> <%= p.user.email %> </td>
+                <td class="text-center"><%= p.sign_in_count %></td>
+                <td class="text-center"><%= p.current_sign_in_at %></td>
+                <td class="text-center"><%= p.current_sign_in_ip %></td>
+                <td class="text-center"><%= p.last_sign_in_at %></td>
+                <td class="text-center"><%= p.last_sign_in_ip %></td>
+                <td class="text-center"> <%= format_estado(p.estado) %> </td>
+                <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
+                <td class="text-center">
+                <%= link_to edit_email_persona_path(:id => p.id), 
+                            class: "btn btn-outline-info btn-sm",
+                            remote: true, data: {toggle: "modal", target: "#modal-content-edit-email"},
+                            "data-custom-class": "popover-info", title: "ACTUALIZAR CORREO", "data-content": "#{p.nombre.capitalize} #{p.apellido.capitalize}" do %>
+                  <i class="fas fa-user-edit"></i>
+                <% end %>
+                </td>
+                <% end %>
+                <td class="text-center">
+                <% if (p.cambio_password =='f' || p.cambio_password == false) && p.estado == 'A' %>
+                  <%= link_to conservar_password_persona_path(:id => p.id), 
+                      class: "btn btn-outline-secondary btn-sm btn_password_usuario", 
+                      data: { evento: "Conservar", "retorna-formulario": "NO", nombre: "la contraseña del usuario #{p.nombre.upcase} #{p.apellido.upcase}" }, 
+                      "data-custom-class": "popover-secondary", title: "CONSERVAR CONTRASEÑA", "data-content": "#{p.nombre.capitalize} #{p.apellido.capitalize}" do %>
+                    <i class="fas fa-retweet"></i>
+                  <% end %> 
+                <% end %>
+                </td>
+                <td class="text-center">
+                <% if (p.cambio_password =='f' || p.cambio_password == false) && p.estado == 'A' %>
+                  <%= link_to remitente_email_persona_path(:id => p.id, :flag_cambio_password => 0), 
+                      class: "btn btn-outline-primary btn-sm btn_enviar_credencial", 
+                      data: { evento: "Enviar", "retorna-formulario": "NO", nombre: "las credenciales a #{p.nombre.upcase} #{p.apellido.upcase}" },
+                      "data-custom-class": "popover-primary", title: "ENVIAR CREDENCIALES", "data-content": "#{p.nombre.capitalize} #{p.apellido.capitalize}" do %>
+                    <i class="fas fa-envelope-open-text"></i>
+                  <% end %> 
+                <% elsif (p.cambio_password =='t' || p.cambio_password == true) && p.estado == 'A' %>
+                  <%= link_to remitente_email_persona_path(:id => p.id, :flag_cambio_password => 1), 
+                      class: "btn btn-outline-success btn-sm btn_enviar_credencial", 
+                      data: { evento: "Enviar", "retorna-formulario": "NO", nombre: "las credenciales a #{p.nombre.upcase} #{p.apellido.upcase}" },
+                      "data-custom-class": "popover-success", title: "ENVIAR CREDENCIALES", "data-content": "#{p.nombre.capitalize} #{p.apellido.capitalize}" do %>
+                  <i class="fas fa-envelope-open-text"></i>
+                  <% end %> 
+                <% end %>
+                </td>
+                <% if tiene_permiso("BOTON ACTIVAR/INACTIVAR REGISTRO", "VER") %>
+                <td class="text-center">
+                <% if p.estado == "A" %>
+                  <%= link_to inactivar_persona_path(:id => p.id), 
+                      class: "btn btn-outline-danger btn-sm btn_status_usuario", 
+                      data: { nombre: "#{p.nombre.upcase} #{p.apellido.upcase}" },
+                      "data-custom-class": "popover-danger", title: "INACTIVAR", "data-content": "#{p.nombre.capitalize} #{p.apellido.capitalize}" do %>
+                    <i class="fas fa-trash-alt"></i>
+                  <% end %>
+                <% else %>
+                  <%= link_to activar_persona_path(:id => p.id), 
+                      class: "btn btn-outline-success btn-sm btn_status_usuario", 
+                      data: { nombre: "#{p.nombre.upcase} #{p.apellido.upcase}" },
+                      "data-custom-class": "popover-success", title: "ACTIVAR", "data-content": "#{p.nombre.capitalize} #{p.apellido.capitalize}" do %>
+                    <i class="fas fa-trash-restore-alt"></i>
+                  <% end %>
+                <% end %>
+                </td>
+                <% end%>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Contenido del modal de detalle -->
+<div class="modal-dialog-scrollable">
+  <div id="modal-content-edit-email" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  </div>
+</div>

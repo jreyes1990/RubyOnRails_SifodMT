@@ -1,0 +1,48 @@
+<% flash.each do | type, msg | %>
+  <% if type == 'alert'%>
+    <div class="alert alert-warning alert-dismissible align-items-center fade show" style="border-left:rgb(224, 211, 109) 5px solid; border-radius: 0px">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <div class="progress-bar-alert"></div>
+      <img class="img-profile rounded-circle" src="/assets/icono_warning.png" style="border: 2px solid white;" width="25" height="25">
+      <strong>Advertencia!!! </strong>
+      <%= msg %>
+    </div>
+
+  <% elsif  type == 'notice'%>
+    <div class="alert alert-success alert-dismissible align-items-center fade show" style="border-left:#69b666 5px solid; border-radius: 0px;">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <div class="progress-bar-alert"></div>
+      <img class="img-profile rounded-circle" src="/assets/icono_success.png" style="border: 2px solid white;" width="25" height="25">
+      <strong>Excelente!!! </strong>
+      <%= msg %>
+    </div>
+    
+  <% elsif  type == 'success'%>
+    <div class="alert alert-success alert-dismissible align-items-center fade show" style="border-left:#69b666 5px solid; border-radius: 0px">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <div class="progress-bar-alert"></div>
+      <img class="img-profile rounded-circle" src="/assets/icono_success.png" style="border: 2px solid white;" width="25" height="25">
+      <strong>Excelente!!! </strong>
+      <%= msg %>
+    </div>
+
+  <% elsif type=='info'%>
+    <div class="alert alert-info alert-dismissible align-items-center fade show" style="border-left:#6fb4d8 5px solid; border-radius: 0px">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <div class="progress-bar-alert"></div>
+      <img class="img-profile rounded-circle" src="/assets/icono_info.png" style="border: 2px solid white;" width="25" height="25">
+      <strong>Información!!! </strong>
+      <%= msg %>
+    </div>
+  
+  <% elsif  type == 'error'%>
+    <div class="alert alert-danger alert-dismissible align-items-center fade show" style="border-left:red 5px solid; border-radius: 0px">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <div class="progress-bar-alert"></div>
+      <img class="img-profile rounded-circle" src="/assets/icono_error.png" style="border: 2px solid white;" width="25" height="25">
+      <strong>Error!!! </strong>
+      <%= msg %>
+    </div>
+
+  <% end %>
+<% end %>

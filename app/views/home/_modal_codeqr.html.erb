@@ -1,0 +1,91 @@
+<style>
+  #preview {
+    width: 350px;
+    height: 200px;
+    margin: 0px auto;
+    /*IMPORTANTE*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+</style>
+
+<video id="preview"></video>
+
+<div class="row">
+  <div class="col-12 text-center">
+    <div class="btn-group btn-group-toggle mb-5" data-toggle="buttons">
+      <label class="btn btn-primary active">
+        <input type="radio" name="options" value="1" autocomplete="off" checked>Cámara Frontal
+      </label>
+      <label class="btn btn-secondary">
+        <input type="radio" name="options" value="2" autocomplete="off">Cámara Trasera
+      </label>
+      <%= link_to  "", class: "btn btn-danger btn-sm " do %>
+      <i class="far fa-times-circle"></i>
+    <%end%>
+    </div>
+
+    
+  </div>
+</div>
+
+<script type="text/javascript">
+  var scanner = new Instascan.Scanner({
+    video: document.getElementById('preview'),
+    scanPeriod: 5,
+    mirror: false
+  });
+  scanner.addListener('scan', function (content) {
+    // alert("este es el que muestra " + content);
+    //envia dato scaneado ala caja de busqueda
+    $('#caja_busqueda').val(content);
+    //se detiene la grabacion
+    scanner.stop();
+
+    //cierrre del modal 
+    const myModal = $('#modal-content-busqueda-codeqr');
+    myModal.hide();
+    $('body').removeClass('modal-open'); //eliminamos la clase del body para poder hacer scroll
+    $('.modal-backdrop').remove(); //eliminamos el backdrop del modal
+    $('#btn_submit_topbar').trigger('click');
+  });
+  Instascan.Camera.getCameras().then(function (cameras) {
+    if (cameras.length > 0) {
+      scanner.start(cameras[0]);
+      $('[name="options"]').on('change', function () {
+        if ($(this).val() == 1) {
+          if (cameras[0] != "") {
+            scanner.start(cameras[0]);
+          } else {
+            alert('No Front camera found!');
+          }
+        } else if ($(this).val() == 2) {
+          if (cameras[1] != "") {
+            scanner.start(cameras[1]);
+          } else {
+            alert('No Back camera found!');
+          }
+        }
+      });
+    } else {
+      console.error('No cameras found.');
+      alert('No cameras found.');
+    }
+  }).catch(function (e) {
+    console.error(e);
+    alert(e);
+  });
+
+  $(document).ready(function () {
+
+    // Close modal on button click
+    $(".btn").click(function () {
+      scanner.stop();
+      const myModal = $('#modal-content-busqueda-codeqr');
+      myModal.hide();
+      $('body').removeClass('modal-open'); //eliminamos la clase del body para poder hacer scroll
+      $('.modal-backdrop').remove(); //eliminamos el backdrop del modal
+    });
+  });
+</script>

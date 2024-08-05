@@ -1,0 +1,67 @@
+<h4 class="text-white mb-4 text-uppercase font-weight-bold "><%= t('.renew_your_password') %></h4>
+<p class="text-white mb-3 text-justify">Es hora de renovar su contraseña para garantizar la seguridad de su cuenta. Por favor llene los siguientes campos: </p>
+
+<%= form_for(resource, as: resource_name, url: [resource_name, :password_expired], html: { method: :put }) do |f| %>
+  <%= render partial: 'devise/shared/error_messages' %>
+
+  <p class="text-center text-white mb-0">
+    <%= f.label :current_password, "#{t('.current_password')}: *" %>
+    <br>
+    <div class="input-group">
+      <%= f.password_field :current_password, required: true, class: "form-control form-control-user password-field", placeholder: "Ingrese Contraseña Actual"%>
+
+      <div class="input-group-append">
+        <button class="btn btn-success show-password-button" type="button">
+          <span class="fa fa-eye icon"></span>
+        </button>
+      </div>
+    </div>
+  </p>
+
+  <p class="text-center text-white mb-0">
+    <%= f.label :password, "#{t('.new_password')}: *" %>
+    <br>
+    <div class="input-group">
+      <%= f.password_field :password, required:true, class: "form-control form-control-user password-field", placeholder: "Ingrese Nueva Contraseña" %>
+      <div class="input-group-append">
+        <button class="btn btn-success show-password-button" type="button">
+          <span class="fa fa-eye icon"></span>
+        </button>
+      </div>
+    </div>
+  </p>
+
+  <p class="text-center text-white mb-0">
+    <%= f.label :password_confirmation, "#{t('.new_password_confirmation') }: *" %>
+    <br>
+    <div class="input-group">
+      <%= f.password_field :password_confirmation, required:true, class: "form-control form-control-user password-field", placeholder: "Confirme Nueva Contraseña"%>
+      <div class="input-group-append">
+        <button class="btn btn-success show-password-button" type="button">
+          <span class="fa fa-eye icon"></span>
+        </button>
+      </div>
+    </div>
+  </p>
+
+  <p>
+    <%= f.submit t('.change_my_password'), class: "btn btn-success btn-user btn-block"%>
+  </p>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    $('.show-password-button').click(function() {
+      var passwordField = $(this).closest('.input-group').find('.password-field');
+      var icon = $(this).find('.icon');
+
+      if (passwordField.attr('type') === 'password') {
+        passwordField.attr('type', 'text');
+        icon.removeClass('fa-eye').addClass('fa-eye-slash');
+      } else {
+        passwordField.attr('type', 'password');
+        icon.removeClass('fa-eye-slash').addClass('fa-eye');
+      }
+    });
+  });
+</script>

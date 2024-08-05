@@ -1,0 +1,50 @@
+<!-- Modal HTML -->
+<div id="modal-content-areas" class="modal fade">
+  <div class="modal-dialog modal-login">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">PARAMETROS INICIALES</h4>
+
+      </div>
+      <div class="modal-body">
+        <%= simple_form_for :set_area_form, :url => {:controller => "home", :action => "registrar_area_temporal"}, defaults: { wrapper: :inline_field12 } do |f| %>
+          <div class="row">
+            <%= f.input :area_id, collection: @areas, label_method: :nombre_area, value_method: :area_id, label: "Áreas disponibles", required: true,  include_blank: "Seleccione una área", input_html: {class: "select2"}%>
+            <br>
+          </div>
+          <div class="row">
+            <br>
+            <div class="col-md-12 text-right">
+              <br>
+              <br>
+              <%= button_tag f.submit, class: "btn btn-success btn-sm", :id=>"open-tabla" do %>
+                <span class="text">REGISTRAR</span>
+                <span class="icon text-50">
+                  <i class="fas fa-arrow-right"></i>
+                </span>
+              <%end%>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <div class="modal-footer">
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  $(document).ready(function () {
+     $('#modal-content-areas').modal({
+                        backdrop: 'static',
+                        keyboard: true,
+                        show: true
+                });
+
+    $('.select2').select2({
+      theme: "bootstrap4",
+      language: "es-GT",
+      width: '100%',
+      dropdownParent: $('#modal-content-areas')
+    });
+  });
+</script>

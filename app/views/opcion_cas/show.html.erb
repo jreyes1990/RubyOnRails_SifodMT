@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Opcion:</strong>
+  <%= @opcion_ca.opcion_id %>
+</p>
+
+<p>
+  <strong>Componente:</strong>
+  <%= @opcion_ca.componente_id %>
+</p>
+
+<p>
+  <strong>Atributo:</strong>
+  <%= @opcion_ca.atributo_id %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @opcion_ca.descripcion %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @opcion_ca.estado %>
+</p>
+
+<p>
+  <strong>User create:</strong>
+  <%= @opcion_ca.user_created_id %>
+</p>
+
+<p>
+  <strong>User update:</strong>
+  <%= @opcion_ca.user_updated_id %>
+</p>
+
+<%= link_to 'Edit', edit_opcion_ca_path(@opcion_ca) %> |
+<%= link_to 'Back', opcion_cas_path %>

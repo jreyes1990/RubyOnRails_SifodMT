@@ -1,0 +1,81 @@
+<!-- Inicio opciones - componentes - atributos -->
+<div class="card shadow mb-4">
+  <div class="card-header py-3">
+    <h6 class="m-0 font-weight-bold text-primary">Gestión de los componentes, atributos por opcion</h6>
+  </div>
+  <div class="card-body">
+
+    <div class="container-fluid">
+      <div class="row">
+
+        <div class="col-md-12">
+          <%= form_with(model: opcion_ca, local: true) do |form| %>
+          <div class="row">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-4">
+
+              <% if opcion_ca.errors.any? %>
+              <div id="error_explanation">
+                <h2><%= pluralize(opcion_ca.errors.count, "error") %> prohibited this opcion_ca from being saved:</h2>
+                <ul>
+                  <% opcion_ca.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+              <% end %>
+              <br />
+              <div class="field">
+                <%= form.label :opcion %>
+                <%= form.collection_select(:opcion_id, Opcion.where(:estado => 'A'), :id, :nombre, {:prompt => "Seleccione un formulario"}, {:class => "form-control select2", autofocus: true ,required: true}) %>
+              </div>
+              <br />
+              <div class="field">
+                <%= form.label :componente %>
+                <%= form.collection_select(:componente_id, Componente.where(:estado => 'A'), :id, :nombre, {:prompt => "Seleccione un componente"}, {:class => "form-control select2", required: true}) %>
+              </div>
+              <br />
+              <div class="field">
+                <%= form.label :atributo %>
+                <%= form.collection_select(:atributo_id, Atributo.where(:estado => 'A'), :id, :nombre, {:prompt => "Seleccione un atributo"}, {:class => "form-control select2", required: true}) %>
+              </div>
+              <br />
+              <div class="field">
+                <%= form.label :descripcion %>
+                <%= form.text_area :descripcion, size: '40x5', class:"form-control", type: "txt", placeholder: "", required: true %>
+              </div>
+
+            </div>
+            <div class="col-md-4">
+            </div>
+          </div>
+          <br />
+          <div class="row">
+            <div class="col-md-12 text-right">
+            <% if tiene_permiso("BOTON REGISTRAR", "VER") %>
+              <%= button_tag form.submit, class: "btn btn-success btn-sm" do %>
+              <span class="icon text-50">
+                <i class="fas fa-edit"></i>
+              </span>
+              <span class="text">REGISTRAR</span>
+              <%end%>
+            <% end %>
+              <%= link_to opcion_cas_path, class: "btn btn-outline-danger btn-sm" do %>
+              <span class="icon text-red-50">
+                <i class="fas fa-arrow-circle-left"></i>
+              </span>
+              <span class="text">CANCELAR</span>
+              <%end%>
+
+            </div>
+          </div>
+          <% end %>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+<br>
