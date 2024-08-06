@@ -158,7 +158,8 @@ componentes = [
 
   { nombre: "MENU UNIDAD MEDIDA", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil },
   { nombre: "MENU TIPO SELECCION", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil },
-  { nombre: "MENU TIPO CONTENIDO", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil }
+  { nombre: "MENU TIPO CONTENIDO", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "MENU TIPO CAMPO", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil }
 ]
 
 componentes.each do |componente_params|
@@ -194,8 +195,8 @@ menus.each do |menu_params|
 end
 
 sub_opciones = [
-  {nombre: "OPCIONES:", estado: "A", user_created_id: 1, user_updated_id: nil},
-  {nombre: "PERMISOS:", estado: "A", user_created_id: 1, user_updated_id: nil}
+  {nombre: "OPCIONES:", visible_sidebar: true, posicion: 1, estado: "A", user_created_id: 1, user_updated_id: nil},
+  {nombre: "PERMISOS:", visible_sidebar: true, posicion: 2, estado: "A", user_created_id: 1, user_updated_id: nil}
 ]
 
 sub_opciones.each do |sub_opcion_params|
@@ -228,7 +229,8 @@ opciones = [
 
   {menu_id: 2, nombre: "Unidad de Medidas", componente_sidebar: "MENU UNIDAD MEDIDA", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de las unidades de medida a nivel empresa.", icono: "fab fa-medium", path: "unidad_medidas_path", controlador: "unidad_medidas", posicion: 1, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil},
   {menu_id: 2, nombre: "Tipos de Selección", componente_sidebar: "MENU TIPO SELECCION", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de tipo de selecciones en el sistema.", icono: "fas fa-check-double", path: "tipo_selecciones_path", controlador: "tipo_selecciones", posicion: 2, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil},
-  {menu_id: 2, nombre: "Tipos de Contenido", componente_sidebar: "MENU TIPO CONTENIDO", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de tipo de contenidos en el sistema.", icono: "fas fa-paperclip", path: "tipo_contenidos_path", controlador: "tipo_contenidos", posicion: 3, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil}
+  {menu_id: 2, nombre: "Tipos de Contenido", componente_sidebar: "MENU TIPO CONTENIDO", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de tipo de contenidos en el sistema.", icono: "fas fa-paperclip", path: "tipo_contenidos_path", controlador: "tipo_contenidos", posicion: 3, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil},
+  {menu_id: 2, nombre: "Tipos de Campos", componente_sidebar: "MENU TIPO CAMPO", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de tipo de campos en el sistema.", icono: "fas fa-th-list", path: "tipo_campos_path", controlador: "tipo_campos", posicion: 4, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil}
 ]
 
 opciones.each do |opcion_params|
@@ -261,7 +263,8 @@ menu_roles = [
 
   {rol_id: 1, opcion_id: 14, menu_id: 2, descripcion: "Asignación de Opción-Menú [Unidad Medida] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil},
   {rol_id: 1, opcion_id: 15, menu_id: 2, descripcion: "Asignación de Opción-Menú [Tipo Selección] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil},
-  {rol_id: 1, opcion_id: 16, menu_id: 2, descripcion: "Asignación de Opción-Menú [Tipo Contenido] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil}
+  {rol_id: 1, opcion_id: 16, menu_id: 2, descripcion: "Asignación de Opción-Menú [Tipo Contenido] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {rol_id: 1, opcion_id: 17, menu_id: 2, descripcion: "Asignación de Opción-Menú [Tipo Campo] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil}
 ]
 
 menu_roles.each do |menurol_params|
@@ -433,7 +436,16 @@ opcion_cas = [
   {opcion_id: 16, componente_id: 4, atributo_id: 1, descripcion: "Permiso del botón editar un registro.", estado: "A", user_created_id: 1, user_updated_id: nil},
   {opcion_id: 16, componente_id: 5, atributo_id: 1, descripcion: "Permiso del botón eliminar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
   {opcion_id: 16, componente_id: 6, atributo_id: 1, descripcion: "Permiso del botón activar/inactivar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
-  {opcion_id: 16, componente_id: 9, atributo_id: 1, descripcion: "Permiso del botón descarga.", estado: "A", user_created_id: 1, user_updated_id: nil}
+  {opcion_id: 16, componente_id: 9, atributo_id: 1, descripcion: "Permiso del botón descarga.", estado: "A", user_created_id: 1, user_updated_id: nil},
+
+  {opcion_id: 17, componente_id: 31, atributo_id: 3, descripcion: "Permiso para ver la opción en el Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 17, componente_id: 1, atributo_id: 2, descripcion: "Permiso para acceder al modulo.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 17, componente_id: 2, atributo_id: 1, descripcion: "Permiso del botón nuevo registro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 17, componente_id: 3, atributo_id: 1, descripcion: "Permiso del botón registrar.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 17, componente_id: 4, atributo_id: 1, descripcion: "Permiso del botón editar un registro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 17, componente_id: 5, atributo_id: 1, descripcion: "Permiso del botón eliminar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 17, componente_id: 6, atributo_id: 1, descripcion: "Permiso del botón activar/inactivar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 17, componente_id: 9, atributo_id: 1, descripcion: "Permiso del botón descarga.", estado: "A", user_created_id: 1, user_updated_id: nil}
 ]
 
 opcion_cas.each do |opcionca_params|
@@ -591,7 +603,15 @@ pers_emp_forms = [
   {personas_area_id: 1, opcion_ca_id: 138, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
   {personas_area_id: 1, opcion_ca_id: 139, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
   {personas_area_id: 1, opcion_ca_id: 140, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
-  {personas_area_id: 1, opcion_ca_id: 141, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil}
+  {personas_area_id: 1, opcion_ca_id: 141, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 142, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 143, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 144, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 145, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 146, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 147, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 148, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 149, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil}
 ]
 
 pers_emp_forms.each do |pers_emp_form_params|
@@ -624,5 +644,74 @@ tipo_selecciones.each do |tipo_seleccion_params|
     tipo_seleccion.assign_attributes(tipo_seleccion_params)
     tipo_seleccion.save!
     puts "Tipo Selección '#{tipo_seleccion_params[:nombre]}' creado"
+  end
+end
+
+tipo_contenidos = [
+  { nombre: "PDF", content_type: "application/pdf", estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "PowerPoint", content_type: "application/vnd.ms-powerpoint", estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Microsoft Word", content_type: "application/msword", estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Microsoft Excel", content_type: "application/vnd.ms-excel", estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Imágenes JPEG", content_type: "image/jpeg", estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Imágenes JPG", content_type: "image/jpg", estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Graphics Interchange Format (GIF)", content_type: "image/gif", estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Formato JSON", content_type: "application/json", estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Documento de presentación de OpenDocument", content_type: "application/vnd.oasis.opendocument.presentation", estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Hoja de Cálculo OpenDocument", content_type: "application/vnd.oasis.opendocument.spreadsheet", estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Gráficos Vectoriales (SVG)", content_type: "image/svg+xml", estado: "A", user_created_id: 1, user_updated_id: nil }
+]
+
+tipo_contenidos.each do |tipo_contenido_params|
+  tipo_contenido = TipoContenido.find_or_initialize_by(content_type: tipo_contenido_params[:content_type])
+
+  if tipo_contenido.persisted?  # Verifica si el menú ya existe en la base de datos
+    tipo_contenido.update!(tipo_contenido_params)
+    puts "Tipo Contenido '#{tipo_contenido_params[:content_type]}' actualizado"
+  else
+    tipo_contenido.assign_attributes(tipo_contenido_params)
+    tipo_contenido.save!
+    puts "Tipo Contenido '#{tipo_contenido_params[:content_type]}' creado"
+  end
+end
+
+tipo_campos = [
+  { nombre: "Numero", tipo_dato: "number", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Texto", tipo_dato: "text", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Botón de radio", tipo_dato: "radio", tipo_seleccion_id: 2, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Casilla de verificación", tipo_dato: "checkbox", tipo_seleccion_id: 1, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Rango", tipo_dato: "range", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Restablece Valores", tipo_dato: "reset", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Campos Ocultos", tipo_dato: "hidden", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Archivo PDF", tipo_dato: "file", tipo_seleccion_id: 2, tipo_contenido_id: 2, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Archivo Word", tipo_dato: "file", tipo_seleccion_id: 2, tipo_contenido_id: 3, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Archivo Excel", tipo_dato: "file", tipo_seleccion_id: 2, tipo_contenido_id: 4, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Archivo Imagen JPEG", tipo_dato: "file", tipo_seleccion_id: 2, tipo_contenido_id: 5, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Archivo Imagen JPG", tipo_dato: "file", tipo_seleccion_id: 2, tipo_contenido_id: 6, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Imagen", tipo_dato: "image", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Fecha", tipo_dato: "date", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Fecha y Hora", tipo_dato: "datetime-local", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Tiempo", tipo_dato: "time", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Semana", tipo_dato: "week", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Mes", tipo_dato: "month", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Color", tipo_dato: "color", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Teléfono", tipo_dato: "tel", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Contraseña", tipo_dato: "password", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Correo Electronico", tipo_dato: "email", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Busqueda", tipo_dato: "search", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "URL", tipo_dato: "url", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Envio Datos", tipo_dato: "submit", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Botón", tipo_dato: "button", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil }
+]
+
+tipo_campos.each do |tipo_campo_params|
+  tipo_campo = TipoCampo.find_or_initialize_by(tipo_dato: tipo_campo_params[:tipo_dato], tipo_seleccion_id: tipo_campo_params[:tipo_seleccion_id], tipo_contenido_id: tipo_campo_params[:tipo_contenido_id])
+
+  if tipo_campo.persisted?  # Verifica si el menú ya existe en la base de datos
+    tipo_campo.update!(tipo_campo_params)
+    puts "Tipo Campo '#{tipo_campo_params[:tipo_dato]}' actualizado"
+  else
+    tipo_campo.assign_attributes(tipo_campo_params)
+    tipo_campo.save!
+    puts "Tipo Campo '#{tipo_campo_params[:tipo_dato]}' creado"
   end
 end

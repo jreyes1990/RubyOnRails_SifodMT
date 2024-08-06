@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_05_221504) do
+ActiveRecord::Schema.define(version: 2024_08_06_044217) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -309,6 +309,23 @@ ActiveRecord::Schema.define(version: 2024_08_05_221504) do
     t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Fecha y hora de la última actualización del registro"
   end
 
+  create_table "tipo_campos", id: :serial, comment: "Catálogo de tipos de campo", force: :cascade do |t|
+    t.bigint "tipo_seleccion_id", comment: "Identificador del tipo de selección"
+    t.bigint "tipo_contenido_id", comment: "Identificador del tipo de contenido"
+    t.string "nombre", limit: 100, null: false, comment: "Nombre de tipo de campo"
+    t.string "tipo_dato", limit: 25, null: false, comment: "Identifica el tipo de campo"
+    t.string "descripcion", limit: 200, comment: "Descripción general del tipo de campo"
+    t.boolean "tiene_respuesta", default: false, null: false, comment: "Identifica si el tipo de campo tendrá una configuración de respuesta"
+    t.integer "user_created_id", null: false, comment: "Identificador de usuario al registrar en la aplicación web"
+    t.integer "user_updated_id", comment: "Identificador de usuario al actualizar en la aplicación web"
+    t.string "usr_grab", limit: 50, default: -> { "((replace(upper((USER)::text), 'OPS$'::text, ''::text) || '-'::text) || to_char(CURRENT_TIMESTAMP, 'dd/mm/yyyy HH24:MI'::text))" }, comment: "Identificador de usuario al registrar en la base de datos"
+    t.string "usr_modi", limit: 50, default: -> { "((replace(upper((USER)::text), 'OPS$'::text, ''::text) || '-'::text) || to_char(CURRENT_TIMESTAMP, 'dd/mm/yyyy HH24:MI'::text))" }, comment: "Identificador de usuario al actualizar en la base de datos"
+    t.string "estado", limit: 10, default: "A", null: false, comment: "Estados: [A]: Activo  [I]: Inactivo"
+    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Fecha y hora de creación del registro"
+    t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Fecha y hora de la última actualización del registro"
+    t.index ["tipo_seleccion_id", "tipo_contenido_id"], name: "idx_tipoCampo"
+  end
+
   create_table "tipo_contenidos", id: :serial, comment: "Catálogo de tipos de contenido", force: :cascade do |t|
     t.string "nombre", limit: 100, null: false, comment: "Nombre de tipo de contenido"
     t.text "content_type", null: false, comment: "Identifica el tipo de archivo"
@@ -326,8 +343,8 @@ ActiveRecord::Schema.define(version: 2024_08_05_221504) do
     t.boolean "valor", default: false, null: false, comment: "Identifica si la selección será multiple o simple"
     t.integer "user_created_id", null: false, comment: "Identificador de usuario al registrar en la aplicación web"
     t.integer "user_updated_id", comment: "Identificador de usuario al actualizar en la aplicación web"
-    t.string "usr_grab", limit: 50, default: -> { "((replace(upper((CURRENT_USER)::text), 'OPS$'::text, ''::text) || '-'::text) || to_char(CURRENT_TIMESTAMP, 'dd/mm/yyyy HH24:MI'::text))" }, comment: "Identificador de usuario al registrar en la base de datos"
-    t.string "usr_modi", limit: 50, default: -> { "((replace(upper((CURRENT_USER)::text), 'OPS$'::text, ''::text) || '-'::text) || to_char(CURRENT_TIMESTAMP, 'dd/mm/yyyy HH24:MI'::text))" }, comment: "Identificador de usuario al actualizar en la base de datos"
+    t.string "usr_grab", limit: 50, default: -> { "((replace(upper((USER)::text), 'OPS$'::text, ''::text) || '-'::text) || to_char(CURRENT_TIMESTAMP, 'dd/mm/yyyy HH24:MI'::text))" }, comment: "Identificador de usuario al registrar en la base de datos"
+    t.string "usr_modi", limit: 50, default: -> { "((replace(upper((USER)::text), 'OPS$'::text, ''::text) || '-'::text) || to_char(CURRENT_TIMESTAMP, 'dd/mm/yyyy HH24:MI'::text))" }, comment: "Identificador de usuario al actualizar en la base de datos"
     t.string "estado", limit: 10, default: "A", null: false, comment: "Estados: [A]: Activo  [I]: Inactivo"
     t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Fecha y hora de creación del registro"
     t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Fecha y hora de la última actualización del registro"
@@ -392,6 +409,8 @@ ActiveRecord::Schema.define(version: 2024_08_05_221504) do
   add_foreign_key "personas_areas", "areas", name: "fk_personaArea_area"
   add_foreign_key "personas_areas", "personas", name: "fk_personaArea_persona"
   add_foreign_key "personas_areas", "roles", name: "fk_personaArea_rol"
+  add_foreign_key "tipo_campos", "tipo_contenidos", name: "fk_tipoCampo_tipoContenido"
+  add_foreign_key "tipo_campos", "tipo_selecciones", name: "fk_tipoCampo_tipoSeleccion"
 
   create_view "personas_areas_views", sql_definition: <<-SQL
       SELECT personas_areas.id,

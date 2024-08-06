@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @tipo_campo.nombre %>
+</p>
+
+<p>
+  <strong>Tipo dato:</strong>
+  <%= @tipo_campo.tipo_dato %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @tipo_campo.descripcion %>
+</p>
+
+<p>
+  <strong>Tiene respuesta:</strong>
+  <%= @tipo_campo.tiene_respuesta %>
+</p>
+
+<p>
+  <strong>Tipo seleccion:</strong>
+  <%= @tipo_campo.tipo_seleccion_id %>
+</p>
+
+<p>
+  <strong>Tipo contenido:</strong>
+  <%= @tipo_campo.tipo_contenido_id %>
+</p>
+
+<p>
+  <strong>User created:</strong>
+  <%= @tipo_campo.user_created_id %>
+</p>
+
+<p>
+  <strong>User updated:</strong>
+  <%= @tipo_campo.user_updated_id %>
+</p>
+
+<p>
+  <strong>Usr grab:</strong>
+  <%= @tipo_campo.usr_grab %>
+</p>
+
+<p>
+  <strong>Usr modi:</strong>
+  <%= @tipo_campo.usr_modi %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @tipo_campo.estado %>
+</p>
+
+<%= link_to 'Edit', edit_tipo_campo_path(@tipo_campo) %> |
+<%= link_to 'Back', tipo_campos_path %>
