@@ -107,6 +107,7 @@ document.addEventListener("turbolinks:load", function () {
     confirmStatus('.btn_status_menu_rol');
     confirmStatus('.btn_status_unidad_medida');
     confirmStatus('.btn_status_tipo_seleccion');
+    confirmStatus('.btn_status_tipo_contenido');
 
     confirmSave('.btn_event_empresa');
     confirmSave('.btn_event_area');
@@ -118,6 +119,7 @@ document.addEventListener("turbolinks:load", function () {
     confirmSave('.btn_event_sub_opcion');
     confirmSave('.btn_event_unidad_medida');
     confirmSave('.btn_event_tipo_seleccion');
+    confirmSave('.btn_event_tipo_contenido');
 
     confirmSave('.btn_password_usuario');
     confirmSave('.btn_enviar_credencial');

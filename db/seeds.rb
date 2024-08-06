@@ -1,43 +1,43 @@
-usuarios = [
-  #{ email: "developer.madretierragt@gmail.com",  encrypted_password: "$2a$12$XM9n0jp/ut8OJ5fD5Gamo.4o/OMc4UgKYrq7EQ.3hLGxSpb2P/cqW", reset_password_token: "2d26e6612f4eaecec1c0baa7f7a4a71801ffb12d64b864aff3173a4eea0896aa", reset_password_sent_at: "2021-11-11 22:48:09", remember_created_at: nil, estado: "A", user_created_id: 1, user_updated_id: nil }
-  { email: "developer.madretierragt@gmail.com",  password: "123456", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, estado: "A", user_created_id: 1, user_updated_id: nil }
-]
+# usuarios = [
+#   #{ email: "developer.madretierragt@gmail.com",  encrypted_password: "$2a$12$XM9n0jp/ut8OJ5fD5Gamo.4o/OMc4UgKYrq7EQ.3hLGxSpb2P/cqW", reset_password_token: "2d26e6612f4eaecec1c0baa7f7a4a71801ffb12d64b864aff3173a4eea0896aa", reset_password_sent_at: "2021-11-11 22:48:09", remember_created_at: nil, estado: "A", user_created_id: 1, user_updated_id: nil }
+#   { email: "developer.madretierragt@gmail.com",  password: "123456", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, estado: "A", user_created_id: 1, user_updated_id: nil }
+# ]
 
-# Desactiva temporalmente el callback que crea una entrada en personas
-# User.skip_callback(:create, :after, :set_persona) if User.respond_to?(:skip_callback)
+# # Desactiva temporalmente el callback que crea una entrada en personas
+# # User.skip_callback(:create, :after, :set_persona) if User.respond_to?(:skip_callback)
 
-usuarios.each do |user_params|
-  usuario = User.find_or_initialize_by(email: user_params[:email])
+# usuarios.each do |user_params|
+#   usuario = User.find_or_initialize_by(email: user_params[:email])
 
-  if usuario.persisted?  # Verifica si el usuario ya existe en la base de datos
-    usuario.update!(user_params)
-    puts "Usuario '#{user_params[:email]}' actualizado"
-  else
-    usuario.assign_attributes(user_params)
-    usuario.save!(validate: false)
-    puts "Usuario '#{user_params[:email]}' creado"
-  end
-end
+#   if usuario.persisted?  # Verifica si el usuario ya existe en la base de datos
+#     usuario.update!(user_params)
+#     puts "Usuario '#{user_params[:email]}' actualizado"
+#   else
+#     usuario.assign_attributes(user_params)
+#     usuario.save!(validate: false)
+#     puts "Usuario '#{user_params[:email]}' creado"
+#   end
+# end
 
-# Reactiva el callback después de la creación de los usuarios
-# User.set_callback(:create, :after, :set_persona) if User.respond_to?(:set_callback)
+# # Reactiva el callback después de la creación de los usuarios
+# # User.set_callback(:create, :after, :set_persona) if User.respond_to?(:set_callback)
 
-personas = [
-  { nombre: "Developer", apellido: "Madre Tierra", direccion: "Santa Lucia Cotzumalguapa", estado: "A", telefono: "66854900", user_id: 1, user_created_id: 1 }
-]
+# personas = [
+#   { nombre: "Developer", apellido: "Madre Tierra", direccion: "Santa Lucia Cotzumalguapa", estado: "A", telefono: "66854900", user_id: 1, user_created_id: 1 }
+# ]
 
-personas.each do |persona_params|
-  persona = Persona.find_or_initialize_by(user_id: persona_params[:user_id])
+# personas.each do |persona_params|
+#   persona = Persona.find_or_initialize_by(user_id: persona_params[:user_id])
 
-  if persona.persisted?  # Verifica si la persona ya existe en la base de datos
-    persona.update!(persona_params)
-    puts "Persona #{persona.nombre} #{persona.apellido} actualizada"
-  else
-    persona.assign_attributes(persona_params)
-    persona.save!
-    puts "Persona #{persona.nombre} #{persona.apellido} creada"
-  end
-end
+#   if persona.persisted?  # Verifica si la persona ya existe en la base de datos
+#     persona.update!(persona_params)
+#     puts "Persona #{persona.nombre} #{persona.apellido} actualizada"
+#   else
+#     persona.assign_attributes(persona_params)
+#     persona.save!
+#     puts "Persona #{persona.nombre} #{persona.apellido} creada"
+#   end
+# end
 
 empresas = [
   { codigo_empresa: 2, nombre: "Ingenio Madre Tierra", descripcion: "Empresa productora de azucar y sus derivados", codigo_hex: "#232323", estado: "A", user_created_id: 1, user_updated_id: nil }
@@ -154,7 +154,11 @@ componentes = [
   { nombre: "MENU ATRIBUTO", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil },
   { nombre: "MENU COMPONENTE", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil },
   { nombre: "MENU PERMISOS FORMULARIO", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil },
-  { nombre: "MENU PERMISOS USUARIO", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil }
+  { nombre: "MENU PERMISOS USUARIO", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil },
+
+  { nombre: "MENU UNIDAD MEDIDA", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "MENU TIPO SELECCION", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "MENU TIPO CONTENIDO", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil }
 ]
 
 componentes.each do |componente_params|
@@ -220,7 +224,11 @@ opciones = [
   {menu_id: 1, nombre: "Atributos", componente_sidebar: "MENU ATRIBUTO", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de los atributos del sistema.", icono: "fas fa-atom", path: "atributos_path", controlador: "atributos", posicion: 10, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil},
   {menu_id: 1, nombre: "Componentes", componente_sidebar: "MENU COMPONENTE", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de los componentes del sistema.", icono: "fab fa-codepen", path: "componentes_path", controlador: "componentes", posicion: 11, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil},
   {menu_id: 1, nombre: "Permisos Formulario", componente_sidebar: "MENU PERMISOS FORMULARIO", sub_opcion_id: 2, descripcion: "Opción del menú para la administración de los permisos por formulario del sistema.", icono: "fas fa-clipboard-list", path: "opcion_cas_path", controlador: "opcion_cas", posicion: 12, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil},
-  {menu_id: 1, nombre: "Permisos Usuario", componente_sidebar: "MENU PERMISOS USUARIO", sub_opcion_id: 2, descripcion: "Opción del menú para la administración de los permisos por usuario del sistema.", icono: "fas fa-clipboard-list", path: "permisos_path", controlador: "persona_empresa_formularios", posicion: 13, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil}
+  {menu_id: 1, nombre: "Permisos Usuario", componente_sidebar: "MENU PERMISOS USUARIO", sub_opcion_id: 2, descripcion: "Opción del menú para la administración de los permisos por usuario del sistema.", icono: "fas fa-clipboard-list", path: "permisos_path", controlador: "persona_empresa_formularios", posicion: 13, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil},
+
+  {menu_id: 2, nombre: "Unidad de Medidas", componente_sidebar: "MENU UNIDAD MEDIDA", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de las unidades de medida a nivel empresa.", icono: "fab fa-medium", path: "unidad_medidas_path", controlador: "unidad_medidas", posicion: 1, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil},
+  {menu_id: 2, nombre: "Tipos de Selección", componente_sidebar: "MENU TIPO SELECCION", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de tipo de selecciones en el sistema.", icono: "fas fa-check-double", path: "tipo_selecciones_path", controlador: "tipo_selecciones", posicion: 2, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil},
+  {menu_id: 2, nombre: "Tipos de Contenido", componente_sidebar: "MENU TIPO CONTENIDO", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de tipo de contenidos en el sistema.", icono: "fas fa-paperclip", path: "tipo_contenidos_path", controlador: "tipo_contenidos", posicion: 3, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil}
 ]
 
 opciones.each do |opcion_params|
@@ -249,7 +257,11 @@ menu_roles = [
   {rol_id: 1, opcion_id: 10, menu_id: 1, descripcion: "Asignación de Opción-Menú [Atributos] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil},
   {rol_id: 1, opcion_id: 11, menu_id: 1, descripcion: "Asignación de Opción-Menú [Componentes] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil},
   {rol_id: 1, opcion_id: 12, menu_id: 1, descripcion: "Asignación de Opción-Menú [Permisos Formulario] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil},
-  {rol_id: 1, opcion_id: 13, menu_id: 1, descripcion: "Asignación de Opción-Menú [Permisos Usuario] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil}
+  {rol_id: 1, opcion_id: 13, menu_id: 1, descripcion: "Asignación de Opción-Menú [Permisos Usuario] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil},
+
+  {rol_id: 1, opcion_id: 14, menu_id: 2, descripcion: "Asignación de Opción-Menú [Unidad Medida] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {rol_id: 1, opcion_id: 15, menu_id: 2, descripcion: "Asignación de Opción-Menú [Tipo Selección] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {rol_id: 1, opcion_id: 16, menu_id: 2, descripcion: "Asignación de Opción-Menú [Tipo Contenido] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil}
 ]
 
 menu_roles.each do |menurol_params|
@@ -394,7 +406,34 @@ opcion_cas = [
   {opcion_id: 13, componente_id: 4, atributo_id: 1, descripcion: "Permiso del botón editar un registro.", estado: "A", user_created_id: 1, user_updated_id: nil},
   {opcion_id: 13, componente_id: 5, atributo_id: 1, descripcion: "Permiso del botón eliminar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
   {opcion_id: 13, componente_id: 6, atributo_id: 1, descripcion: "Permiso del botón activar/inactivar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
-  {opcion_id: 13, componente_id: 9, atributo_id: 1, descripcion: "Permiso del botón descarga.", estado: "A", user_created_id: 1, user_updated_id: nil}
+  {opcion_id: 13, componente_id: 9, atributo_id: 1, descripcion: "Permiso del botón descarga.", estado: "A", user_created_id: 1, user_updated_id: nil},
+
+  {opcion_id: 14, componente_id: 28, atributo_id: 3, descripcion: "Permiso para ver la opción en el Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 14, componente_id: 1, atributo_id: 2, descripcion: "Permiso para acceder al modulo.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 14, componente_id: 2, atributo_id: 1, descripcion: "Permiso del botón nuevo registro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 14, componente_id: 3, atributo_id: 1, descripcion: "Permiso del botón registrar.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 14, componente_id: 4, atributo_id: 1, descripcion: "Permiso del botón editar un registro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 14, componente_id: 5, atributo_id: 1, descripcion: "Permiso del botón eliminar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 14, componente_id: 6, atributo_id: 1, descripcion: "Permiso del botón activar/inactivar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 14, componente_id: 9, atributo_id: 1, descripcion: "Permiso del botón descarga.", estado: "A", user_created_id: 1, user_updated_id: nil},
+
+  {opcion_id: 15, componente_id: 29, atributo_id: 3, descripcion: "Permiso para ver la opción en el Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 15, componente_id: 1, atributo_id: 2, descripcion: "Permiso para acceder al modulo.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 15, componente_id: 2, atributo_id: 1, descripcion: "Permiso del botón nuevo registro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 15, componente_id: 3, atributo_id: 1, descripcion: "Permiso del botón registrar.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 15, componente_id: 4, atributo_id: 1, descripcion: "Permiso del botón editar un registro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 15, componente_id: 5, atributo_id: 1, descripcion: "Permiso del botón eliminar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 15, componente_id: 6, atributo_id: 1, descripcion: "Permiso del botón activar/inactivar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 15, componente_id: 9, atributo_id: 1, descripcion: "Permiso del botón descarga.", estado: "A", user_created_id: 1, user_updated_id: nil},
+
+  {opcion_id: 16, componente_id: 30, atributo_id: 3, descripcion: "Permiso para ver la opción en el Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 16, componente_id: 1, atributo_id: 2, descripcion: "Permiso para acceder al modulo.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 16, componente_id: 2, atributo_id: 1, descripcion: "Permiso del botón nuevo registro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 16, componente_id: 3, atributo_id: 1, descripcion: "Permiso del botón registrar.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 16, componente_id: 4, atributo_id: 1, descripcion: "Permiso del botón editar un registro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 16, componente_id: 5, atributo_id: 1, descripcion: "Permiso del botón eliminar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 16, componente_id: 6, atributo_id: 1, descripcion: "Permiso del botón activar/inactivar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 16, componente_id: 9, atributo_id: 1, descripcion: "Permiso del botón descarga.", estado: "A", user_created_id: 1, user_updated_id: nil}
 ]
 
 opcion_cas.each do |opcionca_params|
@@ -527,7 +566,32 @@ pers_emp_forms = [
   {personas_area_id: 1, opcion_ca_id: 114, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
   {personas_area_id: 1, opcion_ca_id: 115, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
   {personas_area_id: 1, opcion_ca_id: 116, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
-  {personas_area_id: 1, opcion_ca_id: 117, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil}
+  {personas_area_id: 1, opcion_ca_id: 117, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+
+  {personas_area_id: 1, opcion_ca_id: 118, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 119, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 120, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 121, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 122, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 123, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 124, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 125, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 126, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 127, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 128, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 129, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 130, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 131, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 132, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 133, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 134, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 135, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 136, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 137, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 138, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 139, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 140, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 141, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil}
 ]
 
 pers_emp_forms.each do |pers_emp_form_params|
@@ -540,5 +604,25 @@ pers_emp_forms.each do |pers_emp_form_params|
     pers_emp_form.assign_attributes(pers_emp_form_params)
     pers_emp_form.save!
     puts "Persona Empresa Formularios '#{pers_emp_form_params[:personas_area_id]}'-'#{pers_emp_form_params[:opcion_ca_id]}' creado"
+  end
+end
+
+# INFORMACIÓN DE ALGUNOS CATALOGOS
+
+tipo_selecciones = [
+  { nombre: "Selección Múltiple", valor: true, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Selección Simple", valor: false, estado: "A", user_created_id: 1, user_updated_id: nil }
+]
+
+tipo_selecciones.each do |tipo_seleccion_params|
+  tipo_seleccion = TipoSeleccion.find_or_initialize_by(nombre: tipo_seleccion_params[:nombre])
+
+  if tipo_seleccion.persisted?  # Verifica si el menú ya existe en la base de datos
+    tipo_seleccion.update!(tipo_seleccion_params)
+    puts "Tipo Selección '#{tipo_seleccion_params[:nombre]}' actualizado"
+  else
+    tipo_seleccion.assign_attributes(tipo_seleccion_params)
+    tipo_seleccion.save!
+    puts "Tipo Selección '#{tipo_seleccion_params[:nombre]}' creado"
   end
 end
