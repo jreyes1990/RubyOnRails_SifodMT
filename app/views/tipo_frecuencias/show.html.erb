@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Empresa:</strong>
+  <%= @tipo_frecuencia.empresa_id %>
+</p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @tipo_frecuencia.nombre %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @tipo_frecuencia.descripcion %>
+</p>
+
+<p>
+  <strong>User created:</strong>
+  <%= @tipo_frecuencia.user_created_id %>
+</p>
+
+<p>
+  <strong>User updated:</strong>
+  <%= @tipo_frecuencia.user_updated_id %>
+</p>
+
+<p>
+  <strong>Usr grab:</strong>
+  <%= @tipo_frecuencia.usr_grab %>
+</p>
+
+<p>
+  <strong>Usr modi:</strong>
+  <%= @tipo_frecuencia.usr_modi %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @tipo_frecuencia.estado %>
+</p>
+
+<%= link_to 'Edit', edit_tipo_frecuencia_path(@tipo_frecuencia) %> |
+<%= link_to 'Back', tipo_frecuencias_path %>

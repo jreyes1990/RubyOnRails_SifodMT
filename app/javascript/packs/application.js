@@ -727,4 +727,28 @@ document.addEventListener("turbolinks:load", () => {
     null
   );
 
+  initializeSelect2(
+    "#empresa_id_tipoFormulario",
+    "search_empresa_tipo_formulario_params",
+    "empresa_tipo_formulario_params",
+    function (data) {
+      fillSelectOptions("#area_id_tipoFormulario", data.list_pg_area, "Seleccione un área de negocio");
+    },
+    function () {
+      $("#area_id_tipoFormulario").empty().trigger('change');
+    },
+    null,
+    null
+  );
+
+  initializeSelect2(
+    "#empresa_id_tipoFrecuencia",
+    "search_empresa_tipo_frecuencia_params",
+    "empresa_tipo_frecuencia_params",
+    function (data) { },
+    function () { },
+    null,
+    null
+  );
+
 });

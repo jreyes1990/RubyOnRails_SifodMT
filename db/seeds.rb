@@ -159,7 +159,9 @@ componentes = [
   { nombre: "MENU UNIDAD MEDIDA", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil },
   { nombre: "MENU TIPO SELECCION", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil },
   { nombre: "MENU TIPO CONTENIDO", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil },
-  { nombre: "MENU TIPO CAMPO", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil }
+  { nombre: "MENU TIPO CAMPO", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "MENU TIPO FORMULARIO", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "MENU TIPO FRECUENCIA", descripcion: "Validación del Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil }
 ]
 
 componentes.each do |componente_params|
@@ -196,7 +198,8 @@ end
 
 sub_opciones = [
   {nombre: "OPCIONES:", visible_sidebar: true, posicion: 1, estado: "A", user_created_id: 1, user_updated_id: nil},
-  {nombre: "PERMISOS:", visible_sidebar: true, posicion: 2, estado: "A", user_created_id: 1, user_updated_id: nil}
+  {nombre: "PERMISOS:", visible_sidebar: true, posicion: 2, estado: "A", user_created_id: 1, user_updated_id: nil},
+  {nombre: "CONFIGURACIONES:", visible_sidebar: true, posicion: 3, estado: "A", user_created_id: 1, user_updated_id: nil}
 ]
 
 sub_opciones.each do |sub_opcion_params|
@@ -230,7 +233,9 @@ opciones = [
   {menu_id: 2, nombre: "Unidad de Medidas", componente_sidebar: "MENU UNIDAD MEDIDA", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de las unidades de medida a nivel empresa.", icono: "fab fa-medium", path: "unidad_medidas_path", controlador: "unidad_medidas", posicion: 1, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil},
   {menu_id: 2, nombre: "Tipos de Selección", componente_sidebar: "MENU TIPO SELECCION", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de tipo de selecciones en el sistema.", icono: "fas fa-check-double", path: "tipo_selecciones_path", controlador: "tipo_selecciones", posicion: 2, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil},
   {menu_id: 2, nombre: "Tipos de Contenido", componente_sidebar: "MENU TIPO CONTENIDO", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de tipo de contenidos en el sistema.", icono: "fas fa-paperclip", path: "tipo_contenidos_path", controlador: "tipo_contenidos", posicion: 3, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil},
-  {menu_id: 2, nombre: "Tipos de Campos", componente_sidebar: "MENU TIPO CAMPO", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de tipo de campos en el sistema.", icono: "fas fa-th-list", path: "tipo_campos_path", controlador: "tipo_campos", posicion: 4, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil}
+  {menu_id: 2, nombre: "Tipos de Campo", componente_sidebar: "MENU TIPO CAMPO", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de tipo de campos en el sistema.", icono: "fas fa-th-list", path: "tipo_campos_path", controlador: "tipo_campos", posicion: 4, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil},
+  {menu_id: 2, nombre: "Tipos de Formulario", componente_sidebar: "MENU TIPO FORMULARIO", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de tipo de formulario en el sistema.", icono: "fab fa-wpforms", path: "tipo_formularios_path", controlador: "tipo_formularios", posicion: 5, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil},
+  {menu_id: 2, nombre: "Tipos de Frecuencia", componente_sidebar: "MENU TIPO FRECUENCIA", sub_opcion_id: 1, descripcion: "Opción del menú para la administración de tipo de frecuencia en el sistema.", icono: "fas fa-calendar-check", path: "tipo_frecuencias_path", controlador: "tipo_frecuencias", posicion: 6, visible_sidebar: true, estado: "A", user_created_id: 1, user_updated_id: nil}
 ]
 
 opciones.each do |opcion_params|
@@ -264,7 +269,9 @@ menu_roles = [
   {rol_id: 1, opcion_id: 14, menu_id: 2, descripcion: "Asignación de Opción-Menú [Unidad Medida] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil},
   {rol_id: 1, opcion_id: 15, menu_id: 2, descripcion: "Asignación de Opción-Menú [Tipo Selección] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil},
   {rol_id: 1, opcion_id: 16, menu_id: 2, descripcion: "Asignación de Opción-Menú [Tipo Contenido] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil},
-  {rol_id: 1, opcion_id: 17, menu_id: 2, descripcion: "Asignación de Opción-Menú [Tipo Campo] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil}
+  {rol_id: 1, opcion_id: 17, menu_id: 2, descripcion: "Asignación de Opción-Menú [Tipo Campo] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {rol_id: 1, opcion_id: 18, menu_id: 2, descripcion: "Asignación de Opción-Menú [Tipo Formulario] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {rol_id: 1, opcion_id: 19, menu_id: 2, descripcion: "Asignación de Opción-Menú [Tipo Frecuencia] por rol.", estado: "A", user_created_id: 1, user_updated_id: nil}
 ]
 
 menu_roles.each do |menurol_params|
@@ -445,7 +452,25 @@ opcion_cas = [
   {opcion_id: 17, componente_id: 4, atributo_id: 1, descripcion: "Permiso del botón editar un registro.", estado: "A", user_created_id: 1, user_updated_id: nil},
   {opcion_id: 17, componente_id: 5, atributo_id: 1, descripcion: "Permiso del botón eliminar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
   {opcion_id: 17, componente_id: 6, atributo_id: 1, descripcion: "Permiso del botón activar/inactivar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
-  {opcion_id: 17, componente_id: 9, atributo_id: 1, descripcion: "Permiso del botón descarga.", estado: "A", user_created_id: 1, user_updated_id: nil}
+  {opcion_id: 17, componente_id: 9, atributo_id: 1, descripcion: "Permiso del botón descarga.", estado: "A", user_created_id: 1, user_updated_id: nil},
+
+  {opcion_id: 18, componente_id: 32, atributo_id: 3, descripcion: "Permiso para ver la opción en el Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 18, componente_id: 1, atributo_id: 2, descripcion: "Permiso para acceder al modulo.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 18, componente_id: 2, atributo_id: 1, descripcion: "Permiso del botón nuevo registro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 18, componente_id: 3, atributo_id: 1, descripcion: "Permiso del botón registrar.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 18, componente_id: 4, atributo_id: 1, descripcion: "Permiso del botón editar un registro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 18, componente_id: 5, atributo_id: 1, descripcion: "Permiso del botón eliminar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 18, componente_id: 6, atributo_id: 1, descripcion: "Permiso del botón activar/inactivar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 18, componente_id: 9, atributo_id: 1, descripcion: "Permiso del botón descarga.", estado: "A", user_created_id: 1, user_updated_id: nil},
+
+  {opcion_id: 19, componente_id: 33, atributo_id: 3, descripcion: "Permiso para ver la opción en el Sidebar.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 19, componente_id: 1, atributo_id: 2, descripcion: "Permiso para acceder al modulo.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 19, componente_id: 2, atributo_id: 1, descripcion: "Permiso del botón nuevo registro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 19, componente_id: 3, atributo_id: 1, descripcion: "Permiso del botón registrar.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 19, componente_id: 4, atributo_id: 1, descripcion: "Permiso del botón editar un registro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 19, componente_id: 5, atributo_id: 1, descripcion: "Permiso del botón eliminar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 19, componente_id: 6, atributo_id: 1, descripcion: "Permiso del botón activar/inactivar un regitro.", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {opcion_id: 19, componente_id: 9, atributo_id: 1, descripcion: "Permiso del botón descarga.", estado: "A", user_created_id: 1, user_updated_id: nil}
 ]
 
 opcion_cas.each do |opcionca_params|
@@ -611,7 +636,23 @@ pers_emp_forms = [
   {personas_area_id: 1, opcion_ca_id: 146, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
   {personas_area_id: 1, opcion_ca_id: 147, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
   {personas_area_id: 1, opcion_ca_id: 148, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
-  {personas_area_id: 1, opcion_ca_id: 149, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil}
+  {personas_area_id: 1, opcion_ca_id: 149, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 150, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 151, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 152, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 153, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 154, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 155, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 156, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 157, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 158, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 159, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 160, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 161, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 162, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 163, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 164, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil},
+  {personas_area_id: 1, opcion_ca_id: 165, descripcion: "PERFIL", estado: "A", user_created_id: 1, user_updated_id: nil}
 ]
 
 pers_emp_forms.each do |pers_emp_form_params|
@@ -679,9 +720,6 @@ tipo_campos = [
   { nombre: "Texto", tipo_dato: "text", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
   { nombre: "Botón de radio", tipo_dato: "radio", tipo_seleccion_id: 2, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
   { nombre: "Casilla de verificación", tipo_dato: "checkbox", tipo_seleccion_id: 1, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
-  { nombre: "Rango", tipo_dato: "range", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
-  { nombre: "Restablece Valores", tipo_dato: "reset", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
-  { nombre: "Campos Ocultos", tipo_dato: "hidden", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
   { nombre: "Archivo PDF", tipo_dato: "file", tipo_seleccion_id: 2, tipo_contenido_id: 2, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
   { nombre: "Archivo Word", tipo_dato: "file", tipo_seleccion_id: 2, tipo_contenido_id: 3, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
   { nombre: "Archivo Excel", tipo_dato: "file", tipo_seleccion_id: 2, tipo_contenido_id: 4, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
@@ -693,6 +731,9 @@ tipo_campos = [
   { nombre: "Tiempo", tipo_dato: "time", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
   { nombre: "Semana", tipo_dato: "week", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
   { nombre: "Mes", tipo_dato: "month", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Rango", tipo_dato: "range", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Restablece Valores", tipo_dato: "reset", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
+  { nombre: "Campos Ocultos", tipo_dato: "hidden", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
   { nombre: "Color", tipo_dato: "color", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
   { nombre: "Teléfono", tipo_dato: "tel", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },
   { nombre: "Contraseña", tipo_dato: "password", tipo_seleccion_id: nil, tipo_contenido_id: nil, tiene_respuesta: false, estado: "A", user_created_id: 1, user_updated_id: nil },

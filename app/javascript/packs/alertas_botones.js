@@ -102,12 +102,15 @@ document.addEventListener("turbolinks:load", function () {
     confirmStatus('.btn_status_persona_area');
     confirmStatus('.btn_status_rol');
     confirmStatus('.btn_status_menu');
-    confirmStatus('.btn_status_opcion');
     confirmStatus('.btn_status_sub_opcion');
+    confirmStatus('.btn_status_opcion');
     confirmStatus('.btn_status_menu_rol');
     confirmStatus('.btn_status_unidad_medida');
     confirmStatus('.btn_status_tipo_seleccion');
     confirmStatus('.btn_status_tipo_contenido');
+    confirmStatus('.btn_status_tipo_campo');
+    confirmStatus('.btn_status_tipo_formulario');
+    confirmStatus('.btn_status_tipo_frecuencia');
 
     confirmSave('.btn_event_empresa');
     confirmSave('.btn_event_area');
@@ -115,11 +118,14 @@ document.addEventListener("turbolinks:load", function () {
     confirmSave('.btn_event_persona_area');
     confirmSave('.btn_event_rol');
     confirmSave('.btn_event_menu');
-    confirmSave('.btn_event_opcion');
     confirmSave('.btn_event_sub_opcion');
+    confirmSave('.btn_event_opcion');
     confirmSave('.btn_event_unidad_medida');
     confirmSave('.btn_event_tipo_seleccion');
     confirmSave('.btn_event_tipo_contenido');
+    confirmSave('.btn_event_tipo_campo');
+    confirmSave('.btn_event_tipo_formulario');
+    confirmSave('.btn_event_tipo_frecuencia');
 
     confirmSave('.btn_password_usuario');
     confirmSave('.btn_enviar_credencial');

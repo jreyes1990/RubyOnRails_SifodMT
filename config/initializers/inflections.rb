@@ -163,6 +163,7 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular "rol", "roles"  
   inflect.irregular "sub_opcion", "sub_opciones"
   inflect.irregular "tipo_seleccion", "tipo_selecciones"
+  inflect.irregular "tipo_frecuencia", "tipo_frecuencias"
 
 =begin
   # IRREGULARES

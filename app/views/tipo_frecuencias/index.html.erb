@@ -2,11 +2,11 @@
   <div class="card-header py-3">
     <div class="row">
       <div class="col-md-6 table-responsive-sm text-left mt-2">
-        <h5 class="m-0 font-weight-bold text-primary">Gestión Tipos de Campo</h5>
+        <h5 class="m-0 font-weight-bold text-primary">Gestión Tipos de Frecuencia</h5>
       </div>
       <div class="col-md-6 table-responsive-sm text-right">
         <% if tiene_permiso("BOTON NUEVO REGISTRO", "VER") %>
-          <%= link_to new_tipo_campo_path, class: "btn btn-success btn-sm mt-2" do %>
+          <%= link_to new_tipo_frecuencia_path, class: "btn btn-success btn-sm mt-2" do %>
             <span class="icon text-green-50">
                 <i class="fas fa-plus-circle"></i>
             </span>
@@ -26,17 +26,14 @@
   <div class="card-body">
     <div class="row">
       <div class="col-md-12 table-responsive-sm">
-        <table id="datatable_tipos_campo" class="table table-hover table-sm table-bordered display" width="100%" cellpadding="0" cellspacing="0">
+        <table id="datatable_tipos_frecuencia" class="table table-hover table-sm table-bordered display" width="100%" cellpadding="0" cellspacing="0">
           <thead class="thead-light">
             <tr>
               <th class="text-center">ID</th>
+              <th>Empresa</th>
               <th>Nombre</th>
-              <th>Tipo dato</th>
-              <th class="text-center">¿ Tiene respuesta ?</th>
-              <th>Tipo seleccion</th>
-              <th>Tipo contenido</th>
               <th>Descripcion</th>
-              <th class="text-center">Estado</th>
+              <th>Estado</th>
               <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
               <th class="text-center"></th>
               <% end %>
@@ -46,22 +43,19 @@
             </tr>
           </thead>
           <tbody>
-            <% @tipo_campos.each do |tc| %>
+            <% @tipo_frecuencias.each do |tfr| %>
               <tr>
-                <td class="text-center"><%= tc.id %></td>
-                <td><%= tc.nombre %></td>
-                <td><%= tc.tipo_dato %></td>
-                <td class="text-center"><%= valida_pregunta(tc.tiene_respuesta) %></td>
-                <td><%= tc.tipo_seleccion.try(:nombre) %></td>
-                <td><%= tc.tipo_contenido.try(:nombre) %></td>
-                <td><%= tc.descripcion %></td>
-                <td class="text-center"><%= format_estado(tc.estado) %></td>
+                <td class="text-center"><%= tfr.id %></td>
+                <td><%= tfr.empresa_id %></td>
+                <td><%= tfr.nombre %></td>
+                <td><%= tfr.descripcion %></td>
+                <td class="text-center"><%= format_estado(tfr.estado) %></td>
                 <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
                   <td class="text-center">
-                    <% if tc.estado == "A" %>
-                      <%= link_to edit_tipo_campo_path(tc), 
+                    <% if tfr.estado == "A" %>
+                      <%= link_to edit_tipo_frecuencia_path(tfr), 
                           class: "btn btn-outline-info btn-sm",
-                          "data-custom-class": "popover-info", title: "ACTUALIZAR", "data-content": "#{tc.nombre.capitalize} | #{tc.tipo_dato}" do %>
+                          "data-custom-class": "popover-info", title: "ACTUALIZAR", "data-content": "#{tfr.id} | #{tfr.nombre.capitalize}" do %>
                         <i class="fas fa-edit"></i>
                       <% end %>
                     <% end %>
@@ -70,18 +64,18 @@
 
                 <% if tiene_permiso("BOTON ELIMINAR REGISTRO", "VER") %>
                   <td class="text-center">
-                    <% if tc.estado == "A" %>
-                      <%= link_to  inactivar_tipo_campo_path(:id => tc.id), 
-                          class: "btn btn-outline-danger btn-sm btn_status_tipo_campo", 
-                          data: { status: "Inactivar", nombre: "#{tc.nombre.capitalize} | #{tc.tipo_dato}" },
-                          "data-custom-class": "popover-danger", title: "INACTIVAR", "data-content": "#{tc.nombre.capitalize} | #{tc.tipo_dato}" do %>
+                    <% if tfr.estado == "A" %>
+                      <%= link_to  inactivar_tipo_frecuencia_path(:id => tfr.id), 
+                          class: "btn btn-outline-danger btn-sm btn_status_tipo_frecuencia", 
+                          data: { status: "Inactivar", nombre: "#{tfr.id} | #{tfr.nombre.capitalize}" },
+                          "data-custom-class": "popover-danger", title: "INACTIVAR", "data-content": "#{tfr.id} | #{tfr.nombre.capitalize}" do %>
                         <i class="fas fa-trash-alt"></i>
                       <% end %>
                     <% else %>
-                      <%= link_to  activar_tipo_campo_path(:id => tc.id), 
-                          class: "btn btn-outline-success btn-sm btn_status_tipo_campo", 
-                          data: { status: "Activar", nombre: "#{tc.nombre.capitalize} | #{tc.tipo_dato}" },
-                          "data-custom-class": "popover-success", title: "ACTIVAR", "data-content": "#{tc.nombre.capitalize} | #{tc.tipo_dato}" do %>
+                      <%= link_to  activar_tipo_frecuencia_path(:id => tfr.id), 
+                          class: "btn btn-outline-success btn-sm btn_status_tipo_frecuencia", 
+                          data: { status: "Activar", nombre: "#{tfr.id} | #{tfr.nombre.capitalize}" },
+                          "data-custom-class": "popover-success", title: "ACTIVAR", "data-content": "#{tfr.id} | #{tfr.nombre.capitalize}" do %>
                         <i class="fas fa-trash-restore-alt"></i>
                       <% end %>
                     <% end %>

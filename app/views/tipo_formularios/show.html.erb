@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Empresa:</strong>
+  <%= @tipo_formulario.empresa_id %>
+</p>
+
+<p>
+  <strong>Area:</strong>
+  <%= @tipo_formulario.area_id %>
+</p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @tipo_formulario.nombre %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @tipo_formulario.descripcion %>
+</p>
+
+<p>
+  <strong>User created:</strong>
+  <%= @tipo_formulario.user_created_id %>
+</p>
+
+<p>
+  <strong>User updated:</strong>
+  <%= @tipo_formulario.user_updated_id %>
+</p>
+
+<p>
+  <strong>Usr grab:</strong>
+  <%= @tipo_formulario.usr_grab %>
+</p>
+
+<p>
+  <strong>Usr modi:</strong>
+  <%= @tipo_formulario.usr_modi %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @tipo_formulario.estado %>
+</p>
+
+<%= link_to 'Edit', edit_tipo_formulario_path(@tipo_formulario) %> |
+<%= link_to 'Back', tipo_formularios_path %>

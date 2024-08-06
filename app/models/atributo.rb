@@ -13,6 +13,7 @@
 #
 class Atributo < ApplicationRecord
     has_many :opcion_cas
+    
     validates_presence_of :nombre, :descripcion, message: ": este campo es obligatorio"         
     validates :nombre, uniqueness: {case_sensitive: false, scope: :estado, message: "El nombre que intenta registrar ya existe" }
 end

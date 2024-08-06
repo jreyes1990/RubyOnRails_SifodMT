@@ -12,7 +12,7 @@
       class: menu.icono, 
       text_sidebar: menu.menu_sidebar,
       codigo: menu.id,
-      opciones: Opcion.where(menu_id: menu.id, visible_sidebar: true, estado: "A").order(posicion: :asc).map do |opcion|
+      opciones: Opcion.where(menu_id: menu.id, visible_sidebar: true, estado: "A").order(menu_id: :asc, sub_opcion_id: :asc, posicion: :asc).map do |opcion|
         { 
           name: opcion.componente_sidebar, 
           link: send(opcion.path), 

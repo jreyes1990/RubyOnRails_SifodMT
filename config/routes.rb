@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  resources :tipo_campos
   #Manejo de gema Devise
   devise_for :users
   root 'home#index'
@@ -179,6 +178,35 @@ Rails.application.routes.draw do
       member do
         get 'i' => "tipo_contenidos#inactivar", as: 'inactivar'
         get 'a' => "tipo_contenidos#activar", as: 'activar'
+      end
+    end
+
+    resources :tipo_campos, :path => 'tipo_campo' do
+      member do
+        get 'i' => "tipo_campos#inactivar", as: 'inactivar'
+        get 'a' => "tipo_campos#activar", as: 'activar'
+      end
+    end
+
+    resources :tipo_formularios, :path => 'tipo_form' do
+      collection do 
+        get 'search_empresa', to: 'tipo_formularios#search_empresa', as: 'search_empresa'
+      end
+
+      member do
+        get 'i' => "tipo_formularios#inactivar", as: 'inactivar'
+        get 'a' => "tipo_formularios#activar", as: 'activar'
+      end
+    end
+
+    resources :tipo_frecuencias, :path => 'tipo_frec' do
+      collection do 
+        get 'search_empresa', to: 'tipo_frecuencias#search_empresa', as: 'search_empresa'
+      end
+
+      member do
+        get 'i' => "tipo_frecuencias#inactivar", as: 'inactivar'
+        get 'a' => "tipo_frecuencias#activar", as: 'activar'
       end
     end
   end

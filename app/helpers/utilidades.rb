@@ -117,6 +117,30 @@ module Utilidades
     return fecha
   end
 
+  def set_usr_grab(current_user)
+    usr_grab = nil
+
+    if current_user.present?
+      usr_grab = "#{current_user.email.split('@').first.upcase.gsub('OPS$', '')}-#{Time.now.strftime('%d/%m/%Y %H:%M')}"
+    else
+      usr_grab = "SYSTEM-#{Time.now.strftime('%d/%m/%Y %H:%M')}"
+    end
+
+    return usr_grab
+  end
+
+  def set_usr_modi(current_user)
+    usr_modi = nil
+
+    if current_user.present?
+      usr_modi = "#{current_user.email.split('@').first.upcase.gsub('OPS$', '')}-#{Time.now.strftime('%d/%m/%Y %H:%M')}"
+    else
+      usr_modi = "SYSTEM-#{Time.now.strftime('%d/%m/%Y %H:%M')}"
+    end
+
+    return usr_modi
+  end
+
   def current_user_name_reportes
     persona = Persona.where("user_id = ? ", current_user.id).first
     if (persona != nil) then
@@ -185,10 +209,10 @@ module Utilidades
   end
 
   def valida_pregunta(valor)
-    if valor == 'N'
-      respuesta = 'No'
-    elsif valor == 'S'
-      respuesta = 'Si'
+    if valor == 'N' || valor == false
+      respuesta = 'NO'
+    elsif valor == 'S' || valor == true
+      respuesta = 'SI'
     end
 
     return respuesta

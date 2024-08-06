@@ -428,4 +428,34 @@ document.addEventListener("turbolinks:load", () => {
     opciones
   );
 
+  agrupar_filas(
+    '#datatable_tipos_campo',
+    [],
+    [
+      { responsivePriority: 1, targets: [0, -1, -2] },
+      { responsivePriority: 2, targets: [3, -3] },
+    ],
+    opciones
+  );
+
+  agrupar_filas(
+    '#datatable_tipos_formulario',
+    [],
+    [
+      { responsivePriority: 1, targets: [0, -1, -2] },
+      { responsivePriority: 2, targets: [3, -3] },
+    ],
+    opciones
+  );
+
+  agrupar_filas(
+    '#datatable_tipos_frecuencia',
+    [],
+    [
+      { responsivePriority: 1, targets: [0, -1, -2] },
+      { responsivePriority: 2, targets: [3, -3] },
+    ],
+    opciones
+  );
+
 });
