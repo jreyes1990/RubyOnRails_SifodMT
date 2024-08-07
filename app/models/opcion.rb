@@ -17,7 +17,7 @@
 #
 class Opcion < ApplicationRecord
   belongs_to :menu
-  belongs_to :sub_opcion
+  belongs_to :sub_opcion, optional: true
   
   has_many :menu_roles
   has_many :opcion_cas

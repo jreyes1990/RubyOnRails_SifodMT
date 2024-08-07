@@ -181,9 +181,6 @@ document.addEventListener("turbolinks:load", () => {
     height: 'auto'
   });
 
-  // Elimina la clase form-check de todos los toggles
-  $(".toggle").parent().removeClass("form-check");
-
   // Aplicar el estilo con un pequeño retraso y mayor especificidad
   $('.form-check-input[data-toggle="toggle"]')
   .parent()
@@ -197,6 +194,10 @@ document.addEventListener("turbolinks:load", () => {
       $(this).css('box-shadow', 'none');
     }
   );
+
+  // Elimina la clase form-check de todos los toggles
+  $(".toggle").parent().removeClass("form-check");
+  $(".toggle-group").find(".toggle-handle").removeClass("toggle-handle");
   
 
   // Configuracion para combos dinamicos menu-opciones
@@ -760,6 +761,34 @@ document.addEventListener("turbolinks:load", () => {
     },
     function () {
       $("#area_id_cfgSubPreg").empty().trigger('change');
+    },
+    null,
+    null
+  );
+
+  initializeSelect2(
+    "#empresa_id_cfgPreg",
+    "search_empresa_cfgPreg_params",
+    "empresa_cfgPreg_params",
+    function (data) {
+      fillSelectOptions("#area_id_cfgPreg", data.list_pg_area, "Seleccione un área de negocio");
+    },
+    function () {
+      $("#area_id_cfgPreg").empty().trigger('change');
+    },
+    null,
+    null
+  );
+
+  initializeSelect2(
+    "#empresa_id_cfgForm",
+    "search_empresa_cfgForm_params",
+    "empresa_cfgForm_params",
+    function (data) {
+      fillSelectOptions("#area_id_cfgForm", data.list_pg_area, "Seleccione un área de negocio");
+    },
+    function () {
+      $("#area_id_cfgForm").empty().trigger('change');
     },
     null,
     null

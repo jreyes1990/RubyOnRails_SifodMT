@@ -6,13 +6,16 @@
 
 <%
   # Cargar todas las opciones del modelo Menu y Opcion
-  menu_elements = Menu.where(visible_sidebar: true, estado: "A").order(posicion: :asc).map do |menu|
+  menu_elements = Menu.where(visible_sidebar: true, estado: "A").order(posicion: :asc).includes(opciones: :sub_opcion).map do |menu|
     {
       name: menu.nombre, 
       class: menu.icono, 
       text_sidebar: menu.menu_sidebar,
       codigo: menu.id,
-      opciones: Opcion.where(menu_id: menu.id, visible_sidebar: true, estado: "A").order(menu_id: :asc, sub_opcion_id: :asc, posicion: :asc).map do |opcion|
+      #opciones: Opcion.joins(:sub_opcion).where(menu_id: menu.id, visible_sidebar: true, estado: "A").order("opciones.menu_id, sub_opciones.posicion, opciones.posicion").map do |opcion|
+      opciones: menu.opciones.select { |opcion| opcion.visible_sidebar && opcion.estado == "A" }
+                             .sort_by { |opcion| [opcion.menu_id, opcion.sub_opcion&.posicion, opcion.posicion] }
+                             .map do |opcion|
         { 
           name: opcion.componente_sidebar, 
           link: send(opcion.path), 
@@ -41,7 +44,7 @@
       <img class="img-profile rounded-circle" src="<%= @foto_persona %>" style="border: 2px solid white;" width="70" height="70">
       <br>
       <span class="sidebar-brand-text mx-3" style="font-size: 50%;"><%= current_user.email %></span>
-      <% if !current_user_role.blank? %>
+      <% if current_user_role.present? %>
         <span class="sidebar-brand-text mx-3" style="font-size: 72%;"><%= current_user_role %></span>
       <% end %>
     </div>

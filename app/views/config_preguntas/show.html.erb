@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Empresa:</strong>
+  <%= @config_pregunta.empresa_id %>
+</p>
+
+<p>
+  <strong>Area:</strong>
+  <%= @config_pregunta.area_id %>
+</p>
+
+<p>
+  <strong>Tipo campo:</strong>
+  <%= @config_pregunta.tipo_campo_id %>
+</p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @config_pregunta.nombre %>
+</p>
+
+<p>
+  <strong>Descripcion:</strong>
+  <%= @config_pregunta.descripcion %>
+</p>
+
+<p>
+  <strong>Tiene parametro:</strong>
+  <%= @config_pregunta.tiene_parametro %>
+</p>
+
+<p>
+  <strong>Tiene sub pregunta:</strong>
+  <%= @config_pregunta.tiene_sub_pregunta %>
+</p>
+
+<p>
+  <strong>User created:</strong>
+  <%= @config_pregunta.user_created_id %>
+</p>
+
+<p>
+  <strong>User updated:</strong>
+  <%= @config_pregunta.user_updated_id %>
+</p>
+
+<p>
+  <strong>Usr grab:</strong>
+  <%= @config_pregunta.usr_grab %>
+</p>
+
+<p>
+  <strong>Usr modi:</strong>
+  <%= @config_pregunta.usr_modi %>
+</p>
+
+<p>
+  <strong>Estado:</strong>
+  <%= @config_pregunta.estado %>
+</p>
+
+<%= link_to 'Edit', edit_config_pregunta_path(@config_pregunta) %> |
+<%= link_to 'Back', config_preguntas_path %>

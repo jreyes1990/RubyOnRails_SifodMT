@@ -222,6 +222,28 @@ Rails.application.routes.draw do
         get 'a' => "config_sub_preguntas#activar", as: 'activar'
       end
     end
+
+    resources :config_preguntas, :path => 'cfg_preg' do
+      collection do
+        get 'search_empresa', to: 'config_preguntas#search_empresa', as: 'search_empresa'
+      end
+
+      member do
+        get 'i' => "config_preguntas#inactivar", as: 'inactivar'
+        get 'a' => "config_preguntas#activar", as: 'activar'
+      end
+    end
+
+    resources :config_formularios, :path => 'cfg_form' do
+      collection do
+        get 'search_empresa', to: 'config_formularios#search_empresa', as: 'search_empresa'
+      end
+
+      member do
+        get 'i' => "config_formularios#inactivar", as: 'inactivar'
+        get 'a' => "config_formularios#activar", as: 'activar'
+      end
+    end
   end
 
   scope "/asignaciones" do

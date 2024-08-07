@@ -400,10 +400,13 @@ document.addEventListener("turbolinks:load", () => {
   //datatable para la vista de menu rol
   agrupar_filas(
     '#datatable_unidad_medidas',
-    [],
+    [
+      { columnIndex: 1, label: 'Empresa ' }
+    ],
     [
       { responsivePriority: 1, targets: [0, -1, -2] },
       { responsivePriority: 2, targets: [3, -3] },
+      { responsivePriority: 3, targets: [2, 4] },
     ],
     opciones
   );
@@ -413,7 +416,7 @@ document.addEventListener("turbolinks:load", () => {
     [],
     [
       { responsivePriority: 1, targets: [0, -1, -2] },
-      { responsivePriority: 2, targets: [3, -3] },
+      { responsivePriority: 2, targets: [1, -3] },
     ],
     opciones
   );
@@ -423,7 +426,7 @@ document.addEventListener("turbolinks:load", () => {
     [],
     [
       { responsivePriority: 1, targets: [0, -1, -2] },
-      { responsivePriority: 2, targets: [3, -3] },
+      { responsivePriority: 2, targets: [1, -3] },
     ],
     opciones
   );
@@ -433,27 +436,81 @@ document.addEventListener("turbolinks:load", () => {
     [],
     [
       { responsivePriority: 1, targets: [0, -1, -2] },
-      { responsivePriority: 2, targets: [3, -3] },
+      { responsivePriority: 2, targets: [1, -3] },
+      { responsivePriority: 3, targets: [2, 3] },
+      { responsivePriority: 4, targets: [4, 5] },
     ],
     opciones
   );
 
   agrupar_filas(
     '#datatable_tipos_formulario',
-    [],
+    [
+      { columnIndex: 1, label: 'Empresa ' },
+      { columnIndex: 2, label: 'Área ' }
+    ],
     [
       { responsivePriority: 1, targets: [0, -1, -2] },
       { responsivePriority: 2, targets: [3, -3] },
+      { responsivePriority: 3, targets: [2] },
     ],
     opciones
   );
 
   agrupar_filas(
     '#datatable_tipos_frecuencia',
-    [],
+    [
+      { columnIndex: 1, label: 'Empresa ' }
+    ],
+    [
+      { responsivePriority: 1, targets: [0, -1, -2] },
+      { responsivePriority: 2, targets: [2, -3] },
+    ],
+    opciones
+  );
+
+  agrupar_filas(
+    '#datatable_config_sub_preguntas',
+    [
+      { columnIndex: 1, label: 'Empresa ' },
+      { columnIndex: 2, label: 'Área ' }
+    ],
     [
       { responsivePriority: 1, targets: [0, -1, -2] },
       { responsivePriority: 2, targets: [3, -3] },
+      { responsivePriority: 3, targets: [2] },
+    ],
+    opciones
+  );
+
+  agrupar_filas(
+    '#datatable_config_preguntas',
+    [
+      { columnIndex: 1, label: 'Empresa ' },
+      { columnIndex: 2, label: 'Área ' }
+    ],
+    [
+      { responsivePriority: 1, targets: [0, -1, -2] },
+      { responsivePriority: 2, targets: [4, -3] },
+      { responsivePriority: 3, targets: [2, 3] },
+      { responsivePriority: 4, targets: [5] },
+      { responsivePriority: 5, targets: [6, 7] },
+    ],
+    opciones
+  );
+
+  agrupar_filas(
+    '#datatable_config_formularios',
+    [
+      { columnIndex: 1, label: 'Empresa ' },
+      { columnIndex: 2, label: 'Área ' }
+    ],
+    [
+      { responsivePriority: 1, targets: [0, -1, -2] },
+      { responsivePriority: 2, targets: [4, -3] },
+      { responsivePriority: 3, targets: [2, 3] },
+      { responsivePriority: 4, targets: [5] },
+      { responsivePriority: 5, targets: [6, 7] },
     ],
     opciones
   );

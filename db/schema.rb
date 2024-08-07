@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_07_034847) do
+ActiveRecord::Schema.define(version: 2024_08_07_202206) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,11 +83,48 @@ ActiveRecord::Schema.define(version: 2024_08_07_034847) do
     t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Fecha y hora de la última actualización del registro"
   end
 
+  create_table "config_formularios", id: :serial, comment: "Módulo configuración de formularios", force: :cascade do |t|
+    t.integer "empresa_id", null: false, comment: "Identifica el codigo de la empresa"
+    t.integer "area_id", null: false, comment: "Identifica el codigo del área"
+    t.bigint "tipo_formulario_id", null: false, comment: "Identifica el codigo tipo de formulario"
+    t.string "nombre", limit: 100, null: false, comment: "Nombre de la configuración formulario"
+    t.string "descripcion", limit: 200, comment: "Descripción general de la configuración formulario"
+    t.boolean "tiene_app_siga", default: false, null: false, comment: "¿El formulario pertenecerá a SIGA?"
+    t.integer "labor_id", comment: "Identifica el codigo de la labor"
+    t.integer "documento_iso_id", comment: "Identifica el codigo del documento ISO"
+    t.integer "user_created_id", null: false, comment: "Identificador de usuario al registrar en la aplicación web"
+    t.integer "user_updated_id", comment: "Identificador de usuario al actualizar en la aplicación web"
+    t.string "usr_grab", limit: 50, default: -> { "((replace(upper((USER)::text), 'OPS$'::text, ''::text) || '-'::text) || to_char(CURRENT_TIMESTAMP, 'dd/mm/yyyy HH24:MI'::text))" }, comment: "Identificador de usuario al registrar en la base de datos"
+    t.string "usr_modi", limit: 50, default: -> { "((replace(upper((USER)::text), 'OPS$'::text, ''::text) || '-'::text) || to_char(CURRENT_TIMESTAMP, 'dd/mm/yyyy HH24:MI'::text))" }, comment: "Identificador de usuario al actualizar en la base de datos"
+    t.string "estado", limit: 10, default: "A", null: false, comment: "Estados: [A]: Activo  [I]: Inactivo"
+    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Fecha y hora de creación del registro"
+    t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Fecha y hora de la última actualización del registro"
+    t.index ["empresa_id", "area_id", "tipo_formulario_id", "nombre", "labor_id"], name: "idx_cfgFormulario", unique: true
+  end
+
+  create_table "config_preguntas", id: :serial, comment: "Módulo configuración de preguntas", force: :cascade do |t|
+    t.integer "empresa_id", null: false, comment: "Identifica el codigo de la empresa"
+    t.integer "area_id", null: false, comment: "Identifica el codigo del área"
+    t.bigint "tipo_campo_id", null: false, comment: "Identifica el codigo tipo de campo"
+    t.string "nombre", limit: 100, null: false, comment: "Nombre de la configuración pregunta"
+    t.string "descripcion", limit: 200, comment: "Descripción general de la configuración pregunta"
+    t.boolean "tiene_parametro", default: false, comment: "¿La pregunta tendrá párametros esperados?"
+    t.boolean "tiene_sub_pregunta", default: false, comment: "¿La pregunta tendrá configuración de sub-preguntas?"
+    t.integer "user_created_id", null: false, comment: "Identificador de usuario al registrar en la aplicación web"
+    t.integer "user_updated_id", comment: "Identificador de usuario al actualizar en la aplicación web"
+    t.string "usr_grab", limit: 50, default: -> { "((replace(upper((USER)::text), 'OPS$'::text, ''::text) || '-'::text) || to_char(CURRENT_TIMESTAMP, 'dd/mm/yyyy HH24:MI'::text))" }, comment: "Identificador de usuario al registrar en la base de datos"
+    t.string "usr_modi", limit: 50, default: -> { "((replace(upper((USER)::text), 'OPS$'::text, ''::text) || '-'::text) || to_char(CURRENT_TIMESTAMP, 'dd/mm/yyyy HH24:MI'::text))" }, comment: "Identificador de usuario al actualizar en la base de datos"
+    t.string "estado", limit: 10, default: "A", null: false, comment: "Estados: [A]: Activo  [I]: Inactivo"
+    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Fecha y hora de creación del registro"
+    t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Fecha y hora de la última actualización del registro"
+    t.index ["empresa_id", "area_id", "tipo_campo_id", "nombre"], name: "idx_cfgPregunta", unique: true
+  end
+
   create_table "config_sub_preguntas", id: :serial, comment: "Módulo configuración de sub-preguntas", force: :cascade do |t|
     t.integer "empresa_id", null: false, comment: "Identifica el codigo de la empresa"
     t.integer "area_id", null: false, comment: "Identifica el codigo del área"
     t.string "nombre", limit: 100, null: false, comment: "Nombre configuración de sub-pregunta"
-    t.string "descripcion", limit: 200, null: false, comment: "Descripción general configuración de sub-pregunta"
+    t.string "descripcion", limit: 200, comment: "Descripción general configuración de sub-pregunta"
     t.integer "user_created_id", null: false, comment: "Identificador de usuario al registrar en la aplicación web"
     t.integer "user_updated_id", comment: "Identificador de usuario al actualizar en la aplicación web"
     t.string "usr_grab", limit: 50, default: -> { "((replace(upper((USER)::text), 'OPS$'::text, ''::text) || '-'::text) || to_char(CURRENT_TIMESTAMP, 'dd/mm/yyyy HH24:MI'::text))" }, comment: "Identificador de usuario al registrar en la base de datos"
@@ -434,6 +471,8 @@ ActiveRecord::Schema.define(version: 2024_08_07_034847) do
   add_foreign_key "areas", "empresas", name: "fk_area_empresa"
   add_foreign_key "bitacora_consulta_movils", "personas"
   add_foreign_key "bitacora_token_personas", "personas"
+  add_foreign_key "config_formularios", "tipo_formularios", name: "fk_cfgFormulario_tipoForm"
+  add_foreign_key "config_preguntas", "tipo_campos", name: "fk_cfgPregunta_tipoCampo"
   add_foreign_key "detalle_datos_apis", "datos_apis"
   add_foreign_key "detalle_datos_externos", "datos_externos"
   add_foreign_key "menu_roles", "menus", name: "fk_menuRol_menu"

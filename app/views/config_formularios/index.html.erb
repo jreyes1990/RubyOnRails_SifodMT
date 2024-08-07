@@ -2,11 +2,11 @@
   <div class="card-header py-3">
     <div class="row">
       <div class="col-md-6 table-responsive-sm text-left mt-2">
-        <h5 class="m-0 font-weight-bold text-primary">Configuración de Sub-Preguntas</h5>
+        <h5 class="m-0 font-weight-bold text-primary">Configuración de Formularios</h5>
       </div>
       <div class="col-md-6 table-responsive-sm text-right">
         <% if tiene_permiso("BOTON NUEVO REGISTRO", "VER") %>
-          <%= link_to new_config_sub_pregunta_path, class: "btn btn-success btn-sm mt-2" do %>
+          <%= link_to new_config_formulario_path, class: "btn btn-success btn-sm mt-2" do %>
             <span class="icon text-green-50">
                 <i class="fas fa-plus-circle"></i>
             </span>
@@ -26,14 +26,18 @@
   <div class="card-body">
     <div class="row">
       <div class="col-md-12 table-responsive-sm">
-        <table id="datatable_config_sub_preguntas" class="table table-hover table-sm table-bordered display" width="100%" cellpadding="0" cellspacing="0">
+        <table id="datatable_config_formularios" class="table table-hover table-sm table-bordered display" width="100%" cellpadding="0" cellspacing="0">
           <thead class="thead-light">
             <tr>
               <th class="text-center">ID</th>
               <th>Empresa</th>
               <th>Area</th>
+              <th>Tipo formulario</th>
               <th>Nombre</th>
               <th>Descripcion</th>
+              <th class="text-center">Tiene app siga</th>
+              <th>Labor</th>
+              <th class="text-center">Codigo ISO</th>
               <th class="text-center">Estado</th>
               <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
               <th class="text-center"></th>
@@ -44,20 +48,24 @@
             </tr>
           </thead>
           <tbody>
-            <% @config_sub_preguntas.each do |cfg_sp| %>
+            <% @config_formularios.each do |cfg_f| %>
               <tr>
-                <td class="text-center"><%= cfg_sp.id %></td>
-                <td><%= cfg_sp.empresa_id %></td>
-                <td><%= cfg_sp.area_id %></td>
-                <td><%= cfg_sp.nombre %></td>
-                <td><%= cfg_sp.descripcion %></td>
-                <td class="text-center"><%= format_estado(cfg_sp.estado) %></td>
+                <td class="text-center"><%= cfg_f.id %></td>
+                <td><%= cfg_f.empresa_id %></td>
+                <td><%= cfg_f.area_id %></td>
+                <td><%= cfg_f.tipo_formulario.try(:nombre) %></td>
+                <td><%= cfg_f.nombre %></td>
+                <td><%= cfg_f.descripcion %></td>
+                <td class="text-center"><%= cfg_f.tiene_app_siga %></td>
+                <td><%= cfg_f.labor_id %></td>
+                <td class="text-center"><%= cfg_f.documento_iso_id %></td>
+                <td class="text-center"><%= cfg_f.estado %></td>
                 <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
                   <td class="text-center">
-                    <% if cfg_sp.estado == "A" %>
-                      <%= link_to edit_config_sub_pregunta_path(cfg_sp), 
+                    <% if cfg_f.estado == "A" %>
+                      <%= link_to edit_config_formulario_path(cfg_f), 
                           class: "btn btn-outline-info btn-sm",
-                          "data-custom-class": "popover-info", title: "ACTUALIZAR", "data-content": "#{cfg_sp.id} | #{cfg_sp.nombre.capitalize}" do %>
+                          "data-custom-class": "popover-info", title: "ACTUALIZAR", "data-content": "#{cfg_f.id} | #{cfg_f.nombre.capitalize}" do %>
                         <i class="fas fa-edit"></i>
                       <% end %>
                     <% end %>
@@ -65,18 +73,18 @@
                 <% end %>
                 <% if tiene_permiso("BOTON ELIMINAR REGISTRO", "VER") %>
                   <td class="text-center">
-                    <% if cfg_sp.estado == "A" %>
-                      <%= link_to  inactivar_config_sub_pregunta_path(:id => cfg_sp.id), 
-                          class: "btn btn-outline-danger btn-sm btn_status_config_sub_pregunta", 
-                          data: { status: "Inactivar", nombre: "#{cfg_sp.nombre}" },
-                          "data-custom-class": "popover-danger", title: "INACTIVAR", "data-content": "#{cfg_sp.id} | #{cfg_sp.nombre.capitalize}" do %>
+                    <% if cfg_f.estado == "A" %>
+                      <%= link_to  inactivar_config_formulario_path(:id => cfg_f.id), 
+                          class: "btn btn-outline-danger btn-sm btn_status_config_formulario", 
+                          data: { status: "Inactivar", nombre: "#{cfg_f.nombre}" },
+                          "data-custom-class": "popover-danger", title: "INACTIVAR", "data-content": "#{cfg_f.id} | #{cfg_f.nombre.capitalize}" do %>
                         <i class="fas fa-trash-alt"></i>
                       <% end %>
                     <% else %>
-                      <%= link_to  activar_config_sub_pregunta_path(:id => cfg_sp.id), 
-                          class: "btn btn-outline-success btn-sm btn_status_config_sub_pregunta", 
-                          data: { status: "Activar", nombre: "#{cfg_sp.nombre}" },
-                          "data-custom-class": "popover-success", title: "ACTIVAR", "data-content": "#{cfg_sp.id} | #{cfg_sp.nombre.capitalize}" do %>
+                      <%= link_to  activar_config_formulario_path(:id => cfg_f.id), 
+                          class: "btn btn-outline-success btn-sm btn_status_config_formulario", 
+                          data: { status: "Activar", nombre: "#{cfg_f.nombre}" },
+                          "data-custom-class": "popover-success", title: "ACTIVAR", "data-content": "#{cfg_f.id} | #{cfg_f.nombre.capitalize}" do %>
                         <i class="fas fa-trash-restore-alt"></i>
                       <% end %>
                     <% end %>

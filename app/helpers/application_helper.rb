@@ -75,17 +75,9 @@ module ApplicationHelper
     if search_params.present?
       role_persona =  PersonasArea.select("roles.nombre as nombre_rol")
                                 .left_joins(:persona, :area, :rol)
-                                .where(personas_areas: {areas: {empresa_id: search_params.empresa_id}, area_id: search_params.area_id, personas: {user_id: search_params.user_id}}).first
+                                .where(personas_areas: {areas: {empresa_id: search_params.empresa_id}, area_id: search_params.area_id, personas: {user_id: search_params.user_id}}).limit(1).first
 
-      if role_persona.present?
-        if role_persona.nombre_rol.present?
-          return "#{role_persona.nombre_rol.upcase}"
-        else
-          return ""
-        end
-      else
-        return ""
-      end
+      return role_persona&.nombre_rol&.upcase || ""
     else
       return ""
     end

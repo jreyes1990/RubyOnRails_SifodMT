@@ -111,6 +111,9 @@ document.addEventListener("turbolinks:load", function () {
     confirmStatus('.btn_status_tipo_campo');
     confirmStatus('.btn_status_tipo_formulario');
     confirmStatus('.btn_status_tipo_frecuencia');
+    confirmStatus('.btn_status_config_sub_pregunta');
+    confirmStatus('.btn_status_config_pregunta');
+    confirmStatus('.btn_status_config_formulario');
 
     confirmSave('.btn_event_empresa');
     confirmSave('.btn_event_area');
@@ -126,6 +129,9 @@ document.addEventListener("turbolinks:load", function () {
     confirmSave('.btn_event_tipo_campo');
     confirmSave('.btn_event_tipo_formulario');
     confirmSave('.btn_event_tipo_frecuencia');
+    confirmSave('.btn_event_config_sub_pregunta');
+    confirmSave('.btn_event_config_pregunta');
+    confirmSave('.btn_event_config_formulario');
 
     confirmSave('.btn_password_usuario');
     confirmSave('.btn_enviar_credencial');

@@ -20,4 +20,6 @@ ActiveSupport::Inflector.inflections(:en) do |inflect|
   inflect.irregular "tipo_seleccion", "tipo_selecciones"
   inflect.irregular "tipo_frecuencia", "tipo_frecuencias"
   inflect.irregular "config_sub_pregunta", "config_sub_preguntas"
+  inflect.irregular 'config_pregunta', 'config_preguntas'
+  inflect.irregular 'config_formulario', 'config_formularios'
 end

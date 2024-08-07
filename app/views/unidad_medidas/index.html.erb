@@ -29,7 +29,7 @@
         <table id="datatable_unidad_medidas" class="table table-hover table-sm table-bordered display" width="100%" cellpadding="0" cellspacing="0">
           <thead class="thead-light">
             <tr>
-              <th class="text-center"> id </th>
+              <th class="text-center"> ID </th>
               <th>Empresa</th>
               <th>Medida</th>
               <th>Nombre</th>
@@ -55,15 +55,15 @@
                 <td><%= um.descripcion %></td>
                 <td class="text-center"><%= format_estado(um.estado) %></td>
                 <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
-                <td class="text-center">
-                  <% if um.estado == "A" %>
-                    <%= link_to edit_unidad_medida_path(um), 
-                        class: "btn btn-outline-info btn-sm",
-                        "data-custom-class": "popover-info", title: "ACTUALIZAR", "data-content": "#{um.medida_id} | #{um.nombre.capitalize}" do %>
-                      <i class="fas fa-edit"></i>
+                  <td class="text-center">
+                    <% if um.estado == "A" %>
+                      <%= link_to edit_unidad_medida_path(um), 
+                          class: "btn btn-outline-info btn-sm",
+                          "data-custom-class": "popover-info", title: "ACTUALIZAR", "data-content": "#{um.medida_id} | #{um.nombre.capitalize}" do %>
+                        <i class="fas fa-edit"></i>
+                      <% end %>
                     <% end %>
-                  <% end %>
-                </td>
+                  </td>
                 <% end %>
                 <% if tiene_permiso("BOTON ELIMINAR REGISTRO", "VER") %>
                   <td class="text-center">
