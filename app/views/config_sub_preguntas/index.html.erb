@@ -1,0 +1,43 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Config Sub Preguntas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Empresa</th>
+      <th>Area</th>
+      <th>Nombre</th>
+      <th>Descripcion</th>
+      <th>User created</th>
+      <th>User updated</th>
+      <th>Usr grab</th>
+      <th>Usr modi</th>
+      <th>Estado</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @config_sub_preguntas.each do |config_sub_pregunta| %>
+      <tr>
+        <td><%= config_sub_pregunta.empresa_id %></td>
+        <td><%= config_sub_pregunta.area_id %></td>
+        <td><%= config_sub_pregunta.nombre %></td>
+        <td><%= config_sub_pregunta.descripcion %></td>
+        <td><%= config_sub_pregunta.user_created_id %></td>
+        <td><%= config_sub_pregunta.user_updated_id %></td>
+        <td><%= config_sub_pregunta.usr_grab %></td>
+        <td><%= config_sub_pregunta.usr_modi %></td>
+        <td><%= config_sub_pregunta.estado %></td>
+        <td><%= link_to 'Show', config_sub_pregunta %></td>
+        <td><%= link_to 'Edit', edit_config_sub_pregunta_path(config_sub_pregunta) %></td>
+        <td><%= link_to 'Destroy', config_sub_pregunta, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Config Sub Pregunta', new_config_sub_pregunta_path %>

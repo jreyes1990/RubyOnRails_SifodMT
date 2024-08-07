@@ -1,0 +1,2 @@
+class ConfigSubPregunta < ApplicationRecord
+end

@@ -1,0 +1,69 @@
+<%= simple_form_for(@config_sub_pregunta) do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <% 
+    if titulo_cfg_sub_pregunta.upcase == 'ACTUALIZAR' 
+      @estado_campo = true
+  %>
+      <%= f.hidden_field :empresa_id, value: f.object.empresa_id %>
+      <%= f.hidden_field :area_id, value: f.object.area_id %>
+  <%
+    else  
+      @estado_campo = false
+    end 
+  %>
+
+  <div class="card shadow">
+    <div class="card-header py-3">
+      <h5 class="m-0 font-weight-bold text-primary">Configuración de Sub-Pregunta</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="form-inputs">
+            <div class="row">
+              <div class="col-md">
+                <%= f.input :empresa_id, label: "Empresa", collection: @listado_empresa, value_method: :id_empresa, label_method: :codigo_descripcion_empresa, include_blank: "Seleccione una empresa", input_html: { class: "select2", id: 'empresa_id_cfgSubPreg', 'data-endpoint': search_empresa_config_sub_preguntas_path, disabled: @estado_campo }, required: true %>
+              </div>
+              <div class="col-md">
+                <%= f.input :area_id, label: "Área de Negocio", collection: @listado_area, value_method: :id_area, label_method: :codigo_descripcion_area, include_blank: "Seleccione un área de negocio", input_html: { class: "select2", id: 'area_id_cfgSubPreg', disabled: @estado_campo }, required: true %>
+              </div>
+            </div>
+            <%= f.input :nombre %>
+            <%= f.input :descripcion, as: :text, input_html: {rows: 3} %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card-footer shadow bg-transparent" style="background-color: #efefef !important;">
+      <div class="col-md-12 text-center">
+        <%= link_to config_sub_preguntas_url, class: "btn btn-danger btn-sm mt-2" do %>
+          <span class="icon text-red-50">
+            <i class="fas fa-arrow-circle-left"></i>
+          </span>
+          <span class="text">CANCELAR</span>
+        <% end %>
+  
+        <% if tiene_permiso("BOTON REGISTRAR", "VER") %>
+          <%= button_tag f.submit, 
+              class: "btn btn-success btn-sm mt-2 btn_event_config_sub_pregunta", 
+              data: { evento: "#{titulo_cfg_sub_pregunta}", nombre: "#{@config_sub_pregunta.nombre}" } do %>
+            <span class="text"><%= titulo_cfg_sub_pregunta.upcase %></span>
+            <span class="icon text-green-50">
+              <i class="fas fa-edit"></i>
+            </span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    if ($('#empresa_id_cfgSubPreg').val() == "") {
+      seleccionarEmpresa('#empresa_id_cfgSubPreg', <%= @empresa_session_area %>, "<%= @nombre_empresa_session_area.descripcion %>");
+    }
+  });
+</script>

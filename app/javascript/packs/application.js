@@ -751,4 +751,18 @@ document.addEventListener("turbolinks:load", () => {
     null
   );
 
+  initializeSelect2(
+    "#empresa_id_cfgSubPreg",
+    "search_empresa_cfgSubPreg_params",
+    "empresa_cfgSubPreg_params",
+    function (data) {
+      fillSelectOptions("#area_id_cfgSubPreg", data.list_pg_area, "Seleccione un área de negocio");
+    },
+    function () {
+      $("#area_id_cfgSubPreg").empty().trigger('change');
+    },
+    null,
+    null
+  );
+
 });

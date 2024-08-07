@@ -156,11 +156,11 @@ Rails.application.routes.draw do
 
   scope "/catalogos", :path_names => {new: 'n', edit: 'e'} do
     resources :unidad_medidas, :path => 'unidad_medida' do
-      collection do 
+      collection do
         get 'search_empresa', to: 'unidad_medidas#search_empresa', as: 'search_empresa'
         get 'search_datos', to: 'unidad_medidas#search_datos', as: 'search_datos'
       end
-      
+
       member do
         get 'i' => "unidad_medidas#inactivar", as: 'inactivar'
         get 'a' => "unidad_medidas#activar", as: 'activar'
@@ -189,7 +189,7 @@ Rails.application.routes.draw do
     end
 
     resources :tipo_formularios, :path => 'tipo_form' do
-      collection do 
+      collection do
         get 'search_empresa', to: 'tipo_formularios#search_empresa', as: 'search_empresa'
       end
 
@@ -200,7 +200,7 @@ Rails.application.routes.draw do
     end
 
     resources :tipo_frecuencias, :path => 'tipo_frec' do
-      collection do 
+      collection do
         get 'search_empresa', to: 'tipo_frecuencias#search_empresa', as: 'search_empresa'
       end
 
@@ -211,11 +211,20 @@ Rails.application.routes.draw do
     end
   end
 
-  scope "/modulos" do
+  scope "/configuraciones", :path_names => {new: 'n', edit: 'e'} do
+    resources :config_sub_preguntas, :path => 'cfg_sub_preg' do
+      collection do
+        get 'search_empresa', to: 'config_sub_preguntas#search_empresa', as: 'search_empresa'
+      end
 
+      member do
+        get 'i' => "config_sub_preguntas#inactivar", as: 'inactivar'
+        get 'a' => "config_sub_preguntas#activar", as: 'activar'
+      end
+    end
   end
 
-  scope "/configuraciones" do
+  scope "/asignaciones" do
 
   end
 
