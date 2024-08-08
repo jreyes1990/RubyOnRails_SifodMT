@@ -6,4 +6,8 @@ class TipoFormulario < ApplicationRecord
   validates :empresa_id, numericality: { only_integer: true, message: ": debe ser un número entero." }, allow_nil: true
   validates :area_id, numericality: { only_integer: true, message: ": debe ser un número entero." }, allow_nil: true
   validates :nombre, uniqueness: {case_sensitive: false, scope: [:empresa_id, :area_id, :estado], message: "El dato que intenta registrar ya existe, Verifique!!!" }
+
+  def codigo_nombre_tipo_form
+    "#{self.id} - #{self.nombre}"
+  end
 end

@@ -338,6 +338,52 @@ document.addEventListener("turbolinks:load", () => {
     $(".alert").slideUp(5000);
   });
 
+  // app/javascript/packs/application.js
+  const loader = document.getElementById('loader');
+
+  function showLoader() {
+    loader.style.display = 'flex';
+  }
+
+  function hideLoader() {
+    loader.style.display = 'none';
+  }
+
+  // Configurar la barra de progreso de Turbolinks
+  Turbolinks.setProgressBarDelay(100); // Ajusta el retraso según sea necesario
+
+  // Eventos para Turbolinks
+  document.addEventListener('turbolinks:request-start', showLoader);
+  document.addEventListener('turbolinks:load', hideLoader);
+
+  // Eventos para solicitudes AJAX
+  document.addEventListener('ajax:send', showLoader);
+  document.addEventListener('ajax:complete', hideLoader);
+
+  // Interceptar todos los formularios para que sean AJAX por defecto
+  document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', event => {
+      if (!form.hasAttribute('data-remote')) {
+        form.setAttribute('data-remote', 'true');
+      }
+    });
+  });
+
+  // Integrar SweetAlert2
+  function showAlertAndShowLoader() {
+    Swal.fire({
+      title: '¡Atención!',
+      text: 'Esto puede tardar unos momentos.',
+      icon: 'info',
+      didOpen: () => {
+        showLoader();
+      },
+      willClose: () => {
+        hideLoader();
+      }
+    });
+  }
+
   //BUSCADOR EMPLEADOS WS
   if (window.gon != null) {
     $('.select2-empleado').select2({
@@ -791,7 +837,29 @@ document.addEventListener("turbolinks:load", () => {
       $("#area_id_cfgForm").empty().trigger('change');
     },
     null,
-    null
+    null,
+  );
+
+  initializeSelect2(
+    "#area_id_cfgForm",
+    "search_area_cfgForm_params",
+    "area_cfgForm_params",
+    function (data) {
+      fillSelectOptions("#area_id_cfgForm", data.list_pg_area, "Seleccione un área de negocio");
+    },
+    function () {
+      $("#area_id_cfgForm").empty().trigger('change');
+    },
+    null,
+    null,
+    null,
+    false,
+    false,
+    function () {
+      return {
+        'empresa_cfgForm_params': $('#empresa_id_cfgForm').val()
+      };
+    }
   );
 
 });

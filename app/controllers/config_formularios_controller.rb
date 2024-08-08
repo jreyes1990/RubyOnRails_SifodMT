@@ -24,7 +24,7 @@ class ConfigFormulariosController < ApplicationController
     elsif params[:empresa_cfgForm_params].present?
       @id_empresa = params[:empresa_cfgForm_params]
       @areas_negocio = PgArea.where(id_empresa: @id_empresa).order(id_area: :asc)
-      # @unidad_medidas = PgMedida.where.not("exists(select * from unidad_medidas um where um.medida_id=pg_medida.id_medida and um.empresa_id=?)", @id_empresa).order(id_medida: :asc)
+      @tipo_formulario = TipoFormulario.where(empresa_id: @id_empresa).order(id: :asc)
 
       respond_to do |format|
         format.json {
@@ -39,14 +39,16 @@ class ConfigFormulariosController < ApplicationController
   # GET /config_formularios/new
   def new
     @listado_empresa = PgEmpresa.where(STATUS: 'A', id_empresa: @empresa_session_area)
-    @listado_area = PgArea.where(id_empresa: @empresa_session_area)
+    @listado_area = PgArea.where(id_empresa: @empresa_session_area).order(id_area: :asc)
+    @listado_tipo_formulario = TipoFormulario.where(empresa_id: @empresa_session_area).limit(0)
     @config_formulario = ConfigFormulario.new
   end
 
   # GET /config_formularios/1/edit
   def edit
     @listado_empresa = PgEmpresa.where(STATUS: 'A', id_empresa: @config_formulario.empresa_id)
-    @listado_area = PgArea.where(id_empresa: @config_formulario.empresa_id)
+    @listado_area = PgArea.where(id_empresa: @config_formulario.empresa_id).order(id_area: :asc)
+    @listado_tipo_formulario = TipoFormulario.where(empresa_id: @config_formulario.empresa_id, area_id: @config_formulario.area_id)
   end
 
   # POST /config_formularios or /config_formularios.json

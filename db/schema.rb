@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 2024_08_07_202206) do
     t.bigint "tipo_formulario_id", null: false, comment: "Identifica el codigo tipo de formulario"
     t.string "nombre", limit: 100, null: false, comment: "Nombre de la configuración formulario"
     t.string "descripcion", limit: 200, comment: "Descripción general de la configuración formulario"
-    t.boolean "tiene_app_siga", default: false, null: false, comment: "¿El formulario pertenecerá a SIGA?"
+    t.boolean "tiene_app_siga", default: false, comment: "¿El formulario pertenecerá a SIGA?"
     t.integer "labor_id", comment: "Identifica el codigo de la labor"
     t.integer "documento_iso_id", comment: "Identifica el codigo del documento ISO"
     t.integer "user_created_id", null: false, comment: "Identificador de usuario al registrar en la aplicación web"

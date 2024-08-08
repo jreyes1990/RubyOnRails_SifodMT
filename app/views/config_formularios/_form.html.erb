@@ -8,6 +8,7 @@
   %>
       <%= f.hidden_field :empresa_id, value: f.object.empresa_id %>
       <%= f.hidden_field :area_id, value: f.object.area_id %>
+      <%= f.hidden_field :tiene_app_siga, value: f.object.tiene_app_siga %>
   <%
     else  
       @estado_campo = false
@@ -24,23 +25,24 @@
           <div class="form-inputs">
             <div class="row">
               <div class="col-md">
-                <%= f.input :empresa_id, label: "Empresa", collection: @listado_empresa, value_method: :id_empresa, label_method: :codigo_descripcion_empresa, include_blank: "Seleccione una empresa", input_html: { class: "select2", id: 'empresa_id_cfgForm', 'data-endpoint': search_empresa_config_formularios_path, disabled: @estado_campo }, required: true %>
+                <%= f.input :empresa_id, label: "<strong>Empresa</strong>".html_safe, collection: @listado_empresa, value_method: :id_empresa, label_method: :codigo_descripcion_empresa, include_blank: "Seleccione una empresa", input_html: { class: "select2", id: 'empresa_id_cfgForm', 'data-endpoint': search_empresa_config_formularios_path, disabled: @estado_campo }, required: true %>
               </div>
               <div class="col-md">
-                <%= f.input :area_id, label: "Área de Negocio", collection: @listado_area, value_method: :id_area, label_method: :codigo_descripcion_area, include_blank: "Seleccione un área de negocio", input_html: { class: "select2", id: 'area_id_cfgcfgForm', disabled: @estado_campo }, required: true %>
+                <%= f.input :area_id, label: "<strong>Área de Negocio</strong>".html_safe, collection: @listado_area, value_method: :id_area, label_method: :codigo_descripcion_area, include_blank: "Seleccione un área de negocio", input_html: { class: "select2", id: 'area_id_cfgForm', disabled: @estado_campo }, required: true %>
               </div>
             </div>
             <div class="row">
               <div class="col-md">
-                <%= f.association :tipo_formulario %>
+                <%= f.association :tipo_formulario, label: "<strong>Tipo de Formulario</strong>".html_safe, collection: @listado_tipo_formulario, value_method: :id, label_method: :codigo_nombre_tipo_form, include_blank: "Seleccione el tipo de formulario", input_html: { class: "select2", id: 'tipo_formulario_id_cfgForm', required: true } %>
               </div>
-              <div class="col-md">
-                <%= f.input :tiene_app_siga %>
+              <div class="col-md-auto text-center">
+                <%= f.label :tiene_app_siga, label: "<strong>¿Tiene AppSiga?</strong>".html_safe %>
+                <%= f.input :tiene_app_siga, as: :boolean, label: false, input_html: { class: 'form-check-input', data: {toggle: 'toggle'}, disabled: @estado_campo } %>
               </div>
-              <div class="col-md">
+              <div class="col-md-3">
                 <%= f.input :labor_id %>
               </div>
-              <div class="col-md">
+              <div class="col-md-3">
                 <%= f.input :documento_iso_id %>
               </div>
             </div>
