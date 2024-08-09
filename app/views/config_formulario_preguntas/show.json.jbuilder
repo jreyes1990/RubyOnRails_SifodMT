@@ -1,0 +1,1 @@
+json.partial! "config_formulario_preguntas/config_formulario_pregunta", config_formulario_pregunta: @config_formulario_pregunta

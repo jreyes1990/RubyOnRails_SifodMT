@@ -33,6 +33,7 @@ import {
 } from '@popperjs/core'
 
 import Swal from 'sweetalert2';
+window.Swal = Swal;
 var jQuery = require("jquery");
 
 // import jQuery from "jquery";
@@ -517,73 +518,82 @@ document.addEventListener("turbolinks:load", () => {
     
 
 
-  /** 
-   * Función para inicializar los select2 con ajax 
-   * @param {string} selector - Selector del elemento select2, ejemplo: "#empresa_id_estado_x_proceso"
-   * @param {string} search_param - Nombre del parámetro de búsqueda para el endpoint
-   * @param {string} ajax_param - Nombre del parámetro de búsqueda para el endpoint de la segunda llamada
-   * @param {function} success_callback - Función que se ejecuta cuando la segunda llamada es exitosa
-   * @param {function} clear_callback - Función que se ejecuta cuando la segunda llamada no es exitosa
-   * @param {function} post_select_callback - Función que se ejecuta después de seleccionar un elemento del select2, puede ir null (opcional) ejemplo en BUSCADOR PG_EMPRESA PARA ESTADO POR PROCESO
-   * @param {string} modal_id - Id del modal donde se encuentra el select2, puede ir null (opcional)
-   * @param {object} additional_params_func - Función que retorna un objeto con los parámetros adicionales que se enviarán en la primer llamada, puede ir null (opcional)
+  /**
+   * Función para inicializar los select2, opcionalmente con ajax para la carga y/o acción después de la selección
+   * @param {string} selector - Selector del elemento select2
+   * @param {string} search_param - Nombre del parámetro de búsqueda para el endpoint de carga, solo si use_ajax_load es true
+   * @param {string} ajax_param - Nombre del parámetro para el endpoint de acción después de la selección
+   * @param {function} success_callback - Función que se ejecuta cuando la acción después de la selección es exitosa
+   * @param {function} clear_callback - Función que se ejecuta cuando la acción después de la selección no es exitosa o cuando se limpia la selección, puede ser null
+   * @param {function} post_select_callback - Función que se ejecuta después de seleccionar un elemento, antes de la acción Ajax, puede ser null
+   * @param {string} modal_id - Id del modal donde se encuentra el select2, puede ser null
+   * @param {function} additional_params_func - Función que retorna parámetros adicionales para la carga, solo si use_ajax_load es true
+   * @param {boolean} use_ajax_load - Controla si se utiliza Ajax para cargar los datos, true por defecto
+   * @param {boolean} use_ajax_select - Controla si se realiza una acción Ajax después de la selección, false por defecto
+   * @param {function} additional_ajax_select_params_func - Función que retorna un objeto con parámetros adicionales para la acción Ajax después de la selección, puede ser null
    */
-  function initializeSelect2(selector, search_param, ajax_param, success_callback, clear_callback, post_select_callback = null, modal_id = null, additional_params_func = null) {
+
+  window.initializeSelect2 = function (selector, search_param, ajax_param, success_callback, clear_callback, post_select_callback = null, modal_id = null, additional_params_func = null, use_ajax_load = true, use_ajax_select = true, additional_ajax_select_params_func = null) {
     if ($(selector).length === 0) {
       return; // Sal del método si el elemento no está presente
     }
-    $(selector).select2({
-      ajax: {
-        url: $(selector).data('endpoint'),
-        dataType: "json",
-        delay: 500,
-        data: function (params) {
-          let search_obj = {};
-          search_obj[search_param] = params.term;
 
-          if (additional_params_func) {
-            let additional_params = additional_params_func();
-            for (let key in additional_params) {
-              if (additional_params.hasOwnProperty(key)) {
-                search_obj[key] = additional_params[key];
-              }
-            }
-          }
-
-          return search_obj;
-        },
-        processResults: function (data, page) {
-          return {
-            results: $.map(data, function (value, index) {
-              return {
-                id: value.valor_id,
-                text: value.valor_text
-              };
-            })
-          };
-        }
-      },
-      minimumInputLength: 2,
+    let select2Options = {
       theme: "bootstrap4",
       language: "es-GT",
       width: '100%',
       dropdownParent: modal_id ? $(modal_id) : undefined
-    }).on('select2:select', function (e) {
+    };
+
+    // Configuración opcional de Ajax para la carga de datos
+    if (use_ajax_load) {
+      //agregar el minimumInputLength para que no haga la busqueda si no hay nada escrito
+      select2Options.minimumInputLength = 2;
+      select2Options.ajax = {
+        url: $(selector).data('endpoint'),
+        dataType: "json",
+        delay: 250,
+        data: function (params) {
+          let search_obj = { [search_param]: params.term };
+
+          if (additional_params_func) {
+            Object.assign(search_obj, additional_params_func());
+          }
+
+          return search_obj;
+        },
+        processResults: function (data) {
+          return { results: data.map(item => ({ id: item.valor_id, text: item.valor_text })) };
+        }
+      };
+    }
+
+    $(selector).select2(select2Options).on('select2:select', function (e) {
       var selectedOption = e.params.data.id;
-      if (selectedOption !== '') {
+      if (selectedOption && selectedOption !== '') {
         if (post_select_callback) {
           post_select_callback(selectedOption);
         }
-        let ajax_data = {};
-        ajax_data[ajax_param] = selectedOption;
-        $.ajax({
-          url: $(this).data('endpoint'),
-          dataType: "json",
-          data: ajax_data,
-          success: success_callback
-        });
+        if (use_ajax_select) {
+          let ajax_data = { [ajax_param]: selectedOption };
+
+          // Añade parámetros adicionales si la función está definida
+          if (additional_ajax_select_params_func) {
+            Object.assign(ajax_data, additional_ajax_select_params_func());
+          }
+
+          $.ajax({
+            url: $(this).data('endpoint'),
+            dataType: "json",
+            data: ajax_data,
+            success: success_callback,
+            error: function () {
+              if (clear_callback) clear_callback();
+            }
+          });
+        }
       } else {
-        clear_callback();
+        if (clear_callback) clear_callback();
       }
     });
   }
@@ -845,21 +855,27 @@ document.addEventListener("turbolinks:load", () => {
     "search_area_cfgForm_params",
     "area_cfgForm_params",
     function (data) {
-      fillSelectOptions("#area_id_cfgForm", data.list_pg_area, "Seleccione un área de negocio");
+      fillSelectOptions("#tipo_formulario_id_cfgForm", data.list_tipo_formulario, "Seleccione el tipo de formulario");
+      fillSelectOptions("#labor_id_cfgForm", data.list_pg_labor, "Seleccione la labor oracle");
+      fillSelectOptions("#documento_iso_id_cfgForm", data.list_documento_iso, "Seleccione documento ISO");
     },
     function () {
-      $("#area_id_cfgForm").empty().trigger('change');
+      $("#tipo_formulario_id_cfgForm").empty().trigger('change');
+      $("#labor_id_cfgForm").empty().trigger('change');
+      $("#documento_iso_id_cfgForm").empty().trigger('change');
     },
     null,
     null,
     null,
-    false,
-    false,
+    true, // Si se requiere una busqueda de datos, enviar parametro true, si requiere una lista de valores, enviar parametro false
+    true, // Si se requiere que devuelva los valores, enviar parametro true, si no quiere los valores, enviar parametro false
     function () {
       return {
         'empresa_cfgForm_params': $('#empresa_id_cfgForm').val()
       };
     }
   );
+
+
 
 });

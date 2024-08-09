@@ -34,10 +34,10 @@
               <th>Area</th>
               <th>Tipo formulario</th>
               <th>Nombre</th>
-              <th>Descripcion</th>
               <th class="text-center">Tiene app siga</th>
               <th>Labor</th>
               <th class="text-center">Codigo ISO</th>
+              <th>Descripcion</th>
               <th class="text-center">Estado</th>
               <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
               <th class="text-center"></th>
@@ -55,11 +55,11 @@
                 <td><%= cfg_f.area_id %></td>
                 <td><%= cfg_f.tipo_formulario.try(:nombre) %></td>
                 <td><%= cfg_f.nombre %></td>
-                <td><%= cfg_f.descripcion %></td>
-                <td class="text-center"><%= cfg_f.tiene_app_siga %></td>
+                <td class="text-center"><%= valida_pregunta(cfg_f.tiene_app_siga) %></td>
                 <td><%= cfg_f.labor_id %></td>
                 <td class="text-center"><%= cfg_f.documento_iso_id %></td>
-                <td class="text-center"><%= cfg_f.estado %></td>
+                <td><%= cfg_f.descripcion %></td>
+                <td class="text-center"><%= format_estado(cfg_f.estado) %></td>
                 <% if tiene_permiso("BOTON EDITAR REGISTRO", "VER") %>
                   <td class="text-center">
                     <% if cfg_f.estado == "A" %>

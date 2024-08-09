@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_08_07_202206) do
+ActiveRecord::Schema.define(version: 2024_08_08_224017) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,25 @@ ActiveRecord::Schema.define(version: 2024_08_07_202206) do
     t.string "estado", limit: 10, default: "A", null: false, comment: "Estados: [A]: Activo  [I]: Inactivo"
     t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Fecha y hora de creación del registro"
     t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Fecha y hora de la última actualización del registro"
+  end
+
+  create_table "config_formulario_preguntas", id: :serial, comment: "Módulo configuración de preguntas por formulario", force: :cascade do |t|
+    t.integer "empresa_id", null: false, comment: "Identifica el codigo de la empresa"
+    t.integer "area_id", null: false, comment: "Identifica el codigo del área"
+    t.bigint "config_formulario_id", null: false, comment: "Identifica el codigo de configuración de formulario"
+    t.bigint "config_pregunta_id", null: false, comment: "Identifica el codigo de configuración de la pregunta"
+    t.bigint "config_sub_pregunta_id", comment: "Identifica el codigo de configuración de la sub-pregunta"
+    t.bigint "unidad_medida_id", comment: "Identifica el codigo de la unidad de medida"
+    t.boolean "requerido", default: false, comment: "¿La pregunta tendrá una respuesta obligatoria?"
+    t.integer "posicion"
+    t.integer "user_created_id", null: false, comment: "Identificador de usuario al registrar en la aplicación web"
+    t.integer "user_updated_id", comment: "Identificador de usuario al actualizar en la aplicación web"
+    t.string "usr_grab", limit: 50, default: -> { "((replace(upper((USER)::text), 'OPS$'::text, ''::text) || '-'::text) || to_char(CURRENT_TIMESTAMP, 'dd/mm/yyyy HH24:MI'::text))" }, comment: "Identificador de usuario al registrar en la base de datos"
+    t.string "usr_modi", limit: 50, default: -> { "((replace(upper((USER)::text), 'OPS$'::text, ''::text) || '-'::text) || to_char(CURRENT_TIMESTAMP, 'dd/mm/yyyy HH24:MI'::text))" }, comment: "Identificador de usuario al actualizar en la base de datos"
+    t.string "estado", limit: 10, default: "A", null: false, comment: "Estados: [A]: Activo  [I]: Inactivo"
+    t.datetime "created_at", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Fecha y hora de creación del registro"
+    t.datetime "updated_at", default: -> { "CURRENT_TIMESTAMP" }, null: false, comment: "Fecha y hora de la última actualización del registro"
+    t.index ["empresa_id", "area_id", "config_formulario_id", "config_pregunta_id", "config_sub_pregunta_id", "unidad_medida_id"], name: "idx_cfgFormPreg", unique: true
   end
 
   create_table "config_formularios", id: :serial, comment: "Módulo configuración de formularios", force: :cascade do |t|
@@ -471,6 +490,10 @@ ActiveRecord::Schema.define(version: 2024_08_07_202206) do
   add_foreign_key "areas", "empresas", name: "fk_area_empresa"
   add_foreign_key "bitacora_consulta_movils", "personas"
   add_foreign_key "bitacora_token_personas", "personas"
+  add_foreign_key "config_formulario_preguntas", "config_formularios", name: "fk_cfgFormPreg_cfgForm"
+  add_foreign_key "config_formulario_preguntas", "config_preguntas", name: "fk_cfgFormPreg_cfgPreg"
+  add_foreign_key "config_formulario_preguntas", "config_sub_preguntas", name: "fk_cfgFormPreg_cfgSubPreg"
+  add_foreign_key "config_formulario_preguntas", "unidad_medidas", name: "fk_cfgFormPreg_unidadMedida"
   add_foreign_key "config_formularios", "tipo_formularios", name: "fk_cfgFormulario_tipoForm"
   add_foreign_key "config_preguntas", "tipo_campos", name: "fk_cfgPregunta_tipoCampo"
   add_foreign_key "detalle_datos_apis", "datos_apis"

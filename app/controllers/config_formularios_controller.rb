@@ -5,6 +5,9 @@ class ConfigFormulariosController < ApplicationController
 
   # GET /config_formularios or /config_formularios.json
   def index
+    # Eliminar el parámetro de la sesión
+    session.delete(:params_session_empresa_cfgForm)
+
     @config_formularios = ConfigFormulario.where(estado: ['A', 'I']).order(:id)
   end
 
@@ -23,8 +26,9 @@ class ConfigFormulariosController < ApplicationController
       end
     elsif params[:empresa_cfgForm_params].present?
       @id_empresa = params[:empresa_cfgForm_params]
+      session[:params_session_empresa_cfgForm] = params[:empresa_cfgForm_params]
+
       @areas_negocio = PgArea.where(id_empresa: @id_empresa).order(id_area: :asc)
-      @tipo_formulario = TipoFormulario.where(empresa_id: @id_empresa).order(id: :asc)
 
       respond_to do |format|
         format.json {
@@ -36,25 +40,64 @@ class ConfigFormulariosController < ApplicationController
     end
   end
 
+  def search_area
+    if params[:search_area_cfgForm_params].present? && (params[:empresa_cfgForm_params].present? || session[:params_session_empresa_cfgForm].present?)
+      @id_empresa = params[:empresa_cfgForm_params].present? ? params[:empresa_cfgForm_params] : session[:params_session_empresa_cfgForm]
+      @parametro = params[:search_area_cfgForm_params].upcase
+
+      @area = PgArea.select(" id_area, (id_area||' - '||descripcion) codigo_area").where("id_empresa=#{@id_empresa} and id_area||upper(descripcion) like ?", "%#{@parametro}%").distinct
+
+      respond_to do |format|
+        format.json { render json: @area.map { |p| { valor_id: p.id_area, valor_text: p.codigo_area } } }
+      end
+    elsif params[:area_cfgForm_params].present? && params[:empresa_cfgForm_params].present?
+      @id_empresa = params[:empresa_cfgForm_params]
+      @id_area = params[:area_cfgForm_params]
+
+      @tipo_formulario = TipoFormulario.where(empresa_id: @id_empresa, area_id: @id_area).order(id: :asc)
+      @labores_oracle = PgLabor.where(id_empresa: @id_empresa, id_area: @id_area)
+                               .where("datascope_calidad=? or datascope_check_list=?", "S", "S")
+                               .order(id_labor: :asc)
+      @documentos_iso = SgiDocumento.joins("inner join sig.empresas on(sig.documentos.empresa_id=sig.empresas.id)").order(id: :asc)
+
+      respond_to do |format|
+        format.json {
+          render json: {
+            list_tipo_formulario: @tipo_formulario.map { |tf| { valor_id: tf.id, valor_text: "#{tf.id} - #{tf.nombre.upcase}" } },
+            list_pg_labor: @labores_oracle.map { |lo| { valor_id: lo.id_labor, valor_text: "#{lo.id_labor} - #{lo.descripcion.upcase}" } },
+            list_documento_iso: @documentos_iso.map { |di| { valor_id: di.id, valor_text: "#{di.codigo}#{format_digitos(di.correlativo, 3)} - #{di.nombre.upcase}" } }
+          }
+        }
+      end
+    end
+  end
+
   # GET /config_formularios/new
   def new
     @listado_empresa = PgEmpresa.where(STATUS: 'A', id_empresa: @empresa_session_area)
     @listado_area = PgArea.where(id_empresa: @empresa_session_area).order(id_area: :asc)
     @listado_tipo_formulario = TipoFormulario.where(empresa_id: @empresa_session_area).limit(0)
+    @listado_labor = PgLabor.where(id_empresa: @empresa_session_area).limit(0)
+    @listado_documento_iso = SgiDocumento.joins("inner join sig.empresas on(sig.documentos.empresa_id=sig.empresas.id)").limit(0)
     @config_formulario = ConfigFormulario.new
   end
 
   # GET /config_formularios/1/edit
   def edit
     @listado_empresa = PgEmpresa.where(STATUS: 'A', id_empresa: @config_formulario.empresa_id)
-    @listado_area = PgArea.where(id_empresa: @config_formulario.empresa_id).order(id_area: :asc)
+    @listado_area = PgArea.where(id_empresa: @config_formulario.empresa_id, id_area: @config_formulario.area_id).order(id_area: :asc)
     @listado_tipo_formulario = TipoFormulario.where(empresa_id: @config_formulario.empresa_id, area_id: @config_formulario.area_id)
+    @listado_labor = PgLabor.where(id_empresa: @config_formulario.empresa_id, id_area: @config_formulario.area_id).where("datascope_calidad=? or datascope_check_list=?", "S", "S")
+    @listado_documento_iso = SgiDocumento.joins("inner join sig.empresas on(sig.documentos.empresa_id=sig.empresas.id)").where("sig.empresas.codigo_empresa=?", @config_formulario.empresa_id)
   end
 
   # POST /config_formularios or /config_formularios.json
   def create
     @listado_empresa = PgEmpresa.where(STATUS: 'A', id_empresa: @empresa_session_area)
     @listado_area = PgArea.where(id_empresa: @empresa_session_area)
+    @listado_tipo_formulario = TipoFormulario.where(empresa_id: @empresa_session_area)
+    @listado_labor = PgLabor.where(id_empresa: @empresa_session_area)
+    @listado_documento_iso = SgiDocumento.joins("inner join sig.empresas on(sig.documentos.empresa_id=sig.empresas.id)").where("sig.empresas.codigo_empresa=?", @empresa_session_area)
 
     @config_formulario = ConfigFormulario.new(config_formulario_params)
     @config_formulario.estado = "A"
@@ -63,6 +106,8 @@ class ConfigFormulariosController < ApplicationController
 
     ActiveRecord::Base.transaction do
       guardar_con_manejo_de_excepciones(@config_formulario, "No se pudo crear la configuración del formulario", "Error de base de datos al crear la configuración del formulario")
+      # Eliminar el parámetro de la sesión
+      # session.delete(:params_session_empresa_cfgForm)
 
       respond_to do |format|
         format.html { redirect_to config_formularios_url, notice: "La configuración del formulario [ <strong>#{@config_formulario.nombre.upcase}</strong> ] se ha creado correctamente.".html_safe }
@@ -75,6 +120,9 @@ class ConfigFormulariosController < ApplicationController
   def update
     @listado_empresa = PgEmpresa.where(STATUS: 'A', id_empresa: @config_formulario.empresa_id)
     @listado_area = PgArea.where(id_empresa: @config_formulario.empresa_id)
+    @listado_tipo_formulario = TipoFormulario.where(empresa_id: @config_formulario.empresa_id, area_id: @config_formulario.area_id)
+    @listado_labor = PgLabor.where(id_empresa: @config_formulario.empresa_id, id_area: @config_formulario.area_id).where("datascope_calidad=? or datascope_check_list=?", "S", "S")
+    @listado_documento_iso = SgiDocumento.joins("inner join sig.empresas on(sig.documentos.empresa_id=sig.empresas.id)").where("sig.empresas.codigo_empresa=?", @config_formulario.empresa_id)
 
     @config_formulario.user_updated_id = current_user.id
     @config_formulario.usr_modi = set_usr_modi(current_user)
@@ -115,6 +163,6 @@ class ConfigFormulariosController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def config_formulario_params
-      params.require(:config_formulario).permit(ConfigFormulario.attribute_names.map(&:to_sym))
+      params.require(:config_formulario).permit(ConfigFormulario.attribute_names.map(&:to_sym).push(:_destroy), config_formulario_preguntas_attributes: ConfigFormularioPregunta.attribute_names.map(&:to_sym).push(:_destroy))
     end
 end

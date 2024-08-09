@@ -8,7 +8,6 @@
   %>
       <%= f.hidden_field :empresa_id, value: f.object.empresa_id %>
       <%= f.hidden_field :area_id, value: f.object.area_id %>
-      <%= f.hidden_field :tiene_app_siga, value: f.object.tiene_app_siga %>
   <%
     else  
       @estado_campo = false
@@ -17,38 +16,67 @@
 
   <div class="card shadow">
     <div class="card-header py-3">
-      <h5 class="m-0 font-weight-bold text-primary">Configuración de Formulario</h5>
+      <div class="row">
+        <div class="col-md text-left mt-2">
+          <h5 class="m-0 font-weight-bold text-primary">Configuración</h5>
+        </div>
+        <div class="col-md text-right">
+          <%= link_to config_formularios_path, class: "btn btn-primary btn-sm mt-2" do %>
+            <span class="icon text-red-50">
+              <i class="fas fa-arrow-circle-left"></i>
+            </span>
+            <span class="text">REGRESAR</span>
+          <% end %>
+        </div>
+      </div>
     </div>
     <div class="card-body">
       <div class="row">
         <div class="col-md-12">
           <div class="form-inputs">
-            <div class="row">
-              <div class="col-md">
-                <%= f.input :empresa_id, label: "<strong>Empresa</strong>".html_safe, collection: @listado_empresa, value_method: :id_empresa, label_method: :codigo_descripcion_empresa, include_blank: "Seleccione una empresa", input_html: { class: "select2", id: 'empresa_id_cfgForm', 'data-endpoint': search_empresa_config_formularios_path, disabled: @estado_campo }, required: true %>
-              </div>
-              <div class="col-md">
-                <%= f.input :area_id, label: "<strong>Área de Negocio</strong>".html_safe, collection: @listado_area, value_method: :id_area, label_method: :codigo_descripcion_area, include_blank: "Seleccione un área de negocio", input_html: { class: "select2", id: 'area_id_cfgForm', disabled: @estado_campo }, required: true %>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md">
-                <%= f.association :tipo_formulario, label: "<strong>Tipo de Formulario</strong>".html_safe, collection: @listado_tipo_formulario, value_method: :id, label_method: :codigo_nombre_tipo_form, include_blank: "Seleccione el tipo de formulario", input_html: { class: "select2", id: 'tipo_formulario_id_cfgForm', required: true } %>
-              </div>
-              <div class="col-md-auto text-center">
-                <%= f.label :tiene_app_siga, label: "<strong>¿Tiene AppSiga?</strong>".html_safe %>
-                <%= f.input :tiene_app_siga, as: :boolean, label: false, input_html: { class: 'form-check-input', data: {toggle: 'toggle'}, disabled: @estado_campo } %>
-              </div>
-              <div class="col-md-3">
-                <%= f.input :labor_id %>
-              </div>
-              <div class="col-md-3">
-                <%= f.input :documento_iso_id %>
-              </div>
-            </div>
+            <!-- INICIO DE LA CONFIGURACIÓN DEL FORMULARIO -->
+            <!-- VARIABLE UNICA CONFIGURACIÓN DE FORMULARIO -->
+            <% unique_config_form_id = "config_form_#{f.object_id}" %>
 
-            <%= f.input :nombre %>
-            <%= f.input :descripcion, as: :text, input_html: {rows: 3} %>
+            <div class="card-header py-0" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="cardBody<%= unique_config_form_id %>" href="#cardBody<%= unique_config_form_id %>" style="cursor: pointer; border-radius: 0px; padding: 0px;">
+              <%= content_tag(:h5, 'Formulario', class: 'text-left font-weight-bold text-primary', style: "padding-left: 20px; padding-top: 10px;" ) %>
+            </div>
+            <div class="card-body collapse show" id="cardBody<%= unique_config_form_id %>" style="padding: 0px; padding-top: 0px;">
+              <div class="card shadow">
+                <div class="col-md-12 mt-3">
+                  <div class="row">
+                    <div class="col-md">
+                      <%= f.input :empresa_id, label: "<strong>Empresa</strong>".html_safe, collection: @listado_empresa, value_method: :id_empresa, label_method: :codigo_descripcion_empresa, include_blank: "Seleccione una empresa", input_html: { class: "select2", id: 'empresa_id_cfgForm', 'data-endpoint': search_empresa_config_formularios_path, disabled: @estado_campo }, required: true %>
+                    </div>
+                    <div class="col-md">
+                      <%= f.input :area_id, label: "<strong>Área de Negocio</strong>".html_safe, collection: @listado_area, value_method: :id_area, label_method: :codigo_descripcion_area, include_blank: "Seleccione un área de negocio", input_html: { class: "select2", id: 'area_id_cfgForm', 'data-endpoint': search_area_config_formularios_path, disabled: @estado_campo }, required: true %>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-5">
+                      <%= f.association :tipo_formulario, label: "<strong>Tipo de Formulario</strong>".html_safe, collection: @listado_tipo_formulario, value_method: :id, label_method: :codigo_nombre_tipo_form, include_blank: "Seleccione el tipo de formulario", input_html: { class: "select2", id: 'tipo_formulario_id_cfgForm', required: true } %>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <%= f.label :tiene_app_siga, label: "<strong>¿Tiene AppSiga?</strong>".html_safe %>
+                      <%= f.input :tiene_app_siga, as: :boolean, label: false, input_html: { class: 'form-check-input', data: {toggle: 'toggle'} } %>
+                    </div>
+                    <div class="col-md-5">
+                      <%= f.input :labor_id, label: "<strong>Labor Oracle</strong>".html_safe, collection: @listado_labor, value_method: :id_labor, label_method: :codigo_descripcion_labor, include_blank: "Seleccione la labor oracle", input_html: { class: "select2", id: 'labor_id_cfgForm' }, required: false %>
+                    </div>
+                  </div>
+                  <%= f.input :documento_iso_id, label: "<strong>Documento ISO</strong>".html_safe, collection: @listado_documento_iso, value_method: :id, label_method: :codigo_descripcion_documento, include_blank: "Seleccione documento ISO", input_html: { class: "select2", id: 'documento_iso_id_cfgForm', disabled: @estado_campo }, required: true %>
+                  <%= f.input :nombre, label: "<strong>Nombre Formulario</strong>".html_safe %>
+                  <%= f.input :descripcion, as: :text, label: "<strong>Descripción General</strong>".html_safe, input_html: {rows: 3} %>
+                </div>
+              </div>
+            </div>
+            <br>
+            <!-- FIN DE LA CONFIGURACIÓN DEL FORMULARIO -->
+
+            <!-- INICIO DE LA CONFIGURACION DE LAS PREGUNTAS PARA EL FORMULARIO -->
+            <!-- VARIABLE UNICA CONFIGURACIÓN DE PREGUNTA -->
+            <% unique_config_pregunta_id = "config_asigna_form_#{f.object_id}" %>
+            <!-- FIN DE LA CONFIGURACION DE LAS PREGUNTAS PARA EL FORMULARIO -->
           </div>
         </div>
       </div>

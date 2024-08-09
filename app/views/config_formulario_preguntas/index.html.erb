@@ -1,0 +1,51 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Config Formulario Preguntas</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Empresa</th>
+      <th>Area</th>
+      <th>Config formulario</th>
+      <th>Config pregunta</th>
+      <th>Config sub pregunta</th>
+      <th>Unidad medida</th>
+      <th>Requerido</th>
+      <th>Posicion</th>
+      <th>User created</th>
+      <th>User updated</th>
+      <th>Usr grab</th>
+      <th>Usr modi</th>
+      <th>Estado</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @config_formulario_preguntas.each do |config_formulario_pregunta| %>
+      <tr>
+        <td><%= config_formulario_pregunta.empresa_id %></td>
+        <td><%= config_formulario_pregunta.area_id %></td>
+        <td><%= config_formulario_pregunta.config_formulario_id %></td>
+        <td><%= config_formulario_pregunta.config_pregunta_id %></td>
+        <td><%= config_formulario_pregunta.config_sub_pregunta_id %></td>
+        <td><%= config_formulario_pregunta.unidad_medida_id %></td>
+        <td><%= config_formulario_pregunta.requerido %></td>
+        <td><%= config_formulario_pregunta.posicion %></td>
+        <td><%= config_formulario_pregunta.user_created_id %></td>
+        <td><%= config_formulario_pregunta.user_updated_id %></td>
+        <td><%= config_formulario_pregunta.usr_grab %></td>
+        <td><%= config_formulario_pregunta.usr_modi %></td>
+        <td><%= config_formulario_pregunta.estado %></td>
+        <td><%= link_to 'Show', config_formulario_pregunta %></td>
+        <td><%= link_to 'Edit', edit_config_formulario_pregunta_path(config_formulario_pregunta) %></td>
+        <td><%= link_to 'Destroy', config_formulario_pregunta, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Config Formulario Pregunta', new_config_formulario_pregunta_path %>

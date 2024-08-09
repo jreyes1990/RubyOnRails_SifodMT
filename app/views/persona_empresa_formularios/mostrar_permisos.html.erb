@@ -185,14 +185,14 @@
                         <%= "#{op.opcion_ca.opcion.menu.nombre.upcase}: <strong style='color: #f18313;'>#{op.opcion_ca.opcion.nombre.upcase}</strong>".html_safe %>                                           
                       </div>
                       <div class="col-2 text-right">
-                        <a href="#" data-toggle="collapse" data-target="#collapse<%= op.opcion_ca.opcion.nombre.upcase.gsub " ", "_"%>" aria-expanded="true" class="">
+                        <a href="#" data-toggle="collapse" data-target="#collapse<%= op.opcion_ca.opcion.nombre.upcase.gsub /[^0-9A-Za-z]/, "_"%>" aria-expanded="true" class="">
                           <i class="icon-action fa fa-chevron-down mt-2" style="color:#6c6868"></i>                  
                         </a>
                       </div>
                     </div>
                   </div>
 
-                  <div class="collapse" id="collapse<%= op.opcion_ca.opcion.nombre.upcase.gsub " ", "_"%>" style="">
+                  <div class="collapse" id="collapse<%= op.opcion_ca.opcion.nombre.upcase.gsub /[^0-9A-Za-z]/, "_"%>" style="">
                     <div class="card-body">
                       <div class="card mt-3" style="background-color: whitesmoke">
                         <div class="col-md-12 table-responsive-sm">

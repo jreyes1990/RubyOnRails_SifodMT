@@ -237,11 +237,24 @@ Rails.application.routes.draw do
     resources :config_formularios, :path => 'cfg_form' do
       collection do
         get 'search_empresa', to: 'config_formularios#search_empresa', as: 'search_empresa'
+        get 'search_area', to: 'config_formularios#search_area', as: 'search_area'
       end
 
       member do
         get 'i' => "config_formularios#inactivar", as: 'inactivar'
         get 'a' => "config_formularios#activar", as: 'activar'
+      end
+    end
+
+    resources :config_formulario_preguntas, :path => 'cfg_form_det' do
+      collection do
+        get 'search_empresa', to: 'config_formulario_preguntas#search_empresa', as: 'search_empresa'
+        get 'search_area', to: 'config_formulario_preguntas#search_area', as: 'search_area'
+      end
+
+      member do
+        get 'i' => "config_formulario_preguntas#inactivar", as: 'inactivar'
+        get 'a' => "config_formulario_preguntas#activar", as: 'activar'
       end
     end
   end

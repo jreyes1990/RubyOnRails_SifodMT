@@ -5,7 +5,7 @@ class PgLabor < ApplicationRecord
   self.table_name = "parger.pg_labor"
   self.primary_keys = :id_empresa, :id_area, :id_labor
 
-  def codigo_descripcion_area
+  def codigo_descripcion_labor
     "#{self.id_labor} - #{self.descripcion}"
   end
 end

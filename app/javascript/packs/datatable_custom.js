@@ -503,7 +503,8 @@ document.addEventListener("turbolinks:load", () => {
     '#datatable_config_formularios',
     [
       { columnIndex: 1, label: 'Empresa ' },
-      { columnIndex: 2, label: 'Área ' }
+      { columnIndex: 2, label: 'Área ' },
+      { columnIndex: 3, label: 'Tipo Formulario ' }
     ],
     [
       { responsivePriority: 1, targets: [0, -1, -2] },

@@ -94,13 +94,13 @@ class PersonaEmpresaFormulariosController < ApplicationController
           select_deselect_all_checkbox = 
           "
             <li class='list-group-item d-flex justify-content-between align-items-center flex-wrap'>
-              <label for='select-all-#{mxr.opcion.nombre.upcase.gsub ' ', '_'}'>
+              <label for='select-all-#{mxr.opcion.nombre.upcase.gsub /[^0-9A-Za-z]/, '_'}'>
                 <h6>SELECCIONAR</h6>
               </label>
               <span class='text-secondary'>
                 <label class='checkbox-label'>
                   <strong style='padding-right: 5px;'>TODOS</strong>
-                    <input type='checkbox' id='select-all-#{mxr.opcion.nombre.upcase.gsub ' ', '_'}' checked=true>
+                    <input type='checkbox' id='select-all-#{mxr.opcion.nombre.upcase.gsub /[^0-9A-Za-z]/, '_'}' checked=true>
                   <span class='checkmark'></span>
                 </label>
               </span>
@@ -116,7 +116,7 @@ class PersonaEmpresaFormulariosController < ApplicationController
               <span class='text-secondary'>  
                 <label class='checkbox-label'>
                   <strong style='padding-right: 5px;'>#{oc.atributo.nombre}</strong>
-                    <input type='checkbox' name='permisoids[]' value='#{oc.id}' class='#{mxr.opcion.nombre.upcase.gsub " ", "_"}' id='#{oc.id}' checked=true/>
+                    <input type='checkbox' name='permisoids[]' value='#{oc.id}' class='#{mxr.opcion.nombre.upcase.gsub /[^0-9A-Za-z]/, "_"}' id='#{oc.id}' checked=true/>
                   <span class='checkmark's></span>
                 </label>
               </span>
@@ -137,13 +137,13 @@ class PersonaEmpresaFormulariosController < ApplicationController
                       <h6>#{mxr.opcion.menu.nombre.upcase}: <strong style='color: #f18313;'>#{mxr.opcion.nombre.upcase}</strong></h6>
                     </div>
                     <div class='col-2 text-right'>
-                      <a href='#' data-toggle='collapse' data-target='#collapse#{mxr.opcion.nombre.upcase.gsub ' ', '_'}' aria-expanded='true' class=''>
+                      <a href='#' data-toggle='collapse' data-target='#collapse#{mxr.opcion.nombre.upcase.gsub /[^0-9A-Za-z]/, '_'}' aria-expanded='true' class=''>
                         <i class='icon-action fa fa-chevron-down mt-2' style='color:#6c6868'></i>                  
                       </a>
                     </div>
                   </div>                                          
                 </div>
-                <div class='collapse' id='collapse#{mxr.opcion.nombre.upcase.gsub ' ', '_'}' style=''>
+                <div class='collapse' id='collapse#{mxr.opcion.nombre.upcase.gsub /[^0-9A-Za-z]/, '_'}' style=''>
                   <div class='card' style='padding: 10px;'>
                     <div class='card mt-3'>
                       <ul class='list-group list-group-flush'>
@@ -157,8 +157,8 @@ class PersonaEmpresaFormulariosController < ApplicationController
             </div>
 
             <script>
-              document.getElementById('select-all-#{mxr.opcion.nombre.upcase.gsub " ", "_"}').onclick = function() {
-                var checkboxes = document.querySelectorAll('input[class=#{mxr.opcion.nombre.upcase.gsub " ", "_"}]');
+              document.getElementById('select-all-#{mxr.opcion.nombre.upcase.gsub /[^0-9A-Za-z]/, "_"}').onclick = function() {
+                var checkboxes = document.querySelectorAll('input[class=#{mxr.opcion.nombre.upcase.gsub /[^0-9A-Za-z]/, "_"}]');
                 for (var checkbox of checkboxes) {                                                      
                   checkbox.checked = this.checked;
                 }
@@ -193,13 +193,13 @@ class PersonaEmpresaFormulariosController < ApplicationController
         select_deselect_all_checkbox = 
         "
           <li class='list-group-item d-flex justify-content-between align-items-center flex-wrap'>
-            <label for='select-all-#{nombreOpcion.gsub ' ', '_'}'>
+            <label for='select-all-#{nombreOpcion.gsub /[^0-9A-Za-z]/, '_'}'>
               <h6>SELECCIONAR</h6>
             </label>
             <span class='text-secondary'>
               <label class='checkbox-label'>
                 <strong style='padding-right: 5px;'>TODOS</strong>
-                  <input type='checkbox' id='select-all-#{nombreOpcion.gsub ' ', '_'}' checked=true>
+                  <input type='checkbox' id='select-all-#{nombreOpcion.gsub /[^0-9A-Za-z]/, '_'}' checked=true>
                 <span class='checkmark'></span>
               </label>
             </span>
@@ -215,7 +215,7 @@ class PersonaEmpresaFormulariosController < ApplicationController
             <span class='text-secondary'>  
               <label class='checkbox-label'>
                 <strong style='padding-right: 5px;'>#{oc.atributo.nombre}</strong>
-                <input type='checkbox' name='permisoids[]' value='#{oc.id}' class='#{oc.opcion.nombre.upcase.gsub " ", "_"}' id='#{oc.id}' checked=true/>
+                <input type='checkbox' name='permisoids[]' value='#{oc.id}' class='#{oc.opcion.nombre.upcase.gsub /[^0-9A-Za-z]/, "_"}' id='#{oc.id}' checked=true/>
                 <span class='checkmark's></span>
               </label>
             </span>
@@ -236,13 +236,13 @@ class PersonaEmpresaFormulariosController < ApplicationController
                     <h6>#{nombreMenu}: <strong style='color: #f18313;'>#{nombreOpcion}</strong></h6>                                        
                   </div>
                   <div class='col-2 text-right'>
-                    <a href='#' data-toggle='collapse' data-target='#collapse#{nombreOpcion.gsub ' ', '_'}' aria-expanded='true' class=''>
+                    <a href='#' data-toggle='collapse' data-target='#collapse#{nombreOpcion.gsub /[^0-9A-Za-z]/, '_'}' aria-expanded='true' class=''>
                       <i class='icon-action fa fa-chevron-down mt-2' style='color:#6c6868'></i>                  
                     </a>
                   </div>
                 </div>
               </div>
-              <div class='collapse' id='collapse#{nombreOpcion.gsub ' ', '_'}' style=''>
+              <div class='collapse' id='collapse#{nombreOpcion.gsub /[^0-9A-Za-z]/, '_'}' style=''>
                 <div class='card' style='padding: 10px;'>
                   <div class='card mt-3'>
                     <ul class='list-group list-group-flush'>
@@ -256,8 +256,8 @@ class PersonaEmpresaFormulariosController < ApplicationController
           </div>
 
           <script>
-            document.getElementById('select-all-#{nombreOpcion.gsub " ", "_"}').onclick = function() {
-              var checkboxes = document.querySelectorAll('input[class=#{nombreOpcion.gsub " ", "_"}]');
+            document.getElementById('select-all-#{nombreOpcion.gsub /[^0-9A-Za-z]/, "_"}').onclick = function() {
+              var checkboxes = document.querySelectorAll('input[class=#{nombreOpcion.gsub /[^0-9A-Za-z]/, "_"}]');
               for (var checkbox of checkboxes) {                                                      
                 checkbox.checked = this.checked;
               }
