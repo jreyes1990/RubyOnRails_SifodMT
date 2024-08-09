@@ -40,6 +40,8 @@ var jQuery = require("jquery");
 global.$ = global.jQuery = jQuery;
 window.$ = window.jQuery = jQuery;
 
+import '@nathanvda/cocoon';
+
 import "./datatable_custom";
 import "./search_ajax_custom";
 import "./wizard_form_custom";
@@ -339,51 +341,51 @@ document.addEventListener("turbolinks:load", () => {
     $(".alert").slideUp(5000);
   });
 
-  // app/javascript/packs/application.js
-  const loader = document.getElementById('loader');
+  // // app/javascript/packs/application.js
+  // const loader = document.getElementById('loader');
 
-  function showLoader() {
-    loader.style.display = 'flex';
-  }
+  // function showLoader() {
+  //   loader.style.display = 'flex';
+  // }
 
-  function hideLoader() {
-    loader.style.display = 'none';
-  }
+  // function hideLoader() {
+  //   loader.style.display = 'none';
+  // }
 
-  // Configurar la barra de progreso de Turbolinks
-  Turbolinks.setProgressBarDelay(100); // Ajusta el retraso según sea necesario
+  // // Configurar la barra de progreso de Turbolinks
+  // Turbolinks.setProgressBarDelay(100); // Ajusta el retraso según sea necesario
 
-  // Eventos para Turbolinks
-  document.addEventListener('turbolinks:request-start', showLoader);
-  document.addEventListener('turbolinks:load', hideLoader);
+  // // Eventos para Turbolinks
+  // document.addEventListener('turbolinks:request-start', showLoader);
+  // document.addEventListener('turbolinks:load', hideLoader);
 
-  // Eventos para solicitudes AJAX
-  document.addEventListener('ajax:send', showLoader);
-  document.addEventListener('ajax:complete', hideLoader);
+  // // Eventos para solicitudes AJAX
+  // document.addEventListener('ajax:send', showLoader);
+  // document.addEventListener('ajax:complete', hideLoader);
 
-  // Interceptar todos los formularios para que sean AJAX por defecto
-  document.querySelectorAll('form').forEach(form => {
-    form.addEventListener('submit', event => {
-      if (!form.hasAttribute('data-remote')) {
-        form.setAttribute('data-remote', 'true');
-      }
-    });
-  });
+  // // Interceptar todos los formularios para que sean AJAX por defecto
+  // document.querySelectorAll('form').forEach(form => {
+  //   form.addEventListener('submit', event => {
+  //     if (!form.hasAttribute('data-remote')) {
+  //       form.setAttribute('data-remote', 'true');
+  //     }
+  //   });
+  // });
 
-  // Integrar SweetAlert2
-  function showAlertAndShowLoader() {
-    Swal.fire({
-      title: '¡Atención!',
-      text: 'Esto puede tardar unos momentos.',
-      icon: 'info',
-      didOpen: () => {
-        showLoader();
-      },
-      willClose: () => {
-        hideLoader();
-      }
-    });
-  }
+  // // Integrar SweetAlert2
+  // function showAlertAndShowLoader() {
+  //   Swal.fire({
+  //     title: '¡Atención!',
+  //     text: 'Esto puede tardar unos momentos.',
+  //     icon: 'info',
+  //     didOpen: () => {
+  //       showLoader();
+  //     },
+  //     willClose: () => {
+  //       hideLoader();
+  //     }
+  //   });
+  // }
 
   //BUSCADOR EMPLEADOS WS
   if (window.gon != null) {

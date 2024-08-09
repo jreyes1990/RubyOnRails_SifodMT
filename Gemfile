@@ -121,3 +121,5 @@ gem "roo"
 
 # GEMA PARA USAR BOOTSTRAP SWITCH CON SIMPLE_FORM
 gem 'bootstrap-toggle-rails'
+
+gem 'cocoon'

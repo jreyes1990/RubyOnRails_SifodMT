@@ -13,4 +13,37 @@ class ConfigFormulario < ApplicationRecord
   validates :tiene_app_siga, inclusion: { in: [true, false], message: "%{value} no es una opción válida, Verifique!!" }
   validates :estado, inclusion: { in: %w(A I), message: "%{value} no es una opción válida, Verifique!!" }
   validates :nombre, uniqueness: {case_sensitive: false, scope: [:empresa_id, :area_id, :tipo_formulario_id, :labor_id], message: "El dato que intenta registrar ya existe, Verifique!!!" }
+
+  # Validaciones personalizadas
+  validate :custom_uniqueness_validation
+
+  before_save :assign_values_to_config_formulario_preguntas
+
+  def custom_uniqueness_validation
+    error_messages = []
+    config_formulario_preguntas.each do |config_formulario_pregunta|
+      unless config_formulario_pregunta.valid?
+        config_formulario_pregunta.errors.full_messages.each do |msg|
+          error_messages << msg unless error_messages.include?(msg)
+        end
+      end
+    end
+    errors.add(:base, error_messages.uniq.join(", ")) unless error_messages.empty?
+  end
+
+  private
+    def assign_values_to_config_formulario_preguntas
+      self.config_formulario_preguntas.each do |config_formulario_pregunta|
+        if config_formulario_pregunta.new_record?  # Verifica si el registro es nuevo
+          config_formulario_pregunta.empresa_id = self.empresa_id
+          config_formulario_pregunta.area_id = self.area_id
+          config_formulario_pregunta.estado = self.estado
+          config_formulario_pregunta.user_created_id = self.user_created_id
+          config_formulario_pregunta.usr_grab = set_usr_grab(current_user)
+        end
+        # Siempre actualiza user_updated_id independientemente si es nuevo o no
+        config_formulario_pregunta.user_updated_id = self.user_updated_id
+        config_formulario_pregunta.usr_modi = set_usr_modi(current_user)
+      end
+    end
 end
