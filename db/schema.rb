@@ -413,6 +413,7 @@ ActiveRecord::Schema.define(version: 2024_08_08_224017) do
     t.integer "empresa_id", null: false, comment: "Identifica el codigo de la empresa"
     t.integer "area_id", null: false, comment: "Identifica el codigo del área"
     t.string "nombre", limit: 100, null: false, comment: "Nombre de tipo de formulario"
+    t.string "tipo_datascope", limit: 100, comment: "Identificada el tipo de datascope a utilizar"
     t.string "descripcion", limit: 200, comment: "Descripción general del tipo de formulario"
     t.integer "user_created_id", null: false, comment: "Identificador de usuario al registrar en la aplicación web"
     t.integer "user_updated_id", comment: "Identificador de usuario al actualizar en la aplicación web"

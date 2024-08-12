@@ -40,6 +40,9 @@ class TipoFormulariosController < ApplicationController
   def new
     @listado_empresa = PgEmpresa.where(STATUS: 'A', id_empresa: @empresa_session_area)
     @listado_area = PgArea.where(id_empresa: @empresa_session_area)
+    @listado_datascope = [OpenStruct.new(id: "DATASCOPE_CHECK_LIST", valor: "DATASCOPE_CHECK_LIST"),
+                          OpenStruct.new(id: "DATASCOPE_CALIDAD", valor: "DATASCOPE_CALIDAD")
+                         ]
     @tipo_formulario = TipoFormulario.new
   end
 
@@ -47,12 +50,18 @@ class TipoFormulariosController < ApplicationController
   def edit
     @listado_empresa = PgEmpresa.where(STATUS: 'A', id_empresa: @tipo_formulario.empresa_id)
     @listado_area = PgArea.where(id_empresa: @tipo_formulario.empresa_id)
+    @listado_datascope = [OpenStruct.new(id: "DATASCOPE_CHECK_LIST", valor: "DATASCOPE_CHECK_LIST"),
+                          OpenStruct.new(id: "DATASCOPE_CALIDAD", valor: "DATASCOPE_CALIDAD")
+                         ]
   end
 
   # POST /tipo_formularios or /tipo_formularios.json
   def create
     @listado_empresa = PgEmpresa.where(STATUS: 'A', id_empresa: @empresa_session_area)
     @listado_area = PgArea.where(id_empresa: @empresa_session_area)
+    @listado_datascope = [OpenStruct.new(id: "DATASCOPE_CHECK_LIST", valor: "DATASCOPE_CHECK_LIST"),
+                          OpenStruct.new(id: "DATASCOPE_CALIDAD", valor: "DATASCOPE_CALIDAD")
+                         ]
 
     @tipo_formulario = TipoFormulario.new(tipo_formulario_params)
     @tipo_formulario.estado = "A"
@@ -73,6 +82,9 @@ class TipoFormulariosController < ApplicationController
   def update
     @listado_empresa = PgEmpresa.where(STATUS: 'A', id_empresa: @empresa_session_area)
     @listado_area = PgArea.where(id_empresa: @empresa_session_area)
+    @listado_datascope = [OpenStruct.new(id: "DATASCOPE_CHECK_LIST", valor: "DATASCOPE_CHECK_LIST"),
+                          OpenStruct.new(id: "DATASCOPE_CALIDAD", valor: "DATASCOPE_CALIDAD")
+                         ]
 
     @tipo_formulario.user_updated_id = current_user.id
     @tipo_formulario.usr_modi = set_usr_modi(current_user)

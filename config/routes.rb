@@ -238,6 +238,8 @@ Rails.application.routes.draw do
       collection do
         get 'search_empresa', to: 'config_formularios#search_empresa', as: 'search_empresa'
         get 'search_area', to: 'config_formularios#search_area', as: 'search_area'
+        get 'search_tipo_form', to: 'config_formularios#search_tipo_form', as: 'search_tipo_form'
+        get 'search_pregunta', to: 'config_formularios#search_pregunta', as: 'search_pregunta'
       end
 
       member do
@@ -247,10 +249,11 @@ Rails.application.routes.draw do
     end
 
     resources :config_formulario_preguntas, :path => 'cfg_form_det' do
-      collection do
-        get 'search_empresa', to: 'config_formulario_preguntas#search_empresa', as: 'search_empresa'
-        get 'search_area', to: 'config_formulario_preguntas#search_area', as: 'search_area'
-      end
+      # collection do
+      #   get 'search_empresa', to: 'config_formulario_preguntas#search_empresa', as: 'search_empresa'
+      #   get 'search_area', to: 'config_formulario_preguntas#search_area', as: 'search_area'
+      #   get 'search_pregunta', to: 'config_formulario_preguntas#search_pregunta', as: 'search_pregunta'
+      # end
 
       member do
         get 'i' => "config_formulario_preguntas#inactivar", as: 'inactivar'

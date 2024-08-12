@@ -6,6 +6,7 @@ require('datatables.net-bs4')
 require('datatables.net-responsive')
 //= require active_admin_datetimepicker
 //= require bootstrap-toggle
+//= require cocoon
 
 import 'bootstrap/dist/js/bootstrap'
 import 'bootstrap/dist/css/bootstrap'
@@ -620,13 +621,24 @@ document.addEventListener("turbolinks:load", () => {
     });
   }
 
+  window.initializeSelect2Fields = function (container) {
+    $('.select2').each(function(index, element) {
+      $(this).attr('id', 'select2_' + index); // Genera un ID único
+      $(this).select2({
+        theme: "bootstrap4",
+        language: "es-GT",
+        width: '100%'
+      });
+    });
+  }
+
   /**
    * Función para los select2 con ajax 
    * @param {String} selector - Selector del elemento select2, ejemplo: "#empresa_id_estado_x_proceso"
    * @param {*} data - Se ejecuta cuando la llamada es exitosa
    * @param {string} titulo - Titulo del selector
    */
-  function fillSelectOptions(selector, data, titulo) {
+  window.fillSelectOptions = function(selector, data, titulo) {
     $(selector).empty().append("<option value='" + 0 + "'>" + titulo + "</option>");
 
     for (var item of data) {
@@ -844,9 +856,17 @@ document.addEventListener("turbolinks:load", () => {
     "empresa_cfgForm_params",
     function (data) {
       fillSelectOptions("#area_id_cfgForm", data.list_pg_area, "Seleccione un área de negocio");
+      fillSelectOptions("#tipo_formulario_id_cfgForm", data.list_tipo_formulario, "Seleccione el tipo de formulario");
+      fillSelectOptions("#labor_id_cfgForm", data.list_labor_oracle, "Seleccione la labor oracle");
+      fillSelectOptions("#documento_iso_id_cfgForm", data.list_documento_iso, "Seleccione documento ISO");
+      fillSelectOptions(".config_pregunta_id_cfgForm", data.list_config_pregunta, "Pregunta");
     },
     function () {
       $("#area_id_cfgForm").empty().trigger('change');
+      $("#tipo_formulario_id_cfgForm").empty().trigger('change');
+      $("#labor_id_cfgForm").empty().trigger('change');
+      $("#documento_iso_id_cfgForm").empty().trigger('change');
+      $(".config_pregunta_id_cfgForm").empty().trigger('change');
     },
     null,
     null,
@@ -860,11 +880,13 @@ document.addEventListener("turbolinks:load", () => {
       fillSelectOptions("#tipo_formulario_id_cfgForm", data.list_tipo_formulario, "Seleccione el tipo de formulario");
       fillSelectOptions("#labor_id_cfgForm", data.list_pg_labor, "Seleccione la labor oracle");
       fillSelectOptions("#documento_iso_id_cfgForm", data.list_documento_iso, "Seleccione documento ISO");
+      fillSelectOptions("#config_pregunta_id_cfgForm_0", data.list_config_pregunta, "Pregunta");
     },
     function () {
       $("#tipo_formulario_id_cfgForm").empty().trigger('change');
       $("#labor_id_cfgForm").empty().trigger('change');
       $("#documento_iso_id_cfgForm").empty().trigger('change');
+      $("#config_pregunta_id_cfgForm_0").empty().trigger('change');
     },
     null,
     null,
@@ -878,6 +900,42 @@ document.addEventListener("turbolinks:load", () => {
     }
   );
 
+  var parametroPregunta = document.getElementById('config_pregunta_id_cfgForm');
+  console.log("RECIBIENDO PARAMETRO: "+parametroPregunta)
 
+  initializeSelect2(
+    "#tipo_formulario_id_cfgForm",
+    "search_tipoForm_cfgForm_params",
+    "tipoForm_cfgForm_params",
+    function (data) {
+      if (data.tiene_app_siga) {
+        $("#tiene_siga_cfgForm").prop('checked', true).trigger('change');
+      } else {
+        $("#tiene_siga_cfgForm").prop('checked', false).trigger('change');
+      }
+      fillSelectOptions("#labor_id_cfgForm", data.list_pg_labor, "Seleccione la labor oracle");
+      fillSelectOptions("#documento_iso_id_cfgForm", data.list_documento_iso, "Seleccione documento ISO");
+      // fillSelectOptions("#config_pregunta_id_cfgForm_0", data.list_config_pregunta, "Pregunta");
+    },
+    function () {
+      $("#tiene_siga_cfgForm").empty().trigger('change');
+      $("#labor_id_cfgForm").empty().trigger('change');
+      $("#documento_iso_id_cfgForm").empty().trigger('change');
+      // $("#config_pregunta_id_cfgForm_0").empty().trigger('change');
+    },
+    null,
+    null,
+    null,
+    false, // Si se requiere una busqueda de datos, enviar parametro true, si requiere una lista de valores, enviar parametro false
+    true, // Si se requiere que devuelva los valores, enviar parametro true, si no quiere los valores, enviar parametro false
+    function () {
+      return {
+        'empresa_cfgForm_params': $('#empresa_id_cfgForm').val(),
+        'area_cfgForm_params': $('#area_id_cfgForm').val()
+      };
+    }
+  );
+
+  
 
 });

@@ -29,7 +29,15 @@
                 <%= f.input :area_id, label: "Área de Negocio", collection: @listado_area, value_method: :id_area, label_method: :codigo_descripcion_area, include_blank: "Seleccione un área de negocio", input_html: { class: "select2", id: 'area_id_tipoFormulario', disabled: @estado_campo }, required: true %>
               </div>
             </div>
-            <%= f.input :nombre %>
+            <div class="row">
+              <div class="col-md">
+                <%= f.input :nombre %>
+              </div>
+              <div class="col-md">
+                <%= f.input :tipo_datascope, label: "Tipo DataScope", collection: @listado_datascope, value_method: :id, label_method: :valor, include_blank: "Seleccione el tipo DataScope", input_html: { class: "select2", id: 'datascope_tipoFormulario' }, required: true %>
+              </div>
+            </div>
+            
             <%= f.input :descripcion, as: :text, input_html: {rows: 3} %>
           </div>
         </div>

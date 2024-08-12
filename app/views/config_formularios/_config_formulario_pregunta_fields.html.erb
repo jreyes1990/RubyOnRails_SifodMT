@@ -1,18 +1,67 @@
+<% 
+  @valida_pregunta = ConfigPregunta.where(id: f.object.config_pregunta_id, tiene_sub_pregunta: true)
+%>
 <tr class="nested-fields">
-  <td class="text-center">
-    <%= f.input :config_pregunta_id, label: false, input_html: { class: 'form-control' } %>
+  <td class="text-left col-md-3">
+    <%= f.input :config_pregunta_id, label: false, collection: @listado_preguntas, value_method: :id, label_method: :nombre, include_blank: "Pregunta", input_html: { class: "select2 config_pregunta_id_cfgForm", id: "config_pregunta_id_#{f.object_id}_cfgForm", 'data-endpoint': search_pregunta_config_formularios_path }, required: true %>
   </td>
-  <td class="text-center">
-    <%= f.input :config_sub_pregunta_id, label: false, input_html: { class: 'form-control' } %>
+  <td class="text-left col-md-3">
+    <%= f.input :config_sub_pregunta_id, label: false, collection: @listado_sub_preguntas, value_method: :id, label_method: :nombre, include_blank: "Sub Pregunta", input_html: { class: "select2 config_sub_pregunta_id_cfgForm", id: "config_sub_pregunta_id_#{f.object_id}_cfgForm", required: false, disabled: @valida_pregunta.present? ? false : true } %>
   </td>
-  <td class="text-center">
-    <%= f.input :unidad_medida_id, label: false, input_html: { class: 'form-control' } %>
+  <td class="text-left col-md-3">
+    <%= f.association :unidad_medida, label: false, collection: UnidadMedida.where(estado: "A"), value_method: :id, label_method: :nombre, include_blank: "Unidad medida", input_html: { class: "select2 unidad_medida_id_cfgForm", id: "unidad_medida_id_cfgForm_#{f.object_id}", required: false } %>
   </td>
-  <td class="text-center">
-    <%= f.input :requerido, label: false, input_html: { class: 'form-control' } %>
+  <td class="text-center col-md-auto">
+    <%= f.input :requerido, as: :boolean, label: false, input_html: { class: 'form-check-input' } %>
   </td>
-  <td class="text-center">
-    <%= link_to_remove_association "Eliminar", f, class: "btn btn-danger" %>
+  <td class="col-md-2">
+    <%= f.input :posicion, label: false, input_html: {class: "text-center"} %>
+  </td>
+  <td class="text-center col-md-auto">
+    <%= link_to_remove_association "<i class='fas fa-trash-alt'></i>".html_safe, f, class: "btn btn-outline-danger" %>
   </td>
 </tr>
+
+<input type="hidden" id="config_pregunta_id_cfgForm" value="<%= f.object_id %>">
+<script>
+  $(document).ready(function() {
+    initializeSelect2(
+      "#config_pregunta_id_<%= f.object_id %>_cfgForm",
+      "search_pregunta_cfgForm_params",
+      "pregunta_cfgForm_params",
+      function (data) {
+        console.log("RECIBIENDO BANDERA: "+data.flag_tiene_sub_pregunta)
+        
+        $("#config_sub_pregunta_id_<%= f.object_id %>_cfgForm").prop('disabled', !data.flag_tiene_sub_pregunta).trigger('change');
+        
+        fillSelectOptions("#config_sub_pregunta_id_<%= f.object_id %>_cfgForm", data.list_cfg_sub_preguntas, "Sub-Pregunta");
+        // fillSelectOptions("#tipo_formulario_id_cfgForm", data.list_tipo_formulario, "Seleccione el tipo de formulario");
+        // fillSelectOptions("#labor_id_cfgForm", data.list_pg_labor, "Seleccione la labor oracle");
+        // fillSelectOptions("#documento_iso_id_cfgForm", data.list_documento_iso, "Seleccione documento ISO");
+        initializeSelect2Fields();
+      },
+      function () {
+        $("#config_sub_pregunta_id_<%= f.object_id %>_cfgForm").empty().trigger('change');
+        // $("#tipo_formulario_id_cfgForm").empty().trigger('change');
+        // $("#labor_id_cfgForm").empty().trigger('change');
+        // $("#documento_iso_id_cfgForm").empty().trigger('change');
+      },
+      null,
+      null,
+      null,
+      true, // Si se requiere una busqueda de datos, enviar parametro true, si requiere una lista de valores, enviar parametro false
+      true, // Si se requiere que devuelva los valores, enviar parametro true, si no quiere los valores, enviar parametro false
+      function () {
+        return {
+          'empresa_cfgForm_params': $('#empresa_id_cfgForm').val(),
+          'area_cfgForm_params': $('#area_id_cfgForm').val()
+        };
+      }
+    );
+    
+    
+  });
+
   
+
+</script>
