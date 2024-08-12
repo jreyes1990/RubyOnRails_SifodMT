@@ -5,6 +5,7 @@
   <% 
     if titulo_cfg_formulario.upcase == 'ACTUALIZAR' 
       @estado_campo = true
+      @params_collapse = "show"
   %>
       <%= f.hidden_field :empresa_id, value: f.object.empresa_id %>
       <%= f.hidden_field :area_id, value: f.object.area_id %>
@@ -13,6 +14,7 @@
   <%
     else  
       @estado_campo = false
+      @params_collapse = ""
     end 
   %>
 
@@ -85,10 +87,10 @@
             <!-- VARIABLE UNICA CONFIGURACIÓN DE PREGUNTA -->
             <% unique_config_pregunta_id = "config_form_preg_#{f.object_id}" %>
 
-            <div class="card-header py-0" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="cardBody<%= unique_config_pregunta_id %>" href="#cardBody<%= unique_config_pregunta_id %>" style="cursor: pointer; border-radius: 0px; padding: 0px;">
+            <div class="card-header py-0" data-toggle="collapse" role="button" aria-expanded="true" aria-controls="cardBody_config_pregunta_id" href="#cardBody_config_pregunta_id" style="cursor: pointer; border-radius: 0px; padding: 0px;">
               <%= content_tag(:h5, 'Preguntas', class: 'text-left font-weight-bold text-primary', style: "padding-left: 20px; padding-top: 10px;" ) %>
             </div>
-            <div class="card-body collapse show" id="cardBody<%= unique_config_pregunta_id %>" style="padding: 0px; padding-top: 0px;">
+            <div class="card-body collapse <%= @params_collapse %>" id="cardBody_config_pregunta_id" style="padding: 0px; padding-top: 0px;">
               <div class="card shadow mb-12">
                 <div class="col-md-12 table-responsive-sm">
                   <br>

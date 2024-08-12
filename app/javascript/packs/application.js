@@ -916,6 +916,8 @@ document.addEventListener("turbolinks:load", () => {
       fillSelectOptions("#labor_id_cfgForm", data.list_pg_labor, "Seleccione la labor oracle");
       fillSelectOptions("#documento_iso_id_cfgForm", data.list_documento_iso, "Seleccione documento ISO");
       // fillSelectOptions("#config_pregunta_id_cfgForm_0", data.list_config_pregunta, "Pregunta");
+      // Expande el collapse
+      $("#cardBody_config_pregunta_id").collapse('show');
     },
     function () {
       $("#tiene_siga_cfgForm").empty().trigger('change');
